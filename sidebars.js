@@ -7,9 +7,12 @@ const sidebars = {
     'purpose',
     'fields',
     'api-reference',
-    'pricing'
+    'pricing',
+    'agents'
   ],
 };
 
 module.exports = sidebars;
+
+
 

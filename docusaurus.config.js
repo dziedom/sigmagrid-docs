@@ -46,6 +46,10 @@ const config = {
         blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
+        },
+        sitemap: {
+          changefreq: 'daily',
+          priority: 0.7
         }
       }),
     ],
@@ -90,14 +94,17 @@ const config = {
             title: 'Developers',
             items: [
               { label: 'Quickstart', to: '/docs/intro' },
-              { label: 'Fields', to: '/docs/fields' }
+              { label: 'Fields', to: '/docs/fields' },
+              { label: 'For Agents', to: '/docs/agents' }
             ],
           },
           {
             title: 'Meta',
             items: [
               { label: 'llms.txt', href: 'pathname:///llms.txt' },
-              { label: 'mcp.json', href: 'pathname:///mcp.json' }
+              { label: 'mcp.json', href: 'pathname:///mcp.json' },
+              { label: 'OpenAPI', href: 'pathname:///openapi.json' },
+              { label: 'AI Plugin', href: 'pathname:///.well-known/ai-plugin.json' }
             ],
           },
         ],
@@ -120,6 +127,35 @@ const config = {
         { name: 'twitter:image', content: 'img/social-card.svg' },
       ],
     }),
+  headTags: [
+    {
+      tagName: 'script',
+      attributes: {
+        type: 'application/ld+json',
+      },
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebAPI',
+        name: 'SigmaGrid',
+        description: 'Institutional fundamentals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.)',
+        url: 'https://sigmagrid.app',
+        documentation: 'https://sigmagrid.app/docs',
+        provider: {
+          '@type': 'Organization',
+          name: 'SigmaGrid',
+          url: 'https://sigmagrid.app'
+        },
+        apiVersion: '0.1.0',
+        serviceType: 'REST API',
+        areaServed: 'Worldwide',
+        availableChannel: {
+          '@type': 'ServiceChannel',
+          serviceUrl: 'https://api.sigmagrid.app',
+          availableLanguage: 'en'
+        }
+      })
+    }
+  ],
 };
 
 module.exports = config;

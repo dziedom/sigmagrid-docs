@@ -1,0 +1,19 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "SigmaGrid Fundamentals",
+  "name_for_model": "sigmagrid_fundamentals",
+  "description_for_human": "Institutional fundamentals for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.).",
+  "description_for_model": "Access institutional fair value, volatility forecasts, drift, regime, macro event context, and macro betas for synthetic-equity perpetuals via SigmaGrid. Public docs live now — Paid API launching Q1 2026.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://sigmagrid.app/openapi.json",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://sigmagrid.app/img/logo-mark.svg",
+  "contact_email": "support@sigmagrid.app",
+  "legal_info_url": "https://sigmagrid.app/docs/intro"
+}
+
