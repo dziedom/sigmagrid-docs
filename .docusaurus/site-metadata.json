@@ -30,7 +30,7 @@
     "@easyops-cn/docusaurus-search-local": {
       "type": "package",
       "name": "@easyops-cn/docusaurus-search-local",
-      "version": "0.35.0"
+      "version": "0.52.2"
     }
   }
 }
