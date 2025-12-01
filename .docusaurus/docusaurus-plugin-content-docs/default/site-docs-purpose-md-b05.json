@@ -1,0 +1,27 @@
+{
+  "id": "purpose",
+  "title": "Purpose",
+  "description": "SigmaGrid exists to provide institutional-grade fundamentals for synthetic-equity perpetual markets.",
+  "source": "@site/docs/purpose.md",
+  "sourceDirName": ".",
+  "slug": "/purpose",
+  "permalink": "/docs/purpose",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "purpose",
+    "title": "Purpose",
+    "sidebar_label": "Purpose"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Overview",
+    "permalink": "/docs/intro"
+  },
+  "next": {
+    "title": "Fields",
+    "permalink": "/docs/fields"
+  }
+}

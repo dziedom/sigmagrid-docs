@@ -1,0 +1,23 @@
+{
+  "id": "pricing",
+  "title": "Pricing",
+  "description": "Status",
+  "source": "@site/docs/pricing.md",
+  "sourceDirName": ".",
+  "slug": "/pricing",
+  "permalink": "/docs/pricing",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "pricing",
+    "title": "Pricing",
+    "sidebar_label": "Pricing"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "API Reference",
+    "permalink": "/docs/api-reference"
+  }
+}

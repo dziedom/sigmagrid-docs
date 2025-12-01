@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SigmaGrid API Response Schema",
+  "description": "Formal JSON Schema for SigmaGrid API responses. Public docs live now — Paid API launching Q1 2026.",
+  "type": "object",
+  "required": [
+    "timestamp",
+    "ticker",
+    "fair_value",
+    "vol_forecast_1h",
+    "vol_forecast_4h",
+    "regime",
+    "drift_1h",
+    "drift_overnight",
+    "event_next",
+    "event_impact",
+    "event_bias"
+  ],
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of the snapshot"
+    },
+    "ticker": {
+      "type": "string",
+      "description": "Underlying symbol (e.g. SPY, QQQ, TSLA)",
+      "pattern": "^[A-Z0-9]+$"
+    },
+    "fair_value": {
+      "type": "number",
+      "description": "Institutional fair-value anchor"
+    },
+    "vol_forecast_1h": {
+      "type": "number",
+      "minimum": 0,
+      "description": "1-hour volatility forecast"
+    },
+    "vol_forecast_4h": {
+      "type": "number",
+      "minimum": 0,
+      "description": "4-hour volatility forecast"
+    },
+    "regime": {
+      "type": "string",
+      "enum": ["trend", "chop", "HVOL", "LVOL"],
+      "description": "Market regime classification"
+    },
+    "drift_1h": {
+      "type": "number",
+      "description": "1-hour directional bias"
+    },
+    "drift_overnight": {
+      "type": "number",
+      "description": "Overnight drift forecast"
+    },
+    "event_next": {
+      "type": "string",
+      "description": "Next major macro event"
+    },
+    "event_impact": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "extreme"],
+      "description": "Expected impact level"
+    },
+    "event_bias": {
+      "type": "string",
+      "enum": ["risk-on", "risk-off", "neutral"],
+      "description": "Event tilt direction"
+    },
+    "fv_upper": {
+      "type": "number",
+      "description": "Upper confidence band around fair_value"
+    },
+    "fv_lower": {
+      "type": "number",
+      "description": "Lower confidence band around fair_value"
+    },
+    "premiums": {
+      "type": "object",
+      "description": "Object keyed by venue (hyperliquid, aevo, etc.) with perp basis values",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "z_score": {
+      "type": "number",
+      "description": "Standardised deviation of price vs fair value"
+    },
+    "reversion_prob": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Modelled probability of mean reversion over the short horizon"
+    },
+    "shock_index": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Indicator of current shock regime (0 = none, higher = more stress)"
+    },
+    "beta_macro": {
+      "type": "number",
+      "description": "Sensitivity to broad risk appetite"
+    },
+    "beta_yield": {
+      "type": "number",
+      "description": "Sensitivity to interest rates"
+    },
+    "beta_dollar": {
+      "type": "number",
+      "description": "Sensitivity to USD strength"
+    },
+    "beta_vol_index": {
+      "type": "number",
+      "description": "Sensitivity to volatility regime (e.g. VIX-style)"
+    }
+  }
+}
+

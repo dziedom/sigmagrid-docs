@@ -1,0 +1,27 @@
+{
+  "id": "fields",
+  "title": "Fields",
+  "description": "SigmaGrid defines a compact, explicit schema designed for agents. There are two layers:",
+  "source": "@site/docs/fields.md",
+  "sourceDirName": ".",
+  "slug": "/fields",
+  "permalink": "/docs/fields",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "fields",
+    "title": "Fields",
+    "sidebar_label": "Fields"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Purpose",
+    "permalink": "/docs/purpose"
+  },
+  "next": {
+    "title": "API Reference",
+    "permalink": "/docs/api-reference"
+  }
+}

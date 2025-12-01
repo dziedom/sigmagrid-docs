@@ -1,0 +1,196 @@
+:root {
+  --ifm-font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+  --ifm-heading-font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "Segoe UI", sans-serif;
+  --ifm-color-primary: #7b5cff;
+  --ifm-color-primary-dark: #6340ff;
+  --ifm-color-primary-darker: #5733ff;
+  --ifm-color-primary-darkest: #3b1bcc;
+  --ifm-color-primary-light: #9276ff;
+  --ifm-color-primary-lighter: #a58bff;
+  --ifm-color-primary-lightest: #c6b6ff;
+  --ifm-code-font-size: 95%;
+}
+
+html[data-theme='dark'] {
+  --ifm-background-color: #050716;
+  --ifm-background-surface-color: #070a1f;
+  --ifm-navbar-background-color: rgba(5, 7, 22, 0.9);
+  --ifm-footer-background-color: #050716;
+}
+
+.hero--sigmagrid {
+  background: radial-gradient(circle at top, #2f1b5c 0, #050716 60%, #000 100%);
+  color: #ffffff;
+  text-align: center;
+  padding: 6rem 1.5rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero--sigmagrid h1 {
+  font-size: 3.5rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+}
+
+.hero--sigmagrid h2 {
+  font-size: 1.35rem;
+  font-weight: 400;
+  opacity: 0.92;
+  color: #ffffff;
+}
+
+.hero--sigmagrid .hero-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(123, 92, 255, 0.15);
+  border: 1px solid rgba(123, 92, 255, 0.55);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+  color: #c6b6ff;
+}
+
+.hero--sigmagrid .hero-banner span {
+  opacity: 0.85;
+}
+
+.hero--sigmagrid .hero-subtitle {
+  margin: 1.5rem auto 2.5rem;
+  max-width: 640px;
+  font-size: 1.05rem;
+  opacity: 0.95;
+  color: #ffffff;
+}
+
+.hero--sigmagrid .buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero--sigmagrid .buttons .button {
+  border-radius: 999px;
+  padding-inline: 1.7rem;
+}
+
+.hero--sigmagrid .signal-grid-orbit {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.3;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(123, 92, 255, 0.45) 0, transparent 55%),
+    radial-gradient(circle at 80% 10%, rgba(0, 207, 255, 0.2) 0, transparent 60%),
+    radial-gradient(circle at 50% 90%, rgba(0, 255, 163, 0.15) 0, transparent 60%);
+  mix-blend-mode: screen;
+}
+
+/* Layout section styles */
+
+.section {
+  padding: 4rem 1.5rem 1rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.section--split {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+@media (max-width: 996px) {
+  .section--split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.section-title {
+  font-size: 1.7rem;
+  margin-bottom: 0.5rem;
+}
+
+.section-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+.section-lead {
+  font-size: 1rem;
+  opacity: 0.92;
+}
+
+/* Cards */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 996px) {
+  .card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.card {
+  background: linear-gradient(145deg, #070a1f, #040515);
+  border-radius: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  padding: 1.4rem 1.5rem;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+}
+
+.card-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0.7;
+  margin-bottom: 0.25rem;
+}
+
+.card-title {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.card-body {
+  font-size: 0.94rem;
+  opacity: 0.9;
+}
+
+/* Tables in docs */
+
+.markdown table {
+  border-collapse: collapse;
+}
+
+.markdown th,
+.markdown td {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.markdown thead {
+  background: rgba(123, 92, 255, 0.12);
+}
+
+.markdown tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
