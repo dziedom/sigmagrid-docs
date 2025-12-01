@@ -95,6 +95,117 @@ html[data-theme='dark'] {
   mix-blend-mode: screen;
 }
 
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .hero--sigmagrid {
+    padding: 4rem 1rem 3rem;
+  }
+
+  .hero--sigmagrid h1 {
+    font-size: 2.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero--sigmagrid h2 {
+    font-size: 1.1rem;
+    padding: 0 0.5rem;
+  }
+
+  .hero--sigmagrid .hero-banner {
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero--sigmagrid .hero-banner span:nth-child(2) {
+    display: none;
+  }
+
+  .hero--sigmagrid .hero-subtitle {
+    font-size: 0.95rem;
+    margin: 1.25rem auto 2rem;
+    padding: 0 0.5rem;
+    line-height: 1.6;
+  }
+
+  .hero--sigmagrid .buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .hero--sigmagrid .buttons .button {
+    width: 100%;
+    padding-inline: 1.5rem;
+  }
+
+  .section {
+    padding: 3rem 1rem 1rem;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+  }
+
+  .section-lead {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .card {
+    padding: 1.2rem 1.25rem;
+  }
+
+  .card-title {
+    font-size: 0.95rem;
+  }
+
+  .card-body {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero--sigmagrid {
+    padding: 3.5rem 0.75rem 2.5rem;
+  }
+
+  .hero--sigmagrid h1 {
+    font-size: 1.9rem;
+  }
+
+  .hero--sigmagrid h2 {
+    font-size: 1rem;
+    padding: 0 0.25rem;
+  }
+
+  .hero--sigmagrid .hero-banner {
+    font-size: 0.7rem;
+    padding: 0.45rem 0.65rem;
+    max-width: 95%;
+  }
+
+  .hero--sigmagrid .hero-subtitle {
+    font-size: 0.9rem;
+    padding: 0 0.25rem;
+  }
+
+  .section {
+    padding: 2.5rem 0.75rem 1rem;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+  }
+}
+
 /* Layout section styles */
 
 .section {
