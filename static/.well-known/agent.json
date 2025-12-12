@@ -8,56 +8,56 @@
   "capabilities": [
     {
       "id": "signals.consolidated",
-      "description": "Master consolidated view for a given ticker, including all core mandatory fields and optional macro betas.",
+      "description": "Consolidated fundamentals and signal context for a given ticker, including core fields and optional macro sensitivity metrics.",
       "endpoint": "/v1/signals/{ticker}",
       "method": "GET",
       "pricing": "Per-request via x402"
     },
     {
       "id": "premium.arbitrage",
-      "description": "Cross-venue arbitrage metrics (basis vs fair_value).",
+      "description": "Cross-venue premium and basis metrics relative to reference values.",
       "endpoint": "/v1/premium/{ticker}",
       "method": "GET",
       "pricing": "Per-request via x402"
     },
     {
       "id": "drift.directional",
-      "description": "Directional bias surface for a given ticker.",
+      "description": "Directional drift indicators derived from underlying signal dynamics.",
       "endpoint": "/v1/drift/{ticker}",
       "method": "GET",
       "pricing": "Per-request via x402"
     },
     {
       "id": "regime.risk",
-      "description": "Regime and risk sizing information.",
+      "description": "Market regime classification and associated risk context metrics.",
       "endpoint": "/v1/regime/{ticker}",
       "method": "GET",
       "pricing": "Per-request via x402"
     },
     {
       "id": "events.macro",
-      "description": "Macro event surface for a given ticker.",
+      "description": "Scheduled macro and event-driven context associated with a given ticker.",
       "endpoint": "/v1/events/{ticker}",
       "method": "GET",
       "pricing": "Per-request via x402"
     },
     {
       "id": "arbitrage.carry",
-      "description": "Carry and mean-reversion-focused view.",
+      "description": "Funding, carry, and relative pricing context metrics.",
       "endpoint": "/v1/arbitrage/{ticker}",
       "method": "GET",
       "pricing": "Per-request via x402"
     },
     {
       "id": "historical.data",
-      "description": "Historical data for a given ticker.",
+      "description": "Historical time-series data for a given ticker.",
       "endpoint": "/v1/historical/{ticker}",
       "method": "GET",
       "pricing": "Per-request via x402"
     },
     {
       "id": "snapshot.multi",
-      "description": "Multi-ticker snapshot for multiple tickers.",
+      "description": "Aggregated snapshot view across multiple tickers.",
       "endpoint": "/v1/snapshot",
       "method": "GET",
       "pricing": "Per-request via x402"
