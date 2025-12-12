@@ -9,18 +9,19 @@
       }
     }
   ],
-  "routes": [
+  "headers": [
     {
-      "src": "^/\\.well-known/agent\\.json$",
-      "headers": {
-        "Content-Type": "application/json; charset=utf-8",
-        "Cache-Control": "public, max-age=300"
-      },
-      "dest": "/.well-known/agent.json"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "source": "/.well-known/agent.json",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300"
+        }
+      ]
     }
   ]
 }
