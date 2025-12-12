@@ -14,6 +14,26 @@
       "src": "/(.*)",
       "dest": "/$1"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.sigmagrid.app"
+        }
+      ],
+      "destination": "https://sigmagrid.app/:path*",
+      "permanent": true
+    }
   ]
 }
+
+
+
+
+
+
+
 
