@@ -1,0 +1,23 @@
+{
+  "id": "agents",
+  "title": "Agents & Integration",
+  "description": "SigmaGrid is designed to be consumed by agents, bots, and automated execution systems, not just humans.",
+  "source": "@site/docs/agents.md",
+  "sourceDirName": ".",
+  "slug": "/agents",
+  "permalink": "/docs/agents",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "agents",
+    "title": "Agents & Integration",
+    "sidebar_label": "For Agents"
+  },
+  "sidebar": "docs",
+  "previous": {
+    "title": "Pricing",
+    "permalink": "/docs/pricing"
+  }
+}

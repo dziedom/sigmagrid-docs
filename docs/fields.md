@@ -31,7 +31,7 @@ These fields form the minimum viable fundamentals layer for each supported ticke
 | `event_impact`     | Expected impact: `low` → `extreme`           |
 | `event_bias`       | Event tilt: `risk-on` / `risk-off` / `neutral` |
 
-Additional core-adjacent fields used in the `/signals/{ticker}` view:
+Additional core-adjacent fields used in the `/v1/signals/{ticker}` view:
 
 | Field           | Description                                                                 |
 |-----------------|-----------------------------------------------------------------------------|
@@ -42,7 +42,7 @@ Additional core-adjacent fields used in the `/signals/{ticker}` view:
 | `reversion_prob`| Modelled probability of mean reversion over the short horizon              |
 | `shock_index`   | Indicator of current shock regime (0 = none, higher = more stress)         |
 
-These extended fields are present on the consolidated `/signals/{ticker}` endpoint and share the same real-time cadence as the mandatory core.
+These extended fields are present on the consolidated `/v1/signals/{ticker}` endpoint and share the same real-time cadence as the mandatory core.
 
 ---
 

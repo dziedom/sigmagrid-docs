@@ -7,30 +7,58 @@
   "api_base": "https://api.sigmagrid.app",
   "capabilities": [
     {
-      "id": "fundamentals.snapshot",
-      "description": "Point-in-time fundamentals snapshot for synthetic equity perps.",
-      "endpoint": "/v1/fundamentals/snapshot",
+      "id": "signals.consolidated",
+      "description": "Master consolidated view for a given ticker, including all core mandatory fields and optional macro betas.",
+      "endpoint": "/v1/signals/{ticker}",
       "method": "GET",
       "pricing": "Per-request via x402"
     },
     {
-      "id": "regime.context",
-      "description": "Macro and market regime classification for equity-linked instruments.",
-      "endpoint": "/v1/regime/context",
+      "id": "premium.arbitrage",
+      "description": "Cross-venue arbitrage metrics (basis vs fair_value).",
+      "endpoint": "/v1/premium/{ticker}",
       "method": "GET",
       "pricing": "Per-request via x402"
     },
     {
-      "id": "macro.sensitivities",
-      "description": "Macro factor sensitivities including beta_macro, beta_yield, beta_dollar, and beta_vol_index.",
-      "endpoint": "/v1/macro/sensitivities",
+      "id": "drift.directional",
+      "description": "Directional bias surface for a given ticker.",
+      "endpoint": "/v1/drift/{ticker}",
       "method": "GET",
       "pricing": "Per-request via x402"
     },
     {
-      "id": "fair_value.anchor",
-      "description": "Fair-value and anchor context for synthetic equity markets.",
-      "endpoint": "/v1/fair-value/anchor",
+      "id": "regime.risk",
+      "description": "Regime and risk sizing information.",
+      "endpoint": "/v1/regime/{ticker}",
+      "method": "GET",
+      "pricing": "Per-request via x402"
+    },
+    {
+      "id": "events.macro",
+      "description": "Macro event surface for a given ticker.",
+      "endpoint": "/v1/events/{ticker}",
+      "method": "GET",
+      "pricing": "Per-request via x402"
+    },
+    {
+      "id": "arbitrage.carry",
+      "description": "Carry and mean-reversion-focused view.",
+      "endpoint": "/v1/arbitrage/{ticker}",
+      "method": "GET",
+      "pricing": "Per-request via x402"
+    },
+    {
+      "id": "historical.data",
+      "description": "Historical data for a given ticker.",
+      "endpoint": "/v1/historical/{ticker}",
+      "method": "GET",
+      "pricing": "Per-request via x402"
+    },
+    {
+      "id": "snapshot.multi",
+      "description": "Multi-ticker snapshot for multiple tickers.",
+      "endpoint": "/v1/snapshot",
       "method": "GET",
       "pricing": "Per-request via x402"
     }

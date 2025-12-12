@@ -20,6 +20,14 @@ https://api.sigmagrid.app
 
 All endpoints below are relative to this base URL.
 
+## API Contract
+
+SigmaGrid exposes a stable `/v1` API contract. The interface and response schemas are stable, allowing agents and systems to integrate with confidence.
+
+**Current status**: Responses currently use test/placeholder data. The API contract, endpoint structure, and field schemas are stable and will remain consistent when the API goes live.
+
+**Payment model**: Endpoints may return HTTP 402 (Payment Required) when payment is required. The x402 protocol handles per-request payment authorization. Agents should be prepared to handle HTTP 402 responses and complete the payment flow before retrying requests.
+
 ## Authentication & Payments (planned)
 
 When the API goes live in Q1 2026:
@@ -33,7 +41,7 @@ Implementation details will be published before launch, but you can already desi
 
 ## Endpoints (coming Q1 2026)
 
-### GET /signals/\{ticker\} — Master consolidated view
+### GET /v1/signals/\{ticker\} — Master consolidated view
 
 The primary endpoint for most use cases. Returns a full signal snapshot for the specified ticker.
 
@@ -48,12 +56,12 @@ Includes all core mandatory fields, extended signal fields, and optional macro b
 **Example**
 
 ```
-GET /signals/SPY HTTP/1.1
+GET /v1/signals/SPY HTTP/1.1
 Host: api.sigmagrid.app
 Accept: application/json
 ```
 
-#### Example JSON — /signals/SPY
+#### Example JSON — /v1/signals/SPY
 
 ```json
 {
@@ -92,7 +100,7 @@ This sample contains all required fields:
 
 ---
 
-### GET /premium/\{ticker\} — Cross-venue arbitrage
+### GET /v1/premium/\{ticker\} — Cross-venue arbitrage
 
 Focuses on basis and mispricing for a given ticker across supported venues.
 
@@ -104,11 +112,11 @@ Returns fields such as:
 - z_score
 - reversion_prob
 
-Use this endpoint when you only care about cross-venue opportunities and do not need the full `/signals/\{ticker\}` payload.
+Use this endpoint when you only care about cross-venue opportunities and do not need the full `/v1/signals/\{ticker\}` payload.
 
 ---
 
-### GET /drift/\{ticker\} — Directional bias
+### GET /v1/drift/\{ticker\} — Directional bias
 
 Streams the directional component of the signal surface.
 
@@ -124,7 +132,7 @@ Ideal for agents that are already running their own volatility or event models b
 
 ---
 
-### GET /regime/\{ticker\} — Risk sizing
+### GET /v1/regime/\{ticker\} — Risk sizing
 
 Designed for position sizing and risk constraints.
 
@@ -138,7 +146,7 @@ Returns:
 
 ---
 
-### GET /events/\{ticker\} — Macro protection
+### GET /v1/events/\{ticker\} — Macro protection
 
 Surfaces the next major macro event and its implied impact on the ticker.
 
@@ -154,7 +162,7 @@ Used for pausing risk, adjusting leverage, or switching execution templates arou
 
 ---
 
-### GET /arbitrage/\{ticker\} — Carry + reversion
+### GET /v1/arbitrage/\{ticker\} — Carry + reversion
 
 Focuses on carry, mean reversion, and stress-aware spreads.
 
@@ -170,13 +178,40 @@ Returns:
 
 ---
 
+### GET /v1/historical/\{ticker\} — Historical data
+
+Returns historical data for a given ticker.
+
+**Path params**
+
+- `ticker` — e.g. SPY, QQQ, TSLA.
+
+**Description**
+
+Provides historical signal data for backtesting, calibration, and analysis. Returns time-series data for the specified ticker.
+
+---
+
+### GET /v1/snapshot — Multi-ticker snapshot
+
+Returns a snapshot of signals for multiple tickers in a single request.
+
+**Query params**
+
+- `tickers` — Comma-separated list of tickers (e.g. `tickers=SPY,QQQ,TSLA`).
+
+**Description**
+
+Efficiently retrieve signal snapshots for multiple tickers in one request. Useful for portfolio-level analysis and batch processing.
+
+---
+
 ## Endpoint growth
 
-The six endpoints above define the initial public surface. Over time, SigmaGrid will add:
+The eight endpoints above define the initial public surface. Over time, SigmaGrid will add:
 
 - Additional ticker coverage
 - More specialised endpoints (e.g. basket views, meta-signals)
-- Historical download endpoints for backtesting and calibration
 
 Backward compatibility and clear versioning will be maintained as the API surface grows.
 

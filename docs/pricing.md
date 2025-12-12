@@ -26,7 +26,7 @@ Conceptually:
 - **High-value optional fields** (macro betas and enriched views) are priced at a higher tier.  
 - You only pay for what each agent actually consumes.
 
-As an indicative anchor (subject to change before launch), a typical request to `/signals/{ticker}` including all fields may be priced around:
+As an indicative anchor (subject to change before launch), a typical request to `/v1/signals/{ticker}` including all fields may be priced around:
 
 ```txt
 ~$0.05 USD equivalent per request
@@ -42,7 +42,7 @@ The exact per-feed pricing schedule will be published closer to launch, segmente
 
 When the API goes live:
 
-1. Your agent calls a SigmaGrid endpoint (e.g. /signals/SPY).
+1. Your agent calls a SigmaGrid endpoint (e.g. /v1/signals/SPY).
 2. The request is wrapped and paid via x402 using stablecoins (e.g. USDC).
 3. The x402 protocol handles routing, accounting, and settlement to SigmaGrid.
 4. The response is returned only once payment is confirmed at the protocol level.

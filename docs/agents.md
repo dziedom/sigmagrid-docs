@@ -20,9 +20,9 @@ The ERC-8004 on-chain identity for SigmaGrid should point to that URL.
 
 ## Core ideas for agents
 
-### 1. Use `/signals/{ticker}` as your primary surface
+### 1. Use `/v1/signals/{ticker}` as your primary surface
 
-The `/signals/{ticker}` endpoint gives you a consolidated view, including:
+The `/v1/signals/{ticker}` endpoint gives you a consolidated view, including:
 
 - Core mandatory fields:
   - `timestamp`, `ticker`, `fair_value`, `vol_forecast_1h`, `vol_forecast_4h`,
@@ -43,7 +43,7 @@ Use this for **routing, sizing, and hedging** decisions.
 ```pseudo
 loop every 60 seconds:
 
-  sig = GET /signals/SPY
+  sig = GET /v1/signals/SPY
 
   # Safety: regime + events
   if sig.regime == "HVOL" and sig.event_impact in ["high", "extreme"]:
@@ -107,7 +107,7 @@ When live, each request to `https://api.sigmagrid.app` will be:
 
 Agents should be prepared to:
 
-1. Construct the HTTP call to the relevant endpoint (e.g. `/signals/SPY`), and
+1. Construct the HTTP call to the relevant endpoint (e.g. `/v1/signals/SPY`), and
 2. Wrap it in the required x402 payment flow once published.
 
 Until launch, the docs, OpenAPI spec, `llms.txt`, and `mcp.json` provide a **stable contract** for integration.
