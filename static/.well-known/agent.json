@@ -1,0 +1,46 @@
+{
+  "name": "SigmaGrid",
+  "version": "1.0",
+  "updated_at": "2025-12-12",
+  "description": "SigmaGrid provides paid, institutional-grade fundamentals and regime context for synthetic-equity perpetual markets.",
+  "website": "https://www.sigmagrid.app",
+  "api_base": "https://api.sigmagrid.app",
+  "capabilities": [
+    {
+      "id": "fundamentals.snapshot",
+      "description": "Point-in-time fundamentals snapshot for synthetic equity perps.",
+      "endpoint": "/v1/fundamentals/snapshot",
+      "method": "GET",
+      "pricing": "Per-request via x402"
+    },
+    {
+      "id": "regime.context",
+      "description": "Macro and market regime classification for equity-linked instruments.",
+      "endpoint": "/v1/regime/context",
+      "method": "GET",
+      "pricing": "Per-request via x402"
+    },
+    {
+      "id": "macro.sensitivities",
+      "description": "Macro factor sensitivities including beta_macro, beta_yield, beta_dollar, and beta_vol_index.",
+      "endpoint": "/v1/macro/sensitivities",
+      "method": "GET",
+      "pricing": "Per-request via x402"
+    },
+    {
+      "id": "fair_value.anchor",
+      "description": "Fair-value and anchor context for synthetic equity markets.",
+      "endpoint": "/v1/fair-value/anchor",
+      "method": "GET",
+      "pricing": "Per-request via x402"
+    }
+  ],
+  "payments": {
+    "protocol": "x402",
+    "currency": "USDC",
+    "notes": "Endpoints may return HTTP 402 with payment instructions."
+  },
+  "support": {
+    "email": "support@sigmagrid.app"
+  }
+}
