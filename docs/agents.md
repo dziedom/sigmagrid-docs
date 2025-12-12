@@ -11,6 +11,11 @@ SigmaGrid is designed to be consumed by **agents, bots, and automated execution 
 **Public docs live now — Paid API launching Q1 2026**  
 Base API URL (when live): `https://api.sigmagrid.app`
 
+## ERC-8004 agent descriptor
+
+SigmaGrid publishes its canonical ERC-8004 agent descriptor at `https://www.sigmagrid.app/.well-known/agent.json`.
+The ERC-8004 on-chain identity for SigmaGrid should point to that URL.
+
 ---
 
 ## Core ideas for agents
