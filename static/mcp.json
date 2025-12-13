@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "SigmaGrid — Institutional fundamentals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.). Public docs live now — Paid API launching Q1 2026.",
   "homepage": "https://sigmagrid.app",
+  "openapi": "https://sigmagrid.app/openapi.json",
   "api": {
     "base_url": "https://api.sigmagrid.app",
     "schema": "https",
-    "status": "planned",
+    "status": "live_testdata",
+    "note": "Responses currently use test/placeholder data. Paid API launching Q1 2026.",
     "launch_window": "Q1 2026"
   },
   "tools": [
