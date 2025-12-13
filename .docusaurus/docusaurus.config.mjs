@@ -39,7 +39,7 @@ export default {
   },
   "plugins": [
     [
-      "C:\\SigmaGrid\\sigmagrid-docs\\node_modules\\@easyops-cn\\docusaurus-search-local\\dist\\server\\server\\index.js",
+      "/workspace/node_modules/@easyops-cn/docusaurus-search-local/dist/server/server/index.js",
       {
         "hashed": true,
         "language": [
@@ -56,13 +56,14 @@ export default {
       "classic",
       {
         "docs": {
-          "sidebarPath": "C:\\SigmaGrid\\sigmagrid-docs\\sidebars.js",
+          "sidebarPath": "/workspace/sidebars.js",
           "routeBasePath": "/docs"
         },
         "blog": false,
         "theme": {
-          "customCss": "C:\\SigmaGrid\\sigmagrid-docs\\src\\css\\custom.css"
-        }
+          "customCss": "/workspace/src/css/custom.css"
+        },
+        "sitemap": false
       }
     ]
   ],
@@ -128,6 +129,10 @@ export default {
             {
               "label": "Fields",
               "to": "/docs/fields"
+            },
+            {
+              "label": "For Agents",
+              "to": "/docs/agents"
             }
           ]
         },
@@ -141,6 +146,14 @@ export default {
             {
               "label": "mcp.json",
               "href": "pathname:///mcp.json"
+            },
+            {
+              "label": "OpenAPI",
+              "href": "pathname:///openapi.json"
+            },
+            {
+              "label": "AI Plugin",
+              "href": "pathname:///.well-known/ai-plugin.json"
             }
           ]
         }
@@ -379,6 +392,15 @@ export default {
       "maxHeadingLevel": 3
     }
   },
+  "headTags": [
+    {
+      "tagName": "script",
+      "attributes": {
+        "type": "application/ld+json"
+      },
+      "innerHTML": "{\"@context\":\"https://schema.org\",\"@type\":\"WebAPI\",\"name\":\"SigmaGrid\",\"description\":\"Institutional fundamentals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.)\",\"url\":\"https://sigmagrid.app\",\"documentation\":\"https://sigmagrid.app/docs\",\"provider\":{\"@type\":\"Organization\",\"name\":\"SigmaGrid\",\"url\":\"https://sigmagrid.app\"},\"apiVersion\":\"0.1.0\",\"serviceType\":\"REST API\",\"areaServed\":\"Worldwide\",\"availableChannel\":{\"@type\":\"ServiceChannel\",\"serviceUrl\":\"https://api.sigmagrid.app\",\"availableLanguage\":\"en\"}}"
+    }
+  ],
   "baseUrlIssueBanner": true,
   "future": {
     "v4": {
@@ -409,7 +431,6 @@ export default {
   "customFields": {},
   "themes": [],
   "scripts": [],
-  "headTags": [],
   "stylesheets": [],
   "clientModules": [],
   "titleDelimiter": "|",

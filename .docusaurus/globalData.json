@@ -11,9 +11,18 @@
           "mainDocId": "intro",
           "docs": [
             {
+              "id": "agents",
+              "path": "/docs/agents",
+              "sidebar": "docs"
+            },
+            {
               "id": "api-reference",
               "path": "/docs/api-reference",
               "sidebar": "docs"
+            },
+            {
+              "id": "erc8004",
+              "path": "/docs/erc8004"
             },
             {
               "id": "fields",

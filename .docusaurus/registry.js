@@ -4,6 +4,7 @@ export default {
   "138e0e15": [() => import(/* webpackChunkName: "138e0e15" */ "@generated/@easyops-cn/docusaurus-search-local/default/__plugin.json"), "@generated/@easyops-cn/docusaurus-search-local/default/__plugin.json", require.resolveWeak("@generated/@easyops-cn/docusaurus-search-local/default/__plugin.json")],
   "17896441": [() => import(/* webpackChunkName: "17896441" */ "@theme/DocItem"), "@theme/DocItem", require.resolveWeak("@theme/DocItem")],
   "1a4e3797": [() => import(/* webpackChunkName: "1a4e3797" */ "@theme/SearchPage"), "@theme/SearchPage", require.resolveWeak("@theme/SearchPage")],
+  "320a69d1": [() => import(/* webpackChunkName: "320a69d1" */ "@site/docs/agents.md"), "@site/docs/agents.md", require.resolveWeak("@site/docs/agents.md")],
   "3fd68248": [() => import(/* webpackChunkName: "3fd68248" */ "@site/docs/pricing.md"), "@site/docs/pricing.md", require.resolveWeak("@site/docs/pricing.md")],
   "5e95c892": [() => import(/* webpackChunkName: "5e95c892" */ "@theme/DocsRoot"), "@theme/DocsRoot", require.resolveWeak("@theme/DocsRoot")],
   "5e9f5e1a": [() => import(/* webpackChunkName: "5e9f5e1a" */ "@generated/docusaurus.config"), "@generated/docusaurus.config", require.resolveWeak("@generated/docusaurus.config")],
@@ -14,4 +15,5 @@ export default {
   "a94703ab": [() => import(/* webpackChunkName: "a94703ab" */ "@theme/DocRoot"), "@theme/DocRoot", require.resolveWeak("@theme/DocRoot")],
   "aba21aa0": [() => import(/* webpackChunkName: "aba21aa0" */ "@generated/docusaurus-plugin-content-docs/default/__plugin.json"), "@generated/docusaurus-plugin-content-docs/default/__plugin.json", require.resolveWeak("@generated/docusaurus-plugin-content-docs/default/__plugin.json")],
   "b051139c": [() => import(/* webpackChunkName: "b051139c" */ "@site/docs/purpose.md"), "@site/docs/purpose.md", require.resolveWeak("@site/docs/purpose.md")],
-  "c4f5d8e4": [() => import(/* webpackChunkName: "c4f5d8e4" */ "@site/src/pages/index.js"), "@site/src/pages/index.js", require.resolveWeak("@site/src/pages/index.js")],};
+  "c4f5d8e4": [() => import(/* webpackChunkName: "c4f5d8e4" */ "@site/src/pages/index.js"), "@site/src/pages/index.js", require.resolveWeak("@site/src/pages/index.js")],
+  "ecc42b1f": [() => import(/* webpackChunkName: "ecc42b1f" */ "@site/docs/erc8004.md"), "@site/docs/erc8004.md", require.resolveWeak("@site/docs/erc8004.md")],};

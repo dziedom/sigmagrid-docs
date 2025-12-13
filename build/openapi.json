@@ -12,7 +12,7 @@
     }
   ],
   "paths": {
-    "/signals/{ticker}": {
+    "/v1/signals/{ticker}": {
       "get": {
         "summary": "Get consolidated signal snapshot for a ticker",
         "description": "Returns a full signal snapshot for the specified synthetic-equity ticker, including core mandatory fields, extended fields, and optional macro betas.",
@@ -63,7 +63,7 @@
         }
       }
     },
-    "/premium/{ticker}": {
+    "/v1/premium/{ticker}": {
       "get": {
         "summary": "Get cross-venue basis and mispricing metrics",
         "description": "Returns basis vs fair value and related arbitrage metrics across supported venues.",
@@ -87,7 +87,7 @@
         }
       }
     },
-    "/drift/{ticker}": {
+    "/v1/drift/{ticker}": {
       "get": {
         "summary": "Get directional drift surface for a ticker",
         "description": "Returns short-horizon directional drift fields for the given ticker.",
@@ -111,7 +111,7 @@
         }
       }
     },
-    "/regime/{ticker}": {
+    "/v1/regime/{ticker}": {
       "get": {
         "summary": "Get regime and risk sizing information",
         "description": "Returns current regime and shock information for the given ticker, plus optional macro betas.",
@@ -135,7 +135,7 @@
         }
       }
     },
-    "/events/{ticker}": {
+    "/v1/events/{ticker}": {
       "get": {
         "summary": "Get macro event surface for a ticker",
         "description": "Returns the next major macro event, expected impact, and bias for the given ticker.",
@@ -159,7 +159,7 @@
         }
       }
     },
-    "/arbitrage/{ticker}": {
+    "/v1/arbitrage/{ticker}": {
       "get": {
         "summary": "Get carry and mean reversion view",
         "description": "Returns fair value, premiums, reversion probability, and stress-aware spreads for the given ticker.",
@@ -177,6 +177,56 @@
             "content": {
               "application/json": {
                 "schema": { "$ref": "#/components/schemas/ArbitrageResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/historical/{ticker}": {
+      "get": {
+        "summary": "Get historical data for a ticker",
+        "description": "Returns historical signal data for the specified ticker for backtesting, calibration, and analysis.",
+        "parameters": [
+          {
+            "name": "ticker",
+            "in": "path",
+            "required": true,
+            "description": "Underlying symbol, e.g. SPY, QQQ, TSLA.",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Historical data",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HistoricalResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/snapshot": {
+      "get": {
+        "summary": "Get multi-ticker snapshot",
+        "description": "Returns signal snapshots for multiple tickers in a single request.",
+        "parameters": [
+          {
+            "name": "tickers",
+            "in": "query",
+            "required": true,
+            "description": "Comma-separated list of tickers (e.g. SPY,QQQ,TSLA).",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Multi-ticker snapshot",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SnapshotResponse" }
               }
             }
           }

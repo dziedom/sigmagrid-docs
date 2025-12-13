@@ -1,0 +1,30 @@
+{
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "name": "SigmaGrid",
+  "description": "Paid, institutional-grade fundamentals and signal context for synthetic-equity perpetual markets.",
+  "image": "https://sigmagrid.app/favicon.ico",
+  "endpoints": [
+    {
+      "name": "Website",
+      "endpoint": "https://sigmagrid.app",
+      "version": "1"
+    },
+    {
+      "name": "AgentDescriptor",
+      "endpoint": "https://sigmagrid.app/.well-known/agent.json",
+      "version": "1.0"
+    },
+    {
+      "name": "OpenAPI",
+      "endpoint": "https://sigmagrid.app/static/openapi.json",
+      "version": "1.0"
+    },
+    {
+      "name": "API",
+      "endpoint": "https://api.sigmagrid.app",
+      "version": "v1"
+    }
+  ]
+}
+
+
