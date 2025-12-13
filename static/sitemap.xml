@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://sigmagrid.app/</loc>
+  </url>
+  <url>
+    <loc>https://sigmagrid.app/docs</loc>
+  </url>
+  <url>
+    <loc>https://sigmagrid.app/.well-known/agent.json</loc>
+  </url>
+  <url>
+    <loc>https://sigmagrid.app/.well-known/erc8004.json</loc>
+  </url>
+</urlset>
+
