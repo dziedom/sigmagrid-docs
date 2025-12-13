@@ -1,4 +1,17 @@
 {
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.sigmagrid.app"
+        }
+      ],
+      "destination": "https://sigmagrid.app/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/.well-known/mcp.json",
