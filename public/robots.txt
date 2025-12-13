@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sigmagrid.app/sitemap.xml
+
