@@ -2,71 +2,71 @@
   "name": "SigmaGrid",
   "version": "1.0",
   "updated_at": "2025-12-12",
-  "description": "SigmaGrid provides paid, institutional-grade fundamentals and regime context for synthetic-equity perpetual markets.",
-  "website": "https://www.sigmagrid.app",
-  "api_base": "https://api.sigmagrid.app",
+  "description": "SigmaGrid provides paid market signals for synthetic-equity perpetual markets.",
+  "website": "https://sigmagrid.app",
+  "base_url": "https://api.sigmagrid.app",
   "capabilities": [
     {
       "id": "signals.consolidated",
-      "description": "Master consolidated view for a given ticker, including all core mandatory fields and optional macro betas.",
+      "description": "Consolidated signal snapshot for a given ticker.",
       "endpoint": "/v1/signals/{ticker}",
       "method": "GET",
-      "pricing": "Per-request via x402"
+      "pricing": "x402 per-request (may return 402 Payment Required)"
     },
     {
       "id": "premium.arbitrage",
-      "description": "Cross-venue arbitrage metrics (basis vs fair_value).",
+      "description": "Cross-venue premium and basis metrics relative to reference values.",
       "endpoint": "/v1/premium/{ticker}",
       "method": "GET",
-      "pricing": "Per-request via x402"
+      "pricing": "x402 per-request (may return 402 Payment Required)"
     },
     {
       "id": "drift.directional",
-      "description": "Directional bias surface for a given ticker.",
+      "description": "Directional drift indicators derived from underlying signal dynamics.",
       "endpoint": "/v1/drift/{ticker}",
       "method": "GET",
-      "pricing": "Per-request via x402"
+      "pricing": "x402 per-request (may return 402 Payment Required)"
     },
     {
       "id": "regime.risk",
-      "description": "Regime and risk sizing information.",
+      "description": "Market regime classification and associated risk context metrics.",
       "endpoint": "/v1/regime/{ticker}",
       "method": "GET",
-      "pricing": "Per-request via x402"
+      "pricing": "x402 per-request (may return 402 Payment Required)"
     },
     {
       "id": "events.macro",
-      "description": "Macro event surface for a given ticker.",
+      "description": "Scheduled macro and event-driven context associated with a given ticker.",
       "endpoint": "/v1/events/{ticker}",
       "method": "GET",
-      "pricing": "Per-request via x402"
+      "pricing": "x402 per-request (may return 402 Payment Required)"
     },
     {
       "id": "arbitrage.carry",
-      "description": "Carry and mean-reversion-focused view.",
+      "description": "Funding, carry, and relative pricing context metrics.",
       "endpoint": "/v1/arbitrage/{ticker}",
       "method": "GET",
-      "pricing": "Per-request via x402"
+      "pricing": "x402 per-request (may return 402 Payment Required)"
     },
     {
       "id": "historical.data",
-      "description": "Historical data for a given ticker.",
+      "description": "Historical time-series data for a given ticker.",
       "endpoint": "/v1/historical/{ticker}",
       "method": "GET",
-      "pricing": "Per-request via x402"
+      "pricing": "x402 per-request (may return 402 Payment Required)"
     },
     {
       "id": "snapshot.multi",
-      "description": "Multi-ticker snapshot for multiple tickers.",
+      "description": "Aggregated snapshot across multiple tickers (requires query param: tickers).",
       "endpoint": "/v1/snapshot",
       "method": "GET",
-      "pricing": "Per-request via x402"
+      "pricing": "x402 per-request (may return 402 Payment Required)"
     }
   ],
   "payments": {
     "protocol": "x402",
     "currency": "USDC",
-    "notes": "Endpoints may return HTTP 402 with payment instructions."
+    "notes": "x402 per-request; responses may be 402 Payment Required."
   },
   "support": {
     "email": "support@sigmagrid.app"

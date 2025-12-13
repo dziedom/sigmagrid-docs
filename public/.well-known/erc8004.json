@@ -15,8 +15,13 @@
       "version": "1.0"
     },
     {
+      "name": "MCP",
+      "endpoint": "https://sigmagrid.app/mcp.json",
+      "version": "1.0"
+    },
+    {
       "name": "OpenAPI",
-      "endpoint": "https://sigmagrid.app/static/openapi.json",
+      "endpoint": "https://sigmagrid.app/openapi.json",
       "version": "1.0"
     },
     {
