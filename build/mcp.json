@@ -17,7 +17,7 @@
       "description": "Master consolidated view for a given ticker, including all core mandatory fields and optional macro betas.",
       "type": "http",
       "method": "GET",
-      "path": "/signals/{ticker}",
+      "path": "/v1/signals/{ticker}",
       "path_params": [
         {
           "name": "ticker",
@@ -31,35 +31,63 @@
       "description": "Cross-venue arbitrage metrics (basis vs fair_value).",
       "type": "http",
       "method": "GET",
-      "path": "/premium/{ticker}"
+      "path": "/v1/premium/{ticker}"
     },
     {
       "name": "drift",
       "description": "Directional bias surface for a given ticker.",
       "type": "http",
       "method": "GET",
-      "path": "/drift/{ticker}"
+      "path": "/v1/drift/{ticker}"
     },
     {
       "name": "regime",
       "description": "Regime and risk sizing information.",
       "type": "http",
       "method": "GET",
-      "path": "/regime/{ticker}"
+      "path": "/v1/regime/{ticker}"
     },
     {
       "name": "events",
       "description": "Macro event surface for a given ticker.",
       "type": "http",
       "method": "GET",
-      "path": "/events/{ticker}"
+      "path": "/v1/events/{ticker}"
     },
     {
       "name": "arbitrage",
       "description": "Carry and mean-reversion-focused view.",
       "type": "http",
       "method": "GET",
-      "path": "/arbitrage/{ticker}"
+      "path": "/v1/arbitrage/{ticker}"
+    },
+    {
+      "name": "historical",
+      "description": "Historical data for a given ticker.",
+      "type": "http",
+      "method": "GET",
+      "path": "/v1/historical/{ticker}",
+      "path_params": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "description": "Underlying symbol such as SPY, QQQ, TSLA."
+        }
+      ]
+    },
+    {
+      "name": "snapshot",
+      "description": "Multi-ticker snapshot for multiple tickers.",
+      "type": "http",
+      "method": "GET",
+      "path": "/v1/snapshot",
+      "query_params": [
+        {
+          "name": "tickers",
+          "type": "string",
+          "description": "Comma-separated list of tickers (e.g. SPY,QQQ,TSLA)."
+        }
+      ]
     }
   ],
   "fields": {

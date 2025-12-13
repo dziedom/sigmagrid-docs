@@ -9,21 +9,32 @@ export default [
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', '344'),
+    component: ComponentCreator('/docs', 'f47'),
     routes: [
       {
         path: '/docs',
-        component: ComponentCreator('/docs', 'bfa'),
+        component: ComponentCreator('/docs', '0dc'),
         routes: [
           {
             path: '/docs',
-            component: ComponentCreator('/docs', 'eb0'),
+            component: ComponentCreator('/docs', '028'),
             routes: [
+              {
+                path: '/docs/agents',
+                component: ComponentCreator('/docs/agents', 'bf8'),
+                exact: true,
+                sidebar: "docs"
+              },
               {
                 path: '/docs/api-reference',
                 component: ComponentCreator('/docs/api-reference', '0a0'),
                 exact: true,
                 sidebar: "docs"
+              },
+              {
+                path: '/docs/erc8004',
+                component: ComponentCreator('/docs/erc8004', 'de3'),
+                exact: true
               },
               {
                 path: '/docs/fields',

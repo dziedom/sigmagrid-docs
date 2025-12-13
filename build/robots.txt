@@ -3,14 +3,3 @@ Allow: /
 
 Sitemap: https://sigmagrid.app/sitemap.xml
 
-# Helpful hints for AI crawlers and agents
-# Primary docs:
-#   https://sigmagrid.app/docs/intro
-#   https://sigmagrid.app/docs/api-reference
-#   https://sigmagrid.app/docs/fields
-# Machine-readable metadata:
-#   https://sigmagrid.app/llms.txt
-#   https://sigmagrid.app/mcp.json
-#   https://sigmagrid.app/openapi.json
-#   https://sigmagrid.app/.well-known/ai-plugin.json
-

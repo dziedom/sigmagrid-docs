@@ -1,0 +1,18 @@
+{
+  "id": "erc8004",
+  "title": "ERC-8004 Registration",
+  "description": "This document provides a human-readable representation of SigmaGrid's ERC-8004 registration, mirroring the contents of the canonical machine-readable file located at:",
+  "source": "@site/docs/erc8004.md",
+  "sourceDirName": ".",
+  "slug": "/erc8004",
+  "permalink": "/docs/erc8004",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "erc8004",
+    "title": "ERC-8004 Registration",
+    "sidebar_label": "ERC-8004"
+  }
+}

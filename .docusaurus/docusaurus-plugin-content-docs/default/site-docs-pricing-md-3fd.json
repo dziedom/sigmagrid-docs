@@ -19,5 +19,9 @@
   "previous": {
     "title": "API Reference",
     "permalink": "/docs/api-reference"
+  },
+  "next": {
+    "title": "For Agents",
+    "permalink": "/docs/agents"
   }
 }
