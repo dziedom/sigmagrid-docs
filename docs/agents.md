@@ -13,7 +13,7 @@ Base API URL (when live): `https://api.sigmagrid.app`
 
 ## ERC-8004 agent descriptor
 
-SigmaGrid publishes its canonical ERC-8004 agent descriptor at `https://www.sigmagrid.app/.well-known/agent.json`.
+SigmaGrid publishes its canonical ERC-8004 agent descriptor at `https://sigmagrid.app/.well-known/agent.json`.
 The ERC-8004 on-chain identity for SigmaGrid should point to that URL.
 
 ---

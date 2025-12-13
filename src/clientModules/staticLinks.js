@@ -1,5 +1,5 @@
 // Client module to fix static file links in footer
-// This ensures /llms.txt and /mcp.json links bypass client-side routing
+// This ensures static file links bypass client-side routing
 
 (function() {
   if (typeof window === 'undefined') {
@@ -7,21 +7,33 @@
   }
 
   function fixStaticLinks() {
-    const staticLinks = document.querySelectorAll('footer a[href="/llms.txt"], footer a[href="/mcp.json"]');
+    // Select all static file links in footer (llms.txt, mcp.json, openapi.json, ai-plugin.json)
+    const staticLinks = document.querySelectorAll(
+      'footer a[href="/llms.txt"], ' +
+      'footer a[href="/mcp.json"], ' +
+      'footer a[href="/openapi.json"], ' +
+      'footer a[href="/.well-known/ai-plugin.json"]'
+    );
     
     staticLinks.forEach((link) => {
-      // Set target to _self to force same-tab navigation, bypassing router
-      link.setAttribute('target', '_self');
-      link.setAttribute('rel', '');
+      // Skip if already processed (check for data attribute)
+      if (link.dataset.staticLinkFixed) {
+        return;
+      }
       
       // Remove target="_blank" if it was set, we want same tab
       link.removeAttribute('target');
+      link.setAttribute('rel', '');
+      
+      // Mark as processed to avoid duplicate handlers
+      link.dataset.staticLinkFixed = 'true';
       
       // Add click handler to force full page navigation
       link.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        window.location.href = link.getAttribute('href');
+        // Use href property to get the actual resolved URL
+        window.location.href = link.href || link.getAttribute('href');
         return false;
       }, true); // Use capture phase to intercept early
     });
