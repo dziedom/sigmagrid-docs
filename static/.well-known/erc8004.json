@@ -1,35 +1,43 @@
 {
-  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "SigmaGrid",
-  "description": "Paid, institutional-grade fundamentals and signal context for synthetic-equity perpetual markets.",
-  "image": "https://sigmagrid.app/favicon.ico",
+  "description": "Institutional fundamentals and directional signal API for synthetic-equity perpetuals.",
+  "version": "1.0",
+  "role": "signal provider",
+  "network": "Base",
+  "capabilities": [
+    {
+      "name": "directional-signals",
+      "description": "Provides short-horizon directional bias and regime context for synthetic equities."
+    }
+  ],
   "endpoints": [
     {
-      "name": "Website",
-      "endpoint": "https://sigmagrid.app",
-      "version": "1"
+      "path": "/v1/drift/{ticker}",
+      "method": "GET",
+      "description": "Directional bias for a given ticker",
+      "pricing": "x402"
     },
     {
-      "name": "AgentDescriptor",
-      "endpoint": "https://sigmagrid.app/.well-known/agent.json",
-      "version": "1.0"
-    },
-    {
-      "name": "MCP",
-      "endpoint": "https://sigmagrid.app/mcp.json",
-      "version": "1.0"
-    },
-    {
-      "name": "OpenAPI",
-      "endpoint": "https://sigmagrid.app/openapi.json",
-      "version": "1.0"
-    },
-    {
-      "name": "API",
-      "endpoint": "https://api.sigmagrid.app",
-      "version": "v1"
+      "path": "/v1/regime/{ticker}",
+      "method": "GET",
+      "description": "Market regime classification",
+      "pricing": "x402"
     }
-  ]
+  ],
+  "pricing": {
+    "model": "per-request",
+    "settlement": "x402",
+    "currency": "stablecoin"
+  },
+  "docs": {
+    "agent": "https://sigmagrid.app/.well-known/agent.json",
+    "openapi": "https://sigmagrid.app/openapi.json",
+    "mcp": "https://sigmagrid.app/mcp.json"
+  },
+  "contact": {
+    "type": "website",
+    "value": "https://sigmagrid.app"
+  }
 }
 
 
