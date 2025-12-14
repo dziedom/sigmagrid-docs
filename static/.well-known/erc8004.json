@@ -1,43 +1,20 @@
 {
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "SigmaGrid",
-  "description": "Institutional fundamentals and directional signal API for synthetic-equity perpetuals.",
-  "version": "1.0",
-  "role": "signal provider",
-  "network": "Base",
-  "capabilities": [
-    {
-      "name": "directional-signals",
-      "description": "Provides short-horizon directional bias and regime context for synthetic equities."
-    }
-  ],
+  "description": "Institutional fundamentals and directional signal API for synthetic-equity perpetuals. Public docs live now — Paid API launching Q1 2026.",
+  "image": "https://sigmagrid.app/img/logo.png",
   "endpoints": [
-    {
-      "path": "/v1/drift/{ticker}",
-      "method": "GET",
-      "description": "Directional bias for a given ticker",
-      "pricing": "x402"
-    },
-    {
-      "path": "/v1/regime/{ticker}",
-      "method": "GET",
-      "description": "Market regime classification",
-      "pricing": "x402"
-    }
+    { "name": "Agent", "endpoint": "https://sigmagrid.app/.well-known/agent.json", "version": "v1" },
+    { "name": "MCP", "endpoint": "https://sigmagrid.app/mcp.json", "version": "1.0.0" },
+    { "name": "OpenAPI", "endpoint": "https://sigmagrid.app/openapi.json", "version": "v1" },
+    { "name": "Docs", "endpoint": "https://sigmagrid.app/docs", "version": "v1" },
+    { "name": "LLMsTxt", "endpoint": "https://sigmagrid.app/llms.txt", "version": "v1" },
+    { "name": "Website", "endpoint": "https://sigmagrid.app", "version": "v1" }
   ],
-  "pricing": {
-    "model": "per-request",
-    "settlement": "x402",
-    "currency": "stablecoin"
-  },
-  "docs": {
-    "agent": "https://sigmagrid.app/.well-known/agent.json",
-    "openapi": "https://sigmagrid.app/openapi.json",
-    "mcp": "https://sigmagrid.app/mcp.json"
-  },
-  "contact": {
-    "type": "website",
-    "value": "https://sigmagrid.app"
-  }
+  "registrations": [
+    {
+      "agentId": 1611,
+      "agentRegistry": "eip155:84532:0x8004AA63c570c570eBF15376c0dB199918BFe9Fb"
+    }
+  ]
 }
-
-
