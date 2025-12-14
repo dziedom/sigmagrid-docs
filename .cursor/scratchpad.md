@@ -43,10 +43,10 @@ Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (
   - `static/.well-known/agent.json`, `public/.well-known/agent.json`
   - `static/.well-known/erc8004.json`, `public/.well-known/erc8004.json`
   - `static/mcp.json`, `static/openapi.json`
-- Updated `agent.json` (static/public/build):
-  - Canonical `website`: `https://sigmagrid.app`
-  - Canonical `base_url`: `https://api.sigmagrid.app`
-  - 8 capabilities with x402 pricing note, and `/v1/*` endpoints only
+- Re-shaped `agent.json` (static/public) for 8004scan compatibility:
+  - Required top-level fields: `name`, `description`, `version`, `role`, `capabilities`, `endpoints`, `pricing`, `docs`, `contact`
+  - No keys, signatures, or chain data
+  - API surface remains exactly 8 `/v1/*` endpoints under `https://api.sigmagrid.app`
 - Updated `erc8004.json` (static/public/build) to reference:
   - `https://sigmagrid.app/.well-known/agent.json`
   - `https://sigmagrid.app/mcp.json`
