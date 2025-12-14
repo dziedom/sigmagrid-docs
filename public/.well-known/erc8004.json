@@ -2,9 +2,22 @@
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "SigmaGrid",
   "description": "Institutional fundamentals and directional signal API for synthetic-equity perpetuals. Public docs live now — Paid API launching Q1 2026.",
+<<<<<<< HEAD
   "image": "https://sigmagrid.app/img/logo-mark.svg",
+=======
+  "image": "https://sigmagrid.app/img/logo.png",
+>>>>>>> fdb7697d7e71842052d9881914d3fc26ee3b74f5
   "endpoints": [
+    { "name": "Agent", "endpoint": "https://sigmagrid.app/.well-known/agent.json", "version": "v1" },
+    { "name": "MCP", "endpoint": "https://sigmagrid.app/mcp.json", "version": "1.0.0" },
+    { "name": "OpenAPI", "endpoint": "https://sigmagrid.app/openapi.json", "version": "v1" },
+    { "name": "Docs", "endpoint": "https://sigmagrid.app/docs", "version": "v1" },
+    { "name": "LLMsTxt", "endpoint": "https://sigmagrid.app/llms.txt", "version": "v1" },
+    { "name": "Website", "endpoint": "https://sigmagrid.app", "version": "v1" }
+  ],
+  "registrations": [
     {
+<<<<<<< HEAD
       "name": "Agent",
       "endpoint": "https://sigmagrid.app/.well-known/agent.json",
       "version": "v1"
@@ -33,6 +46,10 @@
       "name": "Website",
       "endpoint": "https://sigmagrid.app",
       "version": "v1"
+=======
+      "agentId": 1611,
+      "agentRegistry": "eip155:84532:0x8004AA63c570c570eBF15376c0dB199918BFe9Fb"
+>>>>>>> fdb7697d7e71842052d9881914d3fc26ee3b74f5
     }
   ],
   "registrations": [
@@ -41,4 +58,8 @@
       "agentRegistry": "eip155:84532:0x8004AA63c570c570eBF15376c0dB199918BFe9Fb"
     }
   ]
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> fdb7697d7e71842052d9881914d3fc26ee3b74f5
