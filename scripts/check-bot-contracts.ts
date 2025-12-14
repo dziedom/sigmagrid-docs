@@ -100,7 +100,23 @@ async function main() {
   // --- Agent descriptor ---
   reportSection("agent.json");
 
-  const agentBase = agent?.base_url;
+  // Allow both legacy and canonical shapes:
+  // - legacy: { base_url: "https://api...." }
+  // - canonical: { endpoints: [{ url: "https://api....../v1/..." }, ...] }
+  const agentBase =
+    typeof agent?.base_url === "string"
+      ? agent.base_url
+      : (() => {
+          const endpoints: any[] = Array.isArray(agent?.endpoints) ? agent.endpoints : [];
+          const firstUrl = String(endpoints?.[0]?.url ?? "");
+          if (!firstUrl) return "";
+          try {
+            return new URL(firstUrl).origin;
+          } catch {
+            return "";
+          }
+        })();
+
   if (agentBase !== CANONICAL_API_BASE) {
     fail(`agent.json base_url mismatch\nExpected: ${CANONICAL_API_BASE}\nActual:   ${String(agentBase)}`);
   }
@@ -125,7 +141,17 @@ async function main() {
     );
   }
 
-  const actualAgentPaths = caps.map((c) => normalizeToPath(c?.endpoint));
+  const endpointEntries: any[] = Array.isArray(agent?.endpoints) ? agent.endpoints : [];
+  const actualAgentPathsFromEndpoints = endpointEntries
+    .map((e) => normalizeToPath(e?.url ?? e?.endpoint ?? e?.path))
+    .filter(Boolean);
+
+  // Prefer the canonical endpoints list when present; fall back to capabilities[].endpoint.
+  const actualAgentPaths =
+    actualAgentPathsFromEndpoints.length > 0
+      ? actualAgentPathsFromEndpoints
+      : caps.map((c) => normalizeToPath(c?.endpoint)).filter(Boolean);
+
   const agentPathDiff = diffSets(asSet(EXPECTED_PATHS), asSet(actualAgentPaths));
   if (agentPathDiff.missing.length || agentPathDiff.extra.length) {
     fail(
