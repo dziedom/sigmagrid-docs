@@ -1,6 +1,8 @@
 ## Background and Motivation
 SigmaGrid’s public discovery descriptors (agent descriptor, ERC-8004 registration, MCP, and OpenAPI) must all advertise the same real, working API contract. Bots and agent runtimes should only discover the 8 public GET endpoints under `https://api.sigmagrid.app` and should always use the non-www canonical domain (`https://sigmagrid.app`).
 
+8004scan’s metadata parser also requires explicit top-level indexing fields in `/.well-known/erc8004.json` (name, description, version, role, endpoints, pricing, and docs links) to successfully index SigmaGrid.
+
 ## Key Challenges and Analysis
 - Multiple copies of discovery files exist in this repo (`static/`, `public/`, and generated `build/`). Docusaurus serves `static/*` at site root; `build/*` is an artifact.
 - `erc8004.json` previously referenced `https://sigmagrid.app/static/openapi.json`, but the canonical OpenAPI spec is served at `/openapi.json`.
@@ -10,8 +12,8 @@ SigmaGrid’s public discovery descriptors (agent descriptor, ERC-8004 registrat
 ## High-level Task Breakdown
 - [x] Update `agent.json` to advertise exactly 8 capabilities and endpoints under `https://api.sigmagrid.app`.
   - Success: `capabilities[*].endpoint` exactly matches the 8 canonical endpoints and includes pricing note about x402 / potential 402 responses.
-- [x] Update `erc8004.json` endpoint references to canonical non-www URLs for agent, mcp, and openapi.
-  - Success: references `https://sigmagrid.app/.well-known/agent.json`, `https://sigmagrid.app/mcp.json`, `https://sigmagrid.app/openapi.json`.
+- [x] Update `static/.well-known/erc8004.json` to 8004scan-compatible indexing schema (top-level fields + endpoints + pricing + docs links).
+  - Success: JSON matches the required schema, is human-readable, and includes explicit links to `/.well-known/agent.json`, `/openapi.json`, and `/mcp.json`.
 - [x] Add/adjust `vercel.json` redirect from www -> non-www for all paths.
   - Success: requests to `https://www.sigmagrid.app/.well-known/agent.json` redirect to `https://sigmagrid.app/.well-known/agent.json`.
 - [x] Add `scripts/check-bot-contracts.ts` to fetch live descriptors and validate the same 8 paths exist across agent, MCP, and OpenAPI.
@@ -20,6 +22,7 @@ SigmaGrid’s public discovery descriptors (agent descriptor, ERC-8004 registrat
 
 ## Project Status Board
 - [x] Update discovery JSONs (`agent.json`, `erc8004.json`) in source locations
+- [x] Make `/.well-known/erc8004.json` 8004scan-indexable (explicit top-level fields)
 - [x] Configure www -> non-www redirect
 - [x] Add contract consistency check script
 - [ ] Run script (locally) and verify live HTTP status codes
@@ -37,6 +40,7 @@ SigmaGrid’s public discovery descriptors (agent descriptor, ERC-8004 registrat
   - `https://sigmagrid.app/.well-known/agent.json`
   - `https://sigmagrid.app/mcp.json`
   - `https://sigmagrid.app/openapi.json`
+- Updated `static/.well-known/erc8004.json` to the 8004scan indexing schema (explicit top-level fields, `endpoints[]`, `pricing`, `docs` links); confirmed it is copied into `build/.well-known/erc8004.json` by `npm run build`.
 - Added `www.sigmagrid.app` -> `sigmagrid.app` redirect in `vercel.json`.
 - Added `scripts/check-bot-contracts.ts` (live fetch checker).
 
