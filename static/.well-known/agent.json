@@ -7,7 +7,7 @@
   "network": "Base Sepolia",
   "website": "https://sigmagrid.app",
   "base_url": "https://api.sigmagrid.app",
-  "image": "https://sigmagrid.app/img/logo-mark.png",
+  "image": "https://sigmagrid.app/logo.png",
   "payments": {
     "protocol": "x402",
     "currency": "USDC",
