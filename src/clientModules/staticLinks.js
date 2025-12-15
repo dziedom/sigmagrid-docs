@@ -6,6 +6,25 @@
     return;
   }
 
+  // Defensive helper to safely get string values
+  function safeString(value) {
+    if (value == null) return '';
+    if (typeof value === 'string') return value;
+    if (typeof value.toString === 'function') return String(value);
+    return '';
+  }
+
+  // Defensive helper to safely get href
+  function safeHref(link) {
+    try {
+      const href = link.href || link.getAttribute('href');
+      return safeString(href);
+    } catch (e) {
+      console.warn('Error getting href from link:', e);
+      return '';
+    }
+  }
+
   function fixStaticLinks() {
     // Select all static file links in footer (llms.txt, mcp.json, openapi.json, ai-plugin.json)
     const staticLinks = document.querySelectorAll(
@@ -33,7 +52,10 @@
         e.preventDefault();
         e.stopPropagation();
         // Use href property to get the actual resolved URL
-        window.location.href = link.href || link.getAttribute('href');
+        const href = safeHref(link);
+        if (href) {
+          window.location.href = href;
+        }
         return false;
       }, true); // Use capture phase to intercept early
     });

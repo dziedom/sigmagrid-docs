@@ -57,6 +57,7 @@ Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (
 
 - Updated `static/.well-known/erc8004.json` and `public/.well-known/erc8004.json` to the exact ERC-8004 `registration-v1` document required by 8004scan (includes `type`, `endpoints[]`, and `registrations[]` with CAIP-10 `agentRegistry`).
 - Added `static/img/logo.png` placeholder so `https://sigmagrid.app/img/logo.png` resolves after deploy.
+- Fixed `agent.json` to include `image` field and top-level `endpoints` array for 8004scan.io frontend compatibility (prevents TypeErrors when frontend tries to render missing fields).
 
 ## Executor's Feedback or Assistance Requests
 - The contract checker fetches live URLs; it will fail until these repo changes are deployed. Current failure is expected (live `agent.json` still lacks `base_url`).
@@ -66,3 +67,23 @@ Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (
 ## Lessons
 - Docusaurus serves files in `static/` at the site root; prefer editing `static/*` and avoid committing `build/*` artifacts.
 - This environment may not include `python`; use `node -e` for small file generation tasks (like writing a tiny PNG from base64).
+
+## Current Issues / Bugs
+
+### Browser Console Errors (Runtime)
+Multiple JavaScript errors appearing in browser console:
+1. `e.replace is not a function` - Code trying to call `.replace()` on non-string values
+2. `Cannot read properties of null (reading 'match')` - Code trying to call `.match()` on null
+3. `/base-sepolia:1` 404 error - Something trying to fetch malformed URL (possibly from parsing CAIP-10 format `eip155:84532:...`)
+4. Security warnings blocking `example.com/tokenURI` - Reference to example.com somewhere (not found in codebase, possibly from browser extension/dev tools)
+
+**Analysis:**
+- Errors are coming from minified Docusaurus code (not custom client modules)
+- The `/base-sepolia:1` error suggests something is trying to parse the CAIP-10 `agentRegistry` format incorrectly
+- These might be from browser extensions, dev tools, or Docusaurus internal code processing JSON files
+- Added defensive code to `staticLinks.js` but errors are in minified bundles
+
+**Next Steps:**
+- Investigate if these errors are breaking functionality or just warnings
+- Check if browser extensions are causing the `example.com/tokenURI` warnings
+- Consider if the CAIP-10 format in `erc8004.json` needs to be handled differently
