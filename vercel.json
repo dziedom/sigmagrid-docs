@@ -24,7 +24,7 @@
       "headers": [
         {
           "key": "Content-Type",
-          "value": "application/json; charset=utf-8"
+          "value": "application/json"
         },
         {
           "key": "Cache-Control",

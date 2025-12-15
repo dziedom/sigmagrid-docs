@@ -1,115 +1,87 @@
 {
   "name": "SigmaGrid",
-  "description": "Institutional fundamentals and directional signal API for synthetic-equity perpetuals.",
   "version": "1.0.0",
+  "updated_at": "2025-12-12",
+  "description": "SigmaGrid provides paid market signals for synthetic-equity perpetual markets.",
   "role": "data-provider",
-  "capabilities": [
-    {
-      "id": "signals.consolidated",
-      "description": "Consolidated signal snapshot for a given ticker.",
-      "method": "GET",
-      "endpoint": "/v1/signals/{ticker}"
-    },
-    {
-      "id": "premium.arbitrage",
-      "description": "Cross-venue premium and basis metrics relative to reference values.",
-      "method": "GET",
-      "endpoint": "/v1/premium/{ticker}"
-    },
-    {
-      "id": "drift.directional",
-      "description": "Directional drift indicators derived from underlying signal dynamics.",
-      "method": "GET",
-      "endpoint": "/v1/drift/{ticker}"
-    },
-    {
-      "id": "regime.risk",
-      "description": "Market regime classification and associated risk context metrics.",
-      "method": "GET",
-      "endpoint": "/v1/regime/{ticker}"
-    },
-    {
-      "id": "events.macro",
-      "description": "Scheduled macro and event-driven context associated with a given ticker.",
-      "method": "GET",
-      "endpoint": "/v1/events/{ticker}"
-    },
-    {
-      "id": "arbitrage.carry",
-      "description": "Funding, carry, and relative pricing context metrics.",
-      "method": "GET",
-      "endpoint": "/v1/arbitrage/{ticker}"
-    },
-    {
-      "id": "historical.data",
-      "description": "Historical time-series data for a given ticker.",
-      "method": "GET",
-      "endpoint": "/v1/historical/{ticker}"
-    },
-    {
-      "id": "snapshot.multi",
-      "description": "Aggregated snapshot across multiple tickers (requires query param: tickers).",
-      "method": "GET",
-      "endpoint": "/v1/snapshot"
-    }
-  ],
+  "network": "Base Sepolia",
+  "website": "https://sigmagrid.app",
+  "base_url": "https://api.sigmagrid.app",
+  "image": "https://sigmagrid.app/img/logo-mark.png",
+  "payments": {
+    "protocol": "x402",
+    "currency": "USDC",
+    "model": "per-request",
+    "notes": "Endpoints may return 402 Payment Required when gated."
+  },
   "endpoints": [
     {
       "id": "signals.consolidated",
+      "path": "/v1/signals/{ticker}",
       "method": "GET",
-      "url": "https://api.sigmagrid.app/v1/signals/{ticker}"
+      "description": "Consolidated signal snapshot for a given ticker.",
+      "content_type": "application/json",
+      "pricing": { "protocol": "x402", "model": "per-request" }
     },
     {
       "id": "premium.arbitrage",
+      "path": "/v1/premium/{ticker}",
       "method": "GET",
-      "url": "https://api.sigmagrid.app/v1/premium/{ticker}"
+      "description": "Cross-venue premium and basis metrics relative to reference values.",
+      "content_type": "application/json",
+      "pricing": { "protocol": "x402", "model": "per-request" }
     },
     {
       "id": "drift.directional",
+      "path": "/v1/drift/{ticker}",
       "method": "GET",
-      "url": "https://api.sigmagrid.app/v1/drift/{ticker}"
+      "description": "Directional drift indicators derived from underlying signal dynamics.",
+      "content_type": "application/json",
+      "pricing": { "protocol": "x402", "model": "per-request" }
     },
     {
       "id": "regime.risk",
+      "path": "/v1/regime/{ticker}",
       "method": "GET",
-      "url": "https://api.sigmagrid.app/v1/regime/{ticker}"
+      "description": "Market regime classification and associated risk context metrics.",
+      "content_type": "application/json",
+      "pricing": { "protocol": "x402", "model": "per-request" }
     },
     {
       "id": "events.macro",
+      "path": "/v1/events/{ticker}",
       "method": "GET",
-      "url": "https://api.sigmagrid.app/v1/events/{ticker}"
+      "description": "Scheduled macro and event-driven context associated with a given ticker.",
+      "content_type": "application/json",
+      "pricing": { "protocol": "x402", "model": "per-request" }
     },
     {
       "id": "arbitrage.carry",
+      "path": "/v1/arbitrage/{ticker}",
       "method": "GET",
-      "url": "https://api.sigmagrid.app/v1/arbitrage/{ticker}"
+      "description": "Funding, carry, and relative pricing context metrics.",
+      "content_type": "application/json",
+      "pricing": { "protocol": "x402", "model": "per-request" }
     },
     {
       "id": "historical.data",
+      "path": "/v1/historical/{ticker}",
       "method": "GET",
-      "url": "https://api.sigmagrid.app/v1/historical/{ticker}"
+      "description": "Historical time-series data for a given ticker.",
+      "content_type": "application/json",
+      "pricing": { "protocol": "x402", "model": "per-request" }
     },
     {
       "id": "snapshot.multi",
+      "path": "/v1/snapshot",
       "method": "GET",
-      "url": "https://api.sigmagrid.app/v1/snapshot"
+      "description": "Aggregated snapshot across multiple tickers (query param: tickers).",
+      "content_type": "application/json",
+      "pricing": { "protocol": "x402", "model": "per-request" }
     }
   ],
-  "pricing": {
-    "model": "x402",
-    "currency": "USDC",
-    "unit": "request",
-    "notes": "Per-request payments via x402. Endpoints may return 402 Payment Required."
-  },
-  "docs": {
-    "website": "https://sigmagrid.app",
-    "documentation": "https://sigmagrid.app/docs",
-    "openapi": "https://sigmagrid.app/openapi.json",
-    "mcp": "https://sigmagrid.app/mcp.json",
-    "llms_txt": "https://sigmagrid.app/llms.txt",
-    "erc8004": "https://sigmagrid.app/.well-known/erc8004.json"
-  },
   "contact": {
-    "email": "support@sigmagrid.app"
+    "email": "support@sigmagrid.app",
+    "website": "https://sigmagrid.app"
   }
 }
