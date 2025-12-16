@@ -25,6 +25,9 @@ curl -I https://sigmagrid.app/mcp.json
 # Check API health (public endpoint, always returns 200)
 curl https://api.sigmagrid.app/health
 
+# Validate service availability (free, no payment required)
+curl https://api.sigmagrid.app/v1/validate
+
 # Test API endpoint (may return 402 or 200 with no_data)
 curl https://api.sigmagrid.app/v1/signals/SPY
 ```
@@ -156,4 +159,18 @@ Agents should be prepared to:
 2. Wrap it in the required x402 payment flow once published.
 
 Until launch, the docs, OpenAPI spec, `llms.txt`, and `mcp.json` provide a **stable contract** for integration.
+
+---
+
+## Validation endpoint
+
+SigmaGrid provides a free, deterministic validation endpoint for agents, validators, and monitoring systems.
+
+**GET** `https://api.sigmagrid.app/v1/validate`
+
+This endpoint:
+- Always returns HTTP 200
+- Requires no payment
+- Can be safely called before making x402-gated requests
+- Confirms service availability and supported assets
 
