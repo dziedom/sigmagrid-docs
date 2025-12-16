@@ -1,119 +1,39 @@
 {
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "SigmaGrid",
   "version": "1.0.0",
-  "updated_at": "2025-12-12",
-  "description": "SigmaGrid provides paid market signals for synthetic-equity perpetual markets.",
-  "role": "data-provider",
-  "network": "Base Sepolia",
-  "website": "https://sigmagrid.app",
-  "base_url": "https://api.sigmagrid.app",
+  "description": "Institutional market signals and directional alpha for synthetic-equity perpetual markets.",
   "image": "https://sigmagrid.app/logo.png",
-  "payments": {
-    "protocol": "x402",
-    "currency": "USDC",
-    "model": "per-request",
-    "notes": "Endpoints may return 402 Payment Required when gated."
-  },
-  "agent_service_endpoints": [
-    {
-      "id": "metadata",
-      "name": "Agent Metadata",
-      "type": "metadata",
-      "url": "https://sigmagrid.app/.well-known/agent.json"
-    },
-    {
-      "id": "docs",
-      "name": "Documentation",
-      "type": "docs",
-      "url": "https://sigmagrid.app/"
-    },
-    {
-      "id": "openapi",
-      "name": "OpenAPI Specification",
-      "type": "openapi",
-      "url": "https://sigmagrid.app/openapi.json"
-    },
-    {
-      "id": "llms",
-      "name": "LLMs.txt",
-      "type": "llms",
-      "url": "https://sigmagrid.app/llms.txt"
-    },
-    {
-      "id": "mcp",
-      "name": "MCP Descriptor",
-      "type": "mcp",
-      "url": "https://sigmagrid.app/mcp.json"
-    }
+  "capabilities": [
+    "market_signals",
+    "directional_alpha",
+    "equities_perps",
+    "x402_pricing"
   ],
   "endpoints": [
     {
-      "id": "signals.consolidated",
-      "path": "/v1/signals/{ticker}",
-      "method": "GET",
-      "description": "Consolidated signal snapshot for a given ticker.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
+      "name": "A2A",
+      "endpoint": "https://sigmagrid.app/.well-known/agent.json",
+      "version": "1.0.0"
     },
     {
-      "id": "premium.arbitrage",
-      "path": "/v1/premium/{ticker}",
-      "method": "GET",
-      "description": "Cross-venue premium and basis metrics relative to reference values.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
+      "name": "OpenAPI",
+      "endpoint": "https://sigmagrid.app/openapi.json",
+      "version": "1.0.0"
     },
     {
-      "id": "drift.directional",
-      "path": "/v1/drift/{ticker}",
-      "method": "GET",
-      "description": "Directional drift indicators derived from underlying signal dynamics.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
+      "name": "MCP",
+      "endpoint": "https://sigmagrid.app/mcp.json",
+      "version": "1.0.0"
     },
     {
-      "id": "regime.risk",
-      "path": "/v1/regime/{ticker}",
-      "method": "GET",
-      "description": "Market regime classification and associated risk context metrics.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
-    },
-    {
-      "id": "events.macro",
-      "path": "/v1/events/{ticker}",
-      "method": "GET",
-      "description": "Scheduled macro and event-driven context associated with a given ticker.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
-    },
-    {
-      "id": "arbitrage.carry",
-      "path": "/v1/arbitrage/{ticker}",
-      "method": "GET",
-      "description": "Funding, carry, and relative pricing context metrics.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
-    },
-    {
-      "id": "historical.data",
-      "path": "/v1/historical/{ticker}",
-      "method": "GET",
-      "description": "Historical time-series data for a given ticker.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
-    },
-    {
-      "id": "snapshot.multi",
-      "path": "/v1/snapshot",
-      "method": "GET",
-      "description": "Aggregated snapshot across multiple tickers (query param: tickers).",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
+      "name": "LLMs",
+      "endpoint": "https://sigmagrid.app/llms.txt",
+      "version": "1.0.0"
     }
   ],
-  "contact": {
-    "email": "support@sigmagrid.app",
-    "website": "https://sigmagrid.app"
-  }
+  "supportedTrust": [
+    "reputation"
+  ],
+  "output_format": "JSON responses (x402 per-request gated)"
 }
