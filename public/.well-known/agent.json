@@ -17,26 +17,31 @@
   "agent_service_endpoints": [
     {
       "id": "metadata",
+      "name": "Agent Metadata",
       "type": "metadata",
       "url": "https://sigmagrid.app/.well-known/agent.json"
     },
     {
       "id": "docs",
+      "name": "Documentation",
       "type": "docs",
       "url": "https://sigmagrid.app/"
     },
     {
       "id": "openapi",
+      "name": "OpenAPI Specification",
       "type": "openapi",
       "url": "https://sigmagrid.app/openapi.json"
     },
     {
       "id": "llms",
+      "name": "LLMs.txt",
       "type": "llms",
       "url": "https://sigmagrid.app/llms.txt"
     },
     {
       "id": "mcp",
+      "name": "MCP Descriptor",
       "type": "mcp",
       "url": "https://sigmagrid.app/mcp.json"
     }
