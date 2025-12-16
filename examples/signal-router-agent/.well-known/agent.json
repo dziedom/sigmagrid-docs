@@ -1,0 +1,35 @@
+{
+  "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+  "name": "Signal Router Agent",
+  "version": "1.0.0",
+  "description": "Example consumer agent that routes trading decisions based on SigmaGrid market signals. Demonstrates integration with SigmaGrid API, handling x402 payments, and making routing decisions.",
+  "image": "https://sigmagrid.app/img/logo.png",
+  "capabilities": [
+    "signal_routing",
+    "trading_decisions",
+    "sigmagrid_integration"
+  ],
+  "endpoints": [
+    {
+      "name": "A2A",
+      "endpoint": "https://your-domain.com/.well-known/agent.json",
+      "version": "1.0.0"
+    },
+    {
+      "name": "Route",
+      "endpoint": "https://your-domain.com/route",
+      "version": "1.0.0",
+      "description": "GET /route?ticker=TSLA - Returns routing decision based on SigmaGrid signals"
+    }
+  ],
+  "supportedTrust": [
+    "reputation"
+  ],
+  "output_format": "JSON responses",
+  "consumes": {
+    "service": "SigmaGrid",
+    "endpoint": "https://sigmagrid.app/.well-known/agent.json",
+    "description": "Consumes SigmaGrid API for market signals"
+  }
+}
+

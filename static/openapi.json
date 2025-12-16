@@ -12,6 +12,27 @@
     }
   ],
   "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health check endpoint",
+        "description": "Returns service health status. This endpoint is public (not x402-gated) and can be used for uptime monitoring and validation checks.",
+        "responses": {
+          "200": {
+            "description": "Service is healthy",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HealthResponse" },
+                "example": {
+                  "status": "ok",
+                  "service": "sigmagrid-api",
+                  "time": "2026-01-15T18:00:00.123456Z"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v1/signals/{ticker}": {
       "get": {
         "summary": "Get consolidated signal snapshot for a ticker",
@@ -353,6 +374,25 @@
           "shock_index": { "type": "number" }
         },
         "required": ["timestamp", "ticker", "fair_value", "premiums"]
+      },
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Service status, always 'ok' when healthy"
+          },
+          "service": {
+            "type": "string",
+            "description": "Service identifier"
+          },
+          "time": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Current server time in ISO 8601 format"
+          }
+        },
+        "required": ["status", "service", "time"]
       }
     }
   }

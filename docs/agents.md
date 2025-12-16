@@ -11,10 +11,39 @@ SigmaGrid is designed to be consumed by **agents, bots, and automated execution 
 **Public docs live now — Paid API launching Q1 2026**  
 Base API URL (when live): `https://api.sigmagrid.app`
 
+## Quick validation checks (2 minutes)
+
+Test that all discovery endpoints are accessible:
+
+```bash
+# Check discovery endpoints (should all return 200)
+curl -I https://sigmagrid.app/.well-known/agent.json
+curl -I https://sigmagrid.app/openapi.json
+curl -I https://sigmagrid.app/llms.txt
+curl -I https://sigmagrid.app/mcp.json
+
+# Check API health (public endpoint, always returns 200)
+curl https://api.sigmagrid.app/health
+
+# Test API endpoint (may return 402 or 200 with no_data)
+curl https://api.sigmagrid.app/v1/signals/SPY
+```
+
 ## ERC-8004 agent descriptor
 
 SigmaGrid publishes its canonical ERC-8004 agent descriptor at `https://sigmagrid.app/.well-known/agent.json`.
 The ERC-8004 on-chain identity for SigmaGrid should point to that URL.
+
+## Discovery endpoints
+
+All discovery files are served at the site root:
+
+- **ERC-8004 descriptor**: [/.well-known/agent.json](/.well-known/agent.json) — Canonical agent registration
+- **OpenAPI spec**: [/openapi.json](/openapi.json) — Full API schema with request/response models
+- **LLMs.txt**: [/llms.txt](/llms.txt) — LLM-friendly API description
+- **MCP manifest**: [/mcp.json](/mcp.json) — Model Context Protocol tools definition
+
+These files provide a stable contract for integration. The OpenAPI spec documents all 8 endpoints under `https://api.sigmagrid.app`.
 
 ---
 
@@ -98,7 +127,23 @@ loop every 60 seconds:
 
 ---
 
-### 4. Consumption model (Q1 2026 and beyond)
+### 4. Understanding API responses
+
+SigmaGrid endpoints return consistent response codes and payloads:
+
+**HTTP 200 with full payload** — Success. The response contains the requested data.
+
+**HTTP 200 with `{status:"no_data"}`** — All data endpoints return HTTP 200 with `{status:"no_data"}` when no data is available for that ticker or time period. This is expected behavior, not an error. Handle gracefully by treating as "neutral" signal or retrying with a different ticker.
+
+**HTTP 404** — Endpoint not found. Check that you're using the correct path (e.g., `/v1/signals/{ticker}`, not `/signals/{ticker}`).
+
+**HTTP 402 Payment Required** — x402 payment flow required. When the API launches (Q1 2026), agents must complete the x402 payment flow before accessing data. The response will include payment details.
+
+**HTTP 5xx** — Server error. Retry with exponential backoff.
+
+---
+
+### 5. Consumption model (Q1 2026 and beyond)
 
 When live, each request to `https://api.sigmagrid.app` will be:
 
