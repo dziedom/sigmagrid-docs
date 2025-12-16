@@ -7,13 +7,40 @@
   "network": "Base Sepolia",
   "website": "https://sigmagrid.app",
   "base_url": "https://api.sigmagrid.app",
-  "image": "https://sigmagrid.app/img/logo-mark.png",
+  "image": "https://sigmagrid.app/logo.png",
   "payments": {
     "protocol": "x402",
     "currency": "USDC",
     "model": "per-request",
     "notes": "Endpoints may return 402 Payment Required when gated."
   },
+  "agent_service_endpoints": [
+    {
+      "id": "metadata",
+      "type": "metadata",
+      "url": "https://sigmagrid.app/.well-known/agent.json"
+    },
+    {
+      "id": "docs",
+      "type": "docs",
+      "url": "https://sigmagrid.app/"
+    },
+    {
+      "id": "openapi",
+      "type": "openapi",
+      "url": "https://sigmagrid.app/openapi.json"
+    },
+    {
+      "id": "llms",
+      "type": "llms",
+      "url": "https://sigmagrid.app/llms.txt"
+    },
+    {
+      "id": "mcp",
+      "type": "mcp",
+      "url": "https://sigmagrid.app/mcp.json"
+    }
+  ],
   "endpoints": [
     {
       "id": "signals.consolidated",
