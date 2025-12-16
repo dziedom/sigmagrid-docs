@@ -38,6 +38,11 @@ Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (
 - [x] Add `/img/logo.png` (placeholder) for the registration `image` URL
 - [ ] Create git commit: "Fix ERC-8004 registration schema"
 
+### Agent Discoverability Enhancements (Dec 16, 2025)
+- [x] Phase 1: Enhance `docs/agents.md` with validation checks, discovery links, response behaviors
+- [x] Phase 2: Update `static/openapi.json` to include `/health` endpoint (API endpoint added in separate repo)
+- [x] Phase 3: Create Signal Router Agent example in `examples/signal-router-agent/`
+
 ## Current Status / Progress Tracking
 - Located multiple copies:
   - `static/.well-known/agent.json`, `public/.well-known/agent.json`
@@ -58,6 +63,24 @@ Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (
 - Updated `static/.well-known/erc8004.json` and `public/.well-known/erc8004.json` to the exact ERC-8004 `registration-v1` document required by 8004scan (includes `type`, `endpoints[]`, and `registrations[]` with CAIP-10 `agentRegistry`).
 - Added `static/img/logo.png` placeholder so `https://sigmagrid.app/img/logo.png` resolves after deploy.
 - Fixed `agent.json` to include `image` field and top-level `endpoints` array for 8004scan.io frontend compatibility (prevents TypeErrors when frontend tries to render missing fields).
+
+### Agent Discoverability Enhancements (Dec 16, 2025)
+- **Phase 1 Complete**: Enhanced `docs/agents.md` with:
+  - Quick validation checks section with copy-pastable curl commands
+  - Discovery endpoints section linking to all four discovery files
+  - Understanding API responses section explaining 200 with `{status:"no_data"}` and 402 responses
+- **Phase 2 Complete**: 
+  - Added `/health` endpoint to `static/openapi.json` with HealthResponse schema
+  - Updated validation checks in `docs/agents.md` to include `/health` endpoint
+  - Note: Actual `/health` endpoint implementation completed in separate Python API repo
+- **Phase 3 Complete**: Created Signal Router Agent example in `examples/signal-router-agent/`:
+  - FastAPI service with `GET /route?ticker=TSLA` endpoint
+  - Fetches from SigmaGrid `/v1/signals/{ticker}`, `/v1/drift/{ticker}`, `/v1/regime/{ticker}`
+  - Handles 402 (payment required) and 200 with `{status:"no_data"}` gracefully
+  - Returns routing decision (long/short/neutral/error) with confidence and reasoning
+  - Includes Dockerfile, requirements.txt, README with deployment instructions
+  - Includes `.well-known/agent.json` for ERC-8004 registration
+  - Includes fly.toml.example for Fly.io deployment
 
 ## Executor's Feedback or Assistance Requests
 - The contract checker fetches live URLs; it will fail until these repo changes are deployed. Current failure is expected (live `agent.json` still lacks `base_url`).
