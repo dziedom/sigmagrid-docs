@@ -150,7 +150,7 @@ SigmaGrid endpoints return consistent response codes and payloads:
 
 When live, each request to `https://api.sigmagrid.app` will be:
 
-* paid **per request** in stablecoins via **x402 + thirdweb Nexus Gateway**, and
+* paid **per request** in stablecoins via **x402 payment protocol**, and
 * authorised at the protocol level (no long-lived API keys).
 
 Agents should be prepared to:
