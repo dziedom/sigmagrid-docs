@@ -1,0 +1,94 @@
+.responseTime {
+  text-align: right;
+  position: relative;
+}
+
+.responseValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #22c55e;
+  position: relative;
+  display: inline-block;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+.responseUnit {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #64748b;
+  margin-left: 0.15rem;
+}
+
+.responseBar {
+  width: 60px;
+  height: 4px;
+  background: #334155;
+  border-radius: 2px;
+  margin: 0.5rem 0 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.responseFill {
+  height: 100%;
+  border-radius: 2px;
+  animation: fillBar 1s ease-out;
+  position: relative;
+}
+
+.responseFill.excellent {
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+}
+
+.responseFill.good {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+}
+
+.responseFill.normal {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.responseFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+.responseLabel {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 768px) {
+  .responseTime {
+    text-align: left;
+    margin-top: 1rem;
+  }
+  
+  .responseBar {
+    margin: 0.5rem 0 0 0;
+  }
+}
+
+@keyframes fillBar {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

@@ -1,0 +1,434 @@
+.signalFlowSection {
+  padding: 6rem 0;
+  background: linear-gradient(180deg, #0a0f1a 0%, #0f172a 50%, #0a0f1a 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient background glow */
+.signalFlowSection::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.sectionHeader {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.terminalHeader {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #1a1f2e;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+  border: 1px solid #2d3748;
+  border-bottom: none;
+  margin-bottom: -1px;
+}
+
+.terminalDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.terminalTitle {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-left: 0.5rem;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #e2e8f0;
+  background: linear-gradient(135deg, #e2e8f0 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.sectionDescription {
+  color: #94a3b8;
+  font-size: 1.1rem;
+}
+
+.codeComment {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+/* Flow Diagram */
+.flowDiagram {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  margin: 4rem 0;
+  position: relative;
+  gap: 0;
+}
+
+.flowNode {
+  flex: 0 0 280px;
+  position: relative;
+  z-index: 2;
+}
+
+.flowBox {
+  background: linear-gradient(135deg, #1a1f2e 0%, #0f1420 100%);
+  border: 1px solid #2d3748;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  height: 100%;
+  min-height: 280px;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.flowBox::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.flowBox:hover::before {
+  opacity: 1;
+}
+
+.flowBox:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Engine Box - Special Styling */
+.engineBox {
+  background: linear-gradient(135deg, #1a1f2e 0%, #0f1420 100%);
+  border: 2px solid #3b82f6;
+  box-shadow: 
+    0 0 40px rgba(59, 130, 246, 0.2),
+    inset 0 0 60px rgba(59, 130, 246, 0.05);
+  animation: enginePulse 3s ease-in-out infinite;
+}
+
+@keyframes enginePulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 40px rgba(59, 130, 246, 0.2),
+      inset 0 0 60px rgba(59, 130, 246, 0.05);
+  }
+  50% {
+    box-shadow: 
+      0 0 60px rgba(59, 130, 246, 0.3),
+      inset 0 0 80px rgba(59, 130, 246, 0.08);
+  }
+}
+
+.engineGlow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(ellipse, rgba(59, 130, 246, 0.1) 0%, transparent 60%);
+  pointer-events: none;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.nodeHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.nodeIcon {
+  font-size: 1.25rem;
+}
+
+.nodeLabel {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.7rem;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.flowBox h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lockIcon {
+  font-size: 1rem;
+}
+
+/* Code Block Styling */
+.codeBlock {
+  background: #0a0f1a;
+  border: 1px solid #1e293b;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.codeLine {
+  color: #e2e8f0;
+}
+
+.indent {
+  padding-left: 1rem;
+}
+
+.codeKey {
+  color: #8b5cf6;
+}
+
+.codeString {
+  color: #22c55e;
+}
+
+.codeNumber {
+  color: #f59e0b;
+}
+
+/* Engine Status */
+.engineStatus {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: statusPulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+}
+
+.statusRow:nth-child(2) .statusDot {
+  animation-delay: 0.3s;
+}
+
+.statusRow:nth-child(3) .statusDot {
+  animation-delay: 0.6s;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Connection Paths */
+.connectionWrapper {
+  flex: 0 0 80px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.connectionPathLeft,
+.connectionPathRight {
+  width: 100%;
+  height: 60px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.connectionLine {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2d3748, #3b82f6, #2d3748);
+  transform: translateY(-50%);
+}
+
+.connectionGlow {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
+  transform: translateY(-50%);
+  filter: blur(8px);
+  animation: connectionGlow 2s ease-in-out infinite;
+}
+
+@keyframes connectionGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+/* Pulse Orb */
+.pulseOrb {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: #3b82f6;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+  animation: orbFlow 3s linear infinite;
+}
+
+@keyframes orbFlow {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 12px);
+    opacity: 0;
+  }
+}
+
+/* Data Packets */
+.dataPacket {
+  position: absolute;
+  top: -25px;
+  left: 0;
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  border-radius: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.65rem;
+  color: #93c5fd;
+  white-space: nowrap;
+  animation: packetFlow 4s linear forwards;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+}
+
+@keyframes packetFlow {
+  0% {
+    left: 0;
+    opacity: 0;
+    transform: translateY(0);
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    left: calc(100% - 80px);
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.footerText {
+  display: inline-block;
+  background: #1a1f2e;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #2d3748;
+}
+
+/* Responsive */
+@media (max-width: 996px) {
+  .flowDiagram {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .flowNode {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .connectionWrapper {
+    flex: 0 0 60px;
+    width: 60px;
+    transform: rotate(90deg);
+  }
+
+  .flowBox {
+    min-height: auto;
+  }
+
+  .dataPacket {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: 2rem;
+  }
+
+  .signalFlowSection {
+    padding: 4rem 0;
+  }
+
+  .terminalHeader {
+    display: none;
+  }
+}

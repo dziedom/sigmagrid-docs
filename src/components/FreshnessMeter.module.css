@@ -1,0 +1,79 @@
+.freshnessScore {
+  text-align: right;
+  position: relative;
+}
+
+.freshnessValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  position: relative;
+  display: inline-block;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+.freshnessMeter {
+  width: 60px;
+  height: 4px;
+  background: #334155;
+  border-radius: 2px;
+  margin: 0.5rem 0 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.freshnessFill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  border-radius: 2px;
+  animation: fill-confidence 1s ease-out;
+  position: relative;
+}
+
+.freshnessFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+}
+
+.freshnessLabel {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+.freshnessText {
+  font-size: 0.7rem;
+  color: #3b82f6;
+  margin-top: 0.15rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .freshnessScore {
+    text-align: left;
+    margin-top: 1rem;
+  }
+}
+
+@keyframes fill-confidence {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

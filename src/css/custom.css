@@ -1,30 +1,41 @@
+/* Import animations */
+@import './animations.css';
+
 :root {
-  --ifm-font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    "Segoe UI", sans-serif;
-  --ifm-heading-font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display",
-    "Segoe UI", sans-serif;
-  --ifm-color-primary: #7b5cff;
-  --ifm-color-primary-dark: #6340ff;
-  --ifm-color-primary-darker: #5733ff;
-  --ifm-color-primary-darkest: #3b1bcc;
-  --ifm-color-primary-light: #9276ff;
-  --ifm-color-primary-lighter: #a58bff;
-  --ifm-color-primary-lightest: #c6b6ff;
+  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ifm-heading-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ifm-color-primary: #3b82f6;
+  --ifm-color-primary-dark: #2563eb;
+  --ifm-color-primary-darker: #1d4ed8;
+  --ifm-color-primary-darkest: #1e40af;
+  --ifm-color-primary-light: #60a5fa;
+  --ifm-color-primary-lighter: #93c5fd;
+  --ifm-color-primary-lightest: #dbeafe;
   --ifm-code-font-size: 95%;
+  
+  /* New design system colors */
+  --sigmagrid-base-dark: #0f172a;
+  --sigmagrid-secondary-dark: #1e293b;
+  --sigmagrid-primary-blue: #3b82f6;
+  --sigmagrid-accent-purple: #8b5cf6;
+  --sigmagrid-border: #334155;
+  --sigmagrid-text-secondary: #94a3b8;
+  --sigmagrid-text-primary: #e2e8f0;
+  --sigmagrid-success-green: #22c55e;
 }
 
 html[data-theme='dark'] {
-  --ifm-background-color: #050716;
-  --ifm-background-surface-color: #070a1f;
-  --ifm-navbar-background-color: rgba(5, 7, 22, 0.9);
-  --ifm-footer-background-color: #050716;
+  --ifm-background-color: #0f172a;
+  --ifm-background-surface-color: #1e293b;
+  --ifm-navbar-background-color: rgba(15, 23, 42, 0.95);
+  --ifm-footer-background-color: #0f172a;
 }
 
 .hero--sigmagrid {
-  background: radial-gradient(circle at top, #2f1b5c 0, #050716 60%, #000 100%);
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
   color: #ffffff;
   text-align: center;
-  padding: 6rem 1.5rem 4rem;
+  padding: 8rem 1.5rem 6rem;
   position: relative;
   overflow: hidden;
 }
@@ -50,13 +61,13 @@ html[data-theme='dark'] {
   gap: 0.5rem;
   padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  background: rgba(123, 92, 255, 0.15);
-  border: 1px solid rgba(123, 92, 255, 0.55);
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.55);
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: 1.5rem;
-  color: #c6b6ff;
+  color: #93c5fd;
 }
 
 .hero--sigmagrid .hero-banner span {
@@ -89,9 +100,9 @@ html[data-theme='dark'] {
   pointer-events: none;
   opacity: 0.3;
   background-image:
-    radial-gradient(circle at 10% 20%, rgba(123, 92, 255, 0.45) 0, transparent 55%),
-    radial-gradient(circle at 80% 10%, rgba(0, 207, 255, 0.2) 0, transparent 60%),
-    radial-gradient(circle at 50% 90%, rgba(0, 255, 163, 0.15) 0, transparent 60%);
+    radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.45) 0, transparent 55%),
+    radial-gradient(circle at 80% 10%, rgba(139, 92, 246, 0.2) 0, transparent 60%),
+    radial-gradient(circle at 50% 90%, rgba(34, 197, 94, 0.15) 0, transparent 60%);
   mix-blend-mode: screen;
 }
 
@@ -261,11 +272,19 @@ html[data-theme='dark'] {
 }
 
 .card {
-  background: linear-gradient(145deg, #070a1f, #040515);
-  border-radius: 1.2rem;
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 0.75rem;
+  border: 1px solid #334155;
   padding: 1.4rem 1.5rem;
   box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #3b82f6;
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
 }
 
 .card-label {
@@ -298,10 +317,74 @@ html[data-theme='dark'] {
 }
 
 .markdown thead {
-  background: rgba(123, 92, 255, 0.12);
+  background: rgba(59, 130, 246, 0.12);
 }
 
 .markdown tr:nth-child(even) {
   background: rgba(255, 255, 255, 0.02);
+}
+
+/* Navbar customization */
+.navbar {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #1e293b;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navbar__logo img {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border-radius: 6px;
+  padding: 4px;
+  animation: pulse-logo 3s ease-in-out infinite;
+}
+
+.navbar__item {
+  color: #94a3b8;
+  transition: color 0.2s;
+}
+
+.navbar__item:hover {
+  color: #e2e8f0;
+}
+
+.navbar__link {
+  color: #94a3b8;
+  transition: color 0.2s;
+}
+
+.navbar__link:hover {
+  color: #e2e8f0;
+}
+
+/* Button styles */
+.button--primary {
+  background: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.button--primary:hover {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.button--outline {
+  border-color: #475569;
+  color: #e2e8f0;
+}
+
+.button--outline:hover {
+  border-color: #94a3b8;
+  background: rgba(71, 85, 105, 0.1);
 }
 

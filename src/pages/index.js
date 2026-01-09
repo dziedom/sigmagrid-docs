@@ -1,6 +1,11 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
+import ParticleBackground from '../components/ParticleBackground';
+import SignalFlow from '../components/SignalFlow';
+import QueryFeed from '../components/QueryFeed';
+import PricingSection from '../components/PricingSection';
+import styles from './index.module.css';
 
 export default function Home() {
   return (
@@ -9,103 +14,105 @@ export default function Home() {
       description="SigmaGrid is the institutional fundamentals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP and more). Public docs live now — Paid API launching Q1 2026."
     >
       <main>
-        <section className="hero--sigmagrid">
-          <div className="signal-grid-orbit" />
-
+        {/* Hero Section */}
+        <section className={styles.hero}>
+          <ParticleBackground />
           <div className="container">
-            <div className="hero-banner">
+            <div className={styles.heroBanner}>
               <span>API coming Q1 2026</span>
               <span>•</span>
               <span>Public docs live now — Paid API launching Q1 2026</span>
             </div>
-            <h1>SigmaGrid</h1>
-            <h2>The missing institutional anchor for 24/7 synthetic-equity perpetuals</h2>
+            <h1 className={styles.heroTitle}>
+              Reference Signals for<br />Bot Decision-Making
+            </h1>
+            <p className={styles.heroSubtitle}>Your bot decides. We provide context.</p>
+            <p className={styles.heroTagline}>Not a strategy. A complement.</p>
 
-            <p className="hero-subtitle">
-              Institutional fundamentals for SPY-PERP, QQQ-PERP, TSLA-PERP and more.
-              Delivered as clean, real-time JSON signals designed from day one for AI agents.
-            </p>
+            <div className={styles.buttonGroup}>
+              <Link className={`${styles.btn} ${styles.btnPrimary}`} to="/docs/intro">
+                View Live Signals
+              </Link>
+              <Link className={`${styles.btn} ${styles.btnSecondary}`} to="/docs/intro">
+                Integration Docs
+              </Link>
+            </div>
 
-            <div className="buttons">
-              <Link
-                className="button button--primary button--lg"
-                to="/docs/intro"
-              >
-                Read the docs →
-              </Link>
-              <Link
-                className="button button--outline button--lg"
-                to="/docs/pricing"
-              >
-                Join the waitlist →
-              </Link>
+            <div className={styles.featureGrid}>
+              <div className={styles.featureCard}>
+                <div className={styles.featureIconWrapper}>
+                  <div className={styles.featureIconGlow}></div>
+                  <div className={styles.featureIcon}>
+                    <span className={styles.iconSymbol}>✓</span>
+                  </div>
+                </div>
+                <div className={styles.featureLabel}>VALIDATION</div>
+                <h3>Validate Your Thesis</h3>
+                <p>
+                  Get another data point when your bot needs it most. Query selectively for marginal decisions.
+                </p>
+                <div className={styles.featureCode}>
+                  <span className={styles.codeSnippet}>if (confidence &lt; 0.7) query()</span>
+                </div>
+              </div>
+              <div className={styles.featureCard}>
+                <div className={styles.featureIconWrapper}>
+                  <div className={styles.featureIconGlow} style={{ background: 'rgba(245, 158, 11, 0.2)' }}></div>
+                  <div className={styles.featureIcon} style={{ background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}>
+                    <span className={styles.iconSymbol}>$</span>
+                  </div>
+                </div>
+                <div className={styles.featureLabel}>PRICING</div>
+                <h3>Dynamic Pricing</h3>
+                <p>Pay 0.02-0.15 USDC per signal based on value. No subscriptions. No waste.</p>
+                <div className={styles.featureCode}>
+                  <span className={styles.codeSnippet}>cost: <span className={styles.priceValue}>0.05</span> USDC/req</span>
+                </div>
+              </div>
+              <div className={styles.featureCard}>
+                <div className={styles.featureIconWrapper}>
+                  <div className={styles.featureIconGlow} style={{ background: 'rgba(139, 92, 246, 0.2)' }}></div>
+                  <div className={styles.featureIcon} style={{ background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)' }}>
+                    <span className={styles.iconSymbol}>⚡</span>
+                  </div>
+                </div>
+                <div className={styles.featureLabel}>SELECTIVE</div>
+                <h3>Query Selectively</h3>
+                <p>Use what helps. Skip what doesn't. Your bot sets the rules.</p>
+                <div className={styles.featureCode}>
+                  <span className={styles.codeSnippet}>bot.rules = <span className={styles.codeTrue}>true</span></span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="section section--split">
-          <div>
-            <div className="section-kicker">Purpose</div>
-            <h2 className="section-title">Institutional fundamentals for agent-driven markets</h2>
-            <p className="section-lead">
-              Traditional equity markets run on robust anchors: fair value, volatility forecasts, drift,
-              regime classification, and event sensitivity. Crypto synthetic-equity perpetuals trade 24/7
-              without those anchors.
-            </p>
-            <p className="section-lead" style={{ marginTop: '1rem', opacity: 0.9 }}>
-              SigmaGrid supplies those institutional fundamentals as composable JSON feeds, so execution
-              engines, quant desks, and AI agents can trust the context they are trading on.
-            </p>
-          </div>
+        {/* Signal Flow Visualization */}
+        <SignalFlow />
 
-          <div className="card">
-            <div className="card-label">Base URL (when live)</div>
-            <div className="card-title">https://api.sigmagrid.app</div>
-            <p className="card-body" style={{ marginTop: '0.75rem' }}>
-              Public documentation is live today. Paid API endpoints are scheduled to go live in Q1 2026.
-              Pricing is stablecoin denominated per request via x402.
-            </p>
-          </div>
-        </section>
+        {/* Live Query Feed */}
+        <QueryFeed />
 
-        <section className="section">
-          <div className="section-kicker">Why SigmaGrid</div>
-          <h2 className="section-title">From toy signals to institutional gravity</h2>
-          <p className="section-lead">
-            Most 24/7 synthetic-equity feeds are short backtests and thin features. SigmaGrid is built on
-            deep cash-equity history, regime models that survived GFC, Covid, and 2022, and a schema that
-            speaks natively to agents.
+        {/* Pricing Section */}
+        <PricingSection />
+
+        {/* Purpose Section */}
+        <section className={styles.section}>
+          <div className={styles.sectionKicker}>Purpose</div>
+          <h2 className={styles.sectionTitle}>
+            Institutional fundamentals for agent-driven markets
+          </h2>
+          <p className={styles.sectionLead}>
+            Traditional equity markets run on robust anchors: fair value, volatility forecasts, drift,
+            regime classification, and event sensitivity. Crypto synthetic-equity perpetuals trade 24/7
+            without those anchors.
           </p>
-
-          <div className="card-grid">
-            <div className="card">
-              <div className="card-label">Core</div>
-              <div className="card-title">Mandatory institutional fields</div>
-              <div className="card-body">
-                Consistent fair value, volatility forecasts, drift, regime, and event context refreshed
-                in real-time per ticker.
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-label">Macro</div>
-              <div className="card-title">Optional macro betas</div>
-              <div className="card-body">
-                Compressed sensitivities to macro regimes: <code>beta_macro</code>, <code>beta_yield</code>,
-                <code>beta_dollar</code>, <code>beta_vol_index</code>.
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-label">Agents</div>
-              <div className="card-title">Designed for machine consumption</div>
-              <div className="card-body">
-                Stable JSON schema, per-request stablecoin pricing via x402, and explicit signal
-                fields agents can route on immediately.
-              </div>
-            </div>
-          </div>
+          <p className={styles.sectionLead} style={{ marginTop: '1rem', opacity: 0.9 }}>
+            SigmaGrid supplies those institutional fundamentals as composable JSON feeds, so execution
+            engines, quant desks, and AI agents can trust the context they are trading on.
+          </p>
         </section>
       </main>
     </Layout>
   );
 }
-
