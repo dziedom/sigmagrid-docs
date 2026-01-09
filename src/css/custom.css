@@ -31,6 +31,14 @@ html[data-theme='dark'] {
   --ifm-footer-background-color: #0f172a;
 }
 
+/* Ensure dark theme is always applied, even with browser extensions */
+html[data-theme='dark'],
+html[data-theme='dark'] body,
+html[data-theme='dark'] main {
+  background-color: #0f172a !important;
+  color: #e2e8f0 !important;
+}
+
 /* Mobile background fixes */
 @media (max-width: 768px) {
   html[data-theme='dark'],
