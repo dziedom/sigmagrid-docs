@@ -413,13 +413,40 @@
 
   .pricingSection {
     padding: 4rem 0;
+    background: linear-gradient(180deg, #0a0f1a 0%, #0f172a 50%, #0a0f1a 100%) !important;
+  }
+
+  .pricingSection .container {
+    background: transparent !important;
   }
 
   .terminalHeader {
     display: none;
   }
 
+  .priceWrapper {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    justify-content: center;
+  }
+
+  .priceFull {
+    font-size: 1.5rem;
+    white-space: normal;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.1rem;
+  }
+
+  .pricePrefix {
+    font-size: 1.1rem;
+  }
+
   .priceValue {
-    font-size: 2rem;
+    font-size: 1.5rem;
+  }
+
+  .priceUnit {
+    font-size: 0.75rem;
   }
 }
