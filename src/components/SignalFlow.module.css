@@ -426,6 +426,11 @@
 
   .signalFlowSection {
     padding: 4rem 0;
+    background: linear-gradient(180deg, #0a0f1a 0%, #0f172a 50%, #0a0f1a 100%) !important;
+  }
+
+  .signalFlowSection .container {
+    background: transparent !important;
   }
 
   .terminalHeader {
