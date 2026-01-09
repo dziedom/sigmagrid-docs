@@ -83,22 +83,43 @@ export default function SignalFlow() {
                 <span className={styles.nodeIcon}>📡</span>
                 <span className={styles.nodeLabel}>INPUT</span>
               </div>
-              <h3>Data Sources</h3>
+              <h3>Market Intelligence</h3>
               <div className={styles.codeBlock}>
                 <div className={styles.codeLine}>
                   <span className={styles.codeKey}>sources</span>: [
                 </div>
                 <div className={styles.codeLine + ' ' + styles.indent}>
-                  <span className={styles.codeString}>"orderflow"</span>,
+                  <span className={styles.codeString}>"order_book_imbalance"</span>,
                 </div>
                 <div className={styles.codeLine + ' ' + styles.indent}>
-                  <span className={styles.codeString}>"options_flow"</span>,
+                  <span className={styles.codeString}>"vwap_deviations"</span>,
                 </div>
                 <div className={styles.codeLine + ' ' + styles.indent}>
-                  <span className={styles.codeString}>"on_chain"</span>,
+                  <span className={styles.codeString}>"implied_vol_skew"</span>,
                 </div>
                 <div className={styles.codeLine + ' ' + styles.indent}>
-                  <span className={styles.codeString}>"microstructure"</span>
+                  <span className={styles.codeString}>"bid_ask_spreads"</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeString}>"time_and_sales"</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeString}>"fiscal_events"</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeString}>"social_sentiment"</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeString}>"macro_indicators"</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeString}>"earnings_calendars"</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeString}>"geopolitical_signals"</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeComment}>// + 100s more...</span>
                 </div>
                 <div className={styles.codeLine}>]</div>
               </div>
@@ -128,15 +149,19 @@ export default function SignalFlow() {
               <div className={styles.engineStatus}>
                 <div className={styles.statusRow}>
                   <span className={styles.statusDot}></span>
-                  <span>Processing live feeds</span>
+                  <span>Processing multi-source intelligence feeds</span>
                 </div>
                 <div className={styles.statusRow}>
                   <span className={styles.statusDot}></span>
-                  <span>Regime classification</span>
+                  <span>Computing institutional fundamentals</span>
                 </div>
                 <div className={styles.statusRow}>
                   <span className={styles.statusDot}></span>
-                  <span>Fair value computation</span>
+                  <span>Integrating perp DEX pricing</span>
+                </div>
+                <div className={styles.statusRow}>
+                  <span className={styles.statusDot}></span>
+                  <span>Cross-venue signal generation</span>
                 </div>
               </div>
               <div className={styles.engineGlow}></div>
@@ -165,13 +190,31 @@ export default function SignalFlow() {
                   <span className={styles.codeKey}>response</span>: {'{'}
                 </div>
                 <div className={styles.codeLine + ' ' + styles.indent}>
-                  <span className={styles.codeKey}>regime</span>: <span className={styles.codeString}>"trend"</span>,
-                </div>
-                <div className={styles.codeLine + ' ' + styles.indent}>
                   <span className={styles.codeKey}>fair_value</span>: <span className={styles.codeNumber}>598.42</span>,
                 </div>
                 <div className={styles.codeLine + ' ' + styles.indent}>
-                  <span className={styles.codeKey}>drift_1h</span>: <span className={styles.codeNumber}>+0.12</span>
+                  <span className={styles.codeKey}>fv_upper</span>: <span className={styles.codeNumber}>599.15</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeKey}>fv_lower</span>: <span className={styles.codeNumber}>597.70</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeKey}>drift_1h</span>: <span className={styles.codeNumber}>+0.12</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeKey}>regime</span>: <span className={styles.codeString}>"trend"</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeKey}>premium_hyperliquid</span>: <span className={styles.codeNumber}>+0.08</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeKey}>premium_avantis</span>: <span className={styles.codeNumber}>+0.15</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeKey}>premium_ostium</span>: <span className={styles.codeNumber}>+0.06</span>,
+                </div>
+                <div className={styles.codeLine + ' ' + styles.indent}>
+                  <span className={styles.codeKey}>divergence_z</span>: <span className={styles.codeNumber}>1.3</span>
                 </div>
                 <div className={styles.codeLine}>{'}'}</div>
               </div>
