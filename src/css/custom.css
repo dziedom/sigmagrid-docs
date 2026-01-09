@@ -31,6 +31,19 @@ html[data-theme='dark'] {
   --ifm-footer-background-color: #0f172a;
 }
 
+/* Mobile background fixes */
+@media (max-width: 768px) {
+  html[data-theme='dark'],
+  html[data-theme='dark'] body,
+  html[data-theme='dark'] main {
+    background: #0f172a !important;
+  }
+
+  html[data-theme='dark'] .container {
+    background: transparent !important;
+  }
+}
+
 .hero--sigmagrid {
   background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
   color: #ffffff;

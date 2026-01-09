@@ -170,5 +170,10 @@
 
   .queryFeed {
     padding: 4rem 0;
+    background: #1e293b !important;
+  }
+
+  .queryFeed .container {
+    background: transparent !important;
   }
 }
