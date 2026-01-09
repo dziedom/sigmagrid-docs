@@ -24,7 +24,7 @@ export default function Home() {
               <span>Public docs live now — Paid API launching Q1 2026</span>
             </div>
             <h1 className={styles.heroTitle}>
-              Reference Signals for<br />Bot Decision-Making
+              Reference Signals for<br />Synthetic-Equity Perpetuals
             </h1>
             <p className={styles.heroSubtitle}>Your bot decides. We provide context.</p>
             <p className={styles.heroTagline}>Not a strategy. A complement.</p>
