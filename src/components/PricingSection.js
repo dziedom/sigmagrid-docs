@@ -57,13 +57,18 @@ export default function PricingSection() {
             <span className={styles.terminalDot} style={{ background: '#27ca40' }}></span>
             <span className={styles.terminalTitle}>pricing.config</span>
           </div>
-          <h2 className={styles.sectionTitle}>Current Signal Pricing</h2>
+          <h2 className={styles.sectionTitle}>Pay Per Query (x402 Protocol)</h2>
           <p className={styles.sectionDescription}>
             <span className={styles.liveIndicator}>
               <span className={styles.liveDot}></span>
-              Dynamic pricing based on signal value
+              Pay-per-use via x402 micropayments
             </span>
-            <span className={styles.updateText}>Updates every 5 minutes</span>
+            <span className={styles.updateText}>No subscriptions. No minimums. No hidden fees.</span>
+          </p>
+          <p className={styles.x402Description}>
+            You only pay for what you use. Stop anytime.
+            <br />
+            x402 micropayments mean you're charged per API call.
           </p>
         </div>
 

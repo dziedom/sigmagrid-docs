@@ -39,7 +39,7 @@ export default {
   },
   "plugins": [
     [
-      "/workspace/node_modules/@easyops-cn/docusaurus-search-local/dist/server/server/index.js",
+      "C:\\SigmaGrid\\sigmagrid-docs\\node_modules\\@easyops-cn\\docusaurus-search-local\\dist\\server\\server\\index.js",
       {
         "hashed": true,
         "language": [
@@ -56,12 +56,12 @@ export default {
       "classic",
       {
         "docs": {
-          "sidebarPath": "/workspace/sidebars.js",
+          "sidebarPath": "C:\\SigmaGrid\\sigmagrid-docs\\sidebars.js",
           "routeBasePath": "/docs"
         },
         "blog": false,
         "theme": {
-          "customCss": "/workspace/src/css/custom.css"
+          "customCss": "C:\\SigmaGrid\\sigmagrid-docs\\src\\css\\custom.css"
         },
         "sitemap": false
       }
@@ -158,7 +158,7 @@ export default {
           ]
         }
       ],
-      "copyright": "© 2025 SigmaGrid. All rights reserved."
+      "copyright": "© 2026 SigmaGrid. All rights reserved."
     },
     "prism": {
       "theme": {
@@ -356,11 +356,11 @@ export default {
     "metadata": [
       {
         "name": "description",
-        "content": "SigmaGrid is the institutional fundamentals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP and more). Public docs live now — Paid API launching Q1 2026."
+        "content": "Traditional equity markets close at 4pm. Crypto synthetic equity perps trade 24/7. Get institutional-grade fair value when Bloomberg terminals go dark. Trusted by AI trading bots, market makers, and crypto hedge funds."
       },
       {
         "name": "og:title",
-        "content": "SigmaGrid — Institutional Fundamentals for Synthetic-Equity Perpetuals"
+        "content": "SigmaGrid — Institutional Fair Value for Crypto Perpetual Markets"
       },
       {
         "name": "og:image",
@@ -398,7 +398,7 @@ export default {
       "attributes": {
         "type": "application/ld+json"
       },
-      "innerHTML": "{\"@context\":\"https://schema.org\",\"@type\":\"WebAPI\",\"name\":\"SigmaGrid\",\"description\":\"Institutional fundamentals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.)\",\"url\":\"https://sigmagrid.app\",\"documentation\":\"https://sigmagrid.app/docs\",\"provider\":{\"@type\":\"Organization\",\"name\":\"SigmaGrid\",\"url\":\"https://sigmagrid.app\"},\"apiVersion\":\"0.1.0\",\"serviceType\":\"REST API\",\"areaServed\":\"Worldwide\",\"availableChannel\":{\"@type\":\"ServiceChannel\",\"serviceUrl\":\"https://api.sigmagrid.app\",\"availableLanguage\":\"en\"}}"
+      "innerHTML": "{\"@context\":\"https://schema.org\",\"@type\":\"WebAPI\",\"name\":\"SigmaGrid\",\"description\":\"Institutional fair value for crypto perpetual markets. Traditional equity markets close at 4pm. Crypto synthetic equity perps trade 24/7. Get institutional-grade fair value when Bloomberg terminals go dark.\",\"url\":\"https://sigmagrid.app\",\"documentation\":\"https://sigmagrid.app/docs\",\"provider\":{\"@type\":\"Organization\",\"name\":\"SigmaGrid\",\"url\":\"https://sigmagrid.app\"},\"apiVersion\":\"0.1.0\",\"serviceType\":\"REST API\",\"areaServed\":\"Worldwide\",\"availableChannel\":{\"@type\":\"ServiceChannel\",\"serviceUrl\":\"https://api.sigmagrid.app\",\"availableLanguage\":\"en\"}}"
     }
   ],
   "baseUrlIssueBanner": true,

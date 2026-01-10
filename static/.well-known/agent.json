@@ -2,7 +2,7 @@
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "SigmaGrid",
   "version": "1.0.0",
-  "description": "Institutional market signals and directional alpha for synthetic-equity perpetual markets.",
+  "description": "Institutional fair value for crypto perpetual markets. Provides 24/7 fair value when traditional markets are closed. Trusted by AI trading bots, market makers, and crypto hedge funds.",
   "image": "https://sigmagrid.app/logo.png",
   "capabilities": [
     "market_signals",

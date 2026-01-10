@@ -53,6 +53,23 @@
   z-index: 1;
 }
 
+.heroSupporting {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(71, 85, 105, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.heroSupporting p {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  line-height: 1.7;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 .buttonGroup {
   display: flex;
   gap: 1rem;
@@ -344,7 +361,6 @@
   .section .container {
     background: transparent !important;
   }
-}
 
   .heroTitle {
     font-size: 2.5rem;

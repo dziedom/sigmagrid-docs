@@ -5,7 +5,7 @@
 
 [product]
 name = "SigmaGrid"
-description = "Institutional fundamentals API for synthetic-equity perpetuals."
+description = "Institutional fair value for crypto perpetual markets. Traditional equity markets close at 4pm. Crypto synthetic equity perps trade 24/7. Get institutional-grade fair value when Bloomberg terminals go dark."
 status = "Public docs live now — Paid API launching Q1 2026"
 
 [api]

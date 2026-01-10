@@ -13,12 +13,13 @@ SigmaGrid is designed for an **agent-native, per-request** consumption model rat
 
 ---
 
-## Model
+## Model: Pay Per Query (x402 Protocol)
 
 - **Pricing varies based on the value of the feed.**  
-- All pricing is **stablecoin denominated per request** via **x402**.  
+- All pricing is **stablecoin denominated per request** via **x402 micropayments**.  
 - No subscriptions, no minimums, no long-term lock-ins.  
 - Each request is authorised and paid atomically.
+- You only pay for what you use. Stop anytime.
 
 Conceptually:
 

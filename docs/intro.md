@@ -4,29 +4,42 @@ title: SigmaGrid Overview
 sidebar_label: Overview
 ---
 
-# SigmaGrid — Institutional Fundamentals for Synthetic-Equity Perpetuals
+# SigmaGrid — Institutional Fair Value for Crypto Perpetual Markets
 
 **Public docs live now — Paid API launching Q1 2026**
 
+Traditional equity markets close at 4pm. Crypto synthetic equity perps trade 24/7.
+
+**Get institutional-grade fair value when Bloomberg terminals go dark.**
+
 SigmaGrid is the institutional fundamentals API for 24/7 synthetic-equity perpetuals such as **SPY-PERP**, **QQQ-PERP**, **TSLA-PERP**, and related synthetic-equity markets.
 
-Traditional equity markets operate on robust institutional anchors:
+## The 24/7 Fair Value Problem
 
-- fair value  
-- volatility forecasts  
-- drift  
-- regime classification  
-- event sensitivity  
+Crypto synthetic equity perpetuals trade around the clock across Hyperliquid, Avantis, Aevo, Drift, and Vertex. But institutional fundamentals only exist during market hours (9:30am-4pm ET, Mon-Fri).
 
-Crypto synthetic-equity perpetual markets run 24/7 **without** those anchors. That gap leads to:
+At 2am on Sunday, what's the fair value of SPY-PERP?
 
-- persistent cross-venue mispricings  
-- unreliable directional signals  
-- liquidation cascades around macro events  
-- inconsistent funding patterns  
-- weak risk controls for agent-driven execution  
+- Bloomberg Terminal: Offline
+- Institutional desks: Closed
+- Analyst coverage: Dark
+- Your trading bot: Flying blind
+
+Without a fundamental anchor, you're trading against orderbook noise:
+- Overpay during thin liquidity
+- Miss mean-reversion opportunities
+- Get liquidated on event-driven moves
+- Can't distinguish rich vs cheap
+
+Traditional markets have institutional infrastructure. Crypto perps have been guessing. **Until now.**
+
+## The Solution
 
 **SigmaGrid supplies the missing institutional fundamentals layer.**  
+We apply traditional equity derivatives models to crypto perpetual markets, providing the fundamental anchor that's been missing from DeFi.
+
+We don't just show you orderbook prices. **We tell you what the price should be.**
+
 We deliver them as clean, high-signal JSON API feeds designed from day one for AI agents.
 
 - Core mandatory fields are delivered in **real-time** per ticker.  

@@ -1,0 +1,194 @@
+.venueComparison {
+  background: linear-gradient(135deg, #1a1f2e 0%, #0f1420 100%);
+  border-radius: 1rem;
+  border: 1px solid #2d3748;
+  padding: 1.5rem;
+}
+
+.comparisonHeader {
+  margin-bottom: 1.5rem;
+}
+
+.comparisonTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-bottom: 0.5rem;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+.comparisonSubtitle {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.comparisonChart {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.fairValueLine {
+  display: grid;
+  grid-template-columns: 100px 1fr 100px;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 2px solid #3b82f6;
+}
+
+.fairValueLabel {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #3b82f6;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fairValueBar {
+  position: relative;
+  height: 4px;
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.fairValueMarker {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+}
+
+.markerDot {
+  position: absolute;
+  left: -6px;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  background: #3b82f6;
+  border-radius: 50%;
+  border: 2px solid #0f172a;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.markerLine {
+  position: absolute;
+  left: 0;
+  top: -2px;
+  width: 2px;
+  height: 4px;
+  background: #3b82f6;
+}
+
+.fairValuePrice {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: #3b82f6;
+  font-weight: 600;
+  text-align: right;
+}
+
+.venueRow {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.venueName {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.venueBarContainer {
+  position: relative;
+  height: 40px;
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(45, 55, 72, 0.5);
+}
+
+.venueBar {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.75rem;
+  transition: all 0.3s ease-out;
+}
+
+.venueBar.aboveFV {
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.2), rgba(239, 68, 68, 0.1));
+  border-left: 2px solid #ef4444;
+}
+
+.venueBar.belowFV {
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.1));
+  border-left: 2px solid #22c55e;
+}
+
+.venuePrice {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.venuePremium {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.venueBar.aboveFV .venuePremium {
+  color: #ef4444;
+}
+
+.venueBar.belowFV .venuePremium {
+  color: #22c55e;
+}
+
+.comparisonFooter {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(45, 55, 72, 0.5);
+}
+
+.footerNote {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.noteLabel {
+  color: #94a3b8;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+.noteValue {
+  color: #3b82f6;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+@media (max-width: 768px) {
+  .fairValueLine,
+  .venueRow {
+    grid-template-columns: 80px 1fr;
+  }
+
+  .fairValuePrice {
+    display: none;
+  }
+}

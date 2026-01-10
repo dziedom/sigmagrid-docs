@@ -116,9 +116,9 @@ const config = {
         {
           name: 'description',
           content:
-            'SigmaGrid is the institutional fundamentals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP and more). Public docs live now — Paid API launching Q1 2026.'
+            'Traditional equity markets close at 4pm. Crypto synthetic equity perps trade 24/7. Get institutional-grade fair value when Bloomberg terminals go dark. Trusted by AI trading bots, market makers, and crypto hedge funds.'
         },
-        { name: 'og:title', content: 'SigmaGrid — Institutional Fundamentals for Synthetic-Equity Perpetuals' },
+        { name: 'og:title', content: 'SigmaGrid — Institutional Fair Value for Crypto Perpetual Markets' },
         { name: 'og:image', content: 'img/social-card.svg' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { name: 'twitter:image', content: 'img/social-card.svg' },
@@ -134,7 +134,7 @@ const config = {
         '@context': 'https://schema.org',
         '@type': 'WebAPI',
         name: 'SigmaGrid',
-        description: 'Institutional fundamentals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.)',
+        description: 'Institutional fair value for crypto perpetual markets. Traditional equity markets close at 4pm. Crypto synthetic equity perps trade 24/7. Get institutional-grade fair value when Bloomberg terminals go dark.',
         url: 'https://sigmagrid.app',
         documentation: 'https://sigmagrid.app/docs',
         provider: {

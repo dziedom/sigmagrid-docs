@@ -2,7 +2,7 @@
   "name": "SigmaGrid",
   "version": "1.0.0",
   "updated_at": "2025-12-12",
-  "description": "SigmaGrid provides paid market signals for synthetic-equity perpetual markets.",
+  "description": "Institutional fair value for crypto perpetual markets. Provides 24/7 fair value when traditional markets are closed. Trusted by AI trading bots, market makers, and crypto hedge funds.",
   "role": "data-provider",
   "network": "Base Sepolia",
   "website": "https://sigmagrid.app",

@@ -3,6 +3,7 @@
   background: linear-gradient(180deg, #0a0f1a 0%, #0f172a 50%, #0a0f1a 100%);
   position: relative;
   overflow: hidden;
+  min-height: 400px;
 }
 
 .bgGlow {
@@ -93,6 +94,17 @@
   font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
   font-size: 0.8rem;
   color: #4a5568;
+}
+
+.x402Description {
+  margin-top: 1rem;
+  color: #94a3b8;
+  font-size: 1rem;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Pricing Grid */
