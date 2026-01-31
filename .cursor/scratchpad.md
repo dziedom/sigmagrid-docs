@@ -97,6 +97,7 @@ Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (
 - Please confirm it’s OK to create the git commit on this branch with message: "Fix ERC-8004 registration schema".
 
 - Added x402 payment notes to `static/llms.txt`. Proceeding to commit and push per user request.
+- Committed and pushed: "Add x402 payment notes to llms.txt".
 
 ## Lessons
 - Docusaurus serves files in `static/` at the site root; prefer editing `static/*` and avoid committing `build/*` artifacts.
