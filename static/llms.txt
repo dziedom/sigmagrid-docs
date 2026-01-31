@@ -1,3 +1,10 @@
+# x402 Payment Instructions (required when paid API launches in Q1 2026)
+# - Paid endpoints return HTTP 402 "Payment Required" when access needs authorization.
+# - Agents must implement the x402 protocol: parse the 402 response metadata (price, recipient, chain, etc.), sign & submit a stablecoin micropayment tx (USDC on Base recommended for low fees), then retry the original request with payment proof attached.
+# - Use official x402 libraries where available (e.g., Coinbase x402 Go/Python/JS packages) or a minimal custom fetch-based wrapper.
+# - Test integration flow using free validation/sandbox endpoints if provided (check /docs for updates).
+# - No traditional API keys or subscriptions — payments are per-request and atomic.
+
 # SigmaGrid llms.txt
 # Public docs live now — Paid API launching Q1 2026
 # Base docs: https://sigmagrid.app/docs
