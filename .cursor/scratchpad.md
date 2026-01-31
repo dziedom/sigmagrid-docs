@@ -1,6 +1,8 @@
 ## Background and Motivation
 SigmaGrid’s public discovery descriptors (agent descriptor, ERC-8004 registration, MCP, and OpenAPI) must all advertise the same real, working API contract. Bots and agent runtimes should only discover the 8 public GET endpoints under `https://api.sigmagrid.app` and should always use the non-www canonical domain (`https://sigmagrid.app`).
 
+Add an x402 payment notes section to the top of `llms.txt` so agents can find payment instructions quickly.
+
 8004scan’s metadata parser also requires explicit top-level indexing fields in `/.well-known/erc8004.json` (name, description, version, role, endpoints, pricing, and docs links) to successfully index SigmaGrid.
 
 Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (top-level `type`, `endpoints`, and `registrations[]` with `agentRegistry` in CAIP-10 format). The live `/.well-known/erc8004.json` needs content updated (URL stays the same) to avoid “Metadata Parse Failed”.
@@ -27,6 +29,9 @@ Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (
 - [x] Ensure `/img/logo.png` exists for the `image` field.
   - Success: `static/img/logo.png` exists (served as `https://sigmagrid.app/img/logo.png` after deploy).
 
+- [x] Add x402 payment notes at top of `llms.txt`.
+  - Success: x402 section appears before any existing content and matches provided instructions.
+
 ## Project Status Board
 - [x] Update discovery JSONs (`agent.json`, `erc8004.json`) in source locations
 - [x] Make `/.well-known/erc8004.json` 8004scan-indexable (explicit top-level fields)
@@ -37,6 +42,8 @@ Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (
 - [x] Convert `erc8004.json` to ERC-8004 `registration-v1` schema (8004scan-compatible)
 - [x] Add `/img/logo.png` (placeholder) for the registration `image` URL
 - [ ] Create git commit: "Fix ERC-8004 registration schema"
+
+- [x] Add x402 payment notes section to `llms.txt`
 
 ### Agent Discoverability Enhancements (Dec 16, 2025)
 - [x] Phase 1: Enhance `docs/agents.md` with validation checks, discovery links, response behaviors
@@ -64,6 +71,8 @@ Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (
 - Added `static/img/logo.png` placeholder so `https://sigmagrid.app/img/logo.png` resolves after deploy.
 - Fixed `agent.json` to include `image` field and top-level `endpoints` array for 8004scan.io frontend compatibility (prevents TypeErrors when frontend tries to render missing fields).
 
+- Added x402 payment notes section to the top of `static/llms.txt`.
+
 ### Agent Discoverability Enhancements (Dec 16, 2025)
 - **Phase 1 Complete**: Enhanced `docs/agents.md` with:
   - Quick validation checks section with copy-pastable curl commands
@@ -86,6 +95,9 @@ Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (
 - The contract checker fetches live URLs; it will fail until these repo changes are deployed. Current failure is expected (live `agent.json` still lacks `base_url`).
 
 - Please confirm it’s OK to create the git commit on this branch with message: "Fix ERC-8004 registration schema".
+
+- Added x402 payment notes to `static/llms.txt`. Proceeding to commit and push per user request.
+- Committed and pushed: "Add x402 payment notes to llms.txt".
 
 ## Lessons
 - Docusaurus serves files in `static/` at the site root; prefer editing `static/*` and avoid committing `build/*` artifacts.
