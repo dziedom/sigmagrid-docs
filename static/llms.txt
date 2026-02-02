@@ -2,7 +2,7 @@
 # - Paid endpoints return HTTP 402 "Payment Required" when access needs authorization.
 # - Agents must implement the x402 protocol: parse the 402 response metadata (price, recipient, chain, etc.), sign & submit a stablecoin micropayment tx (USDC on Base recommended for low fees), then retry the original request with payment proof attached.
 # - Use official x402 libraries where available (e.g., Coinbase x402 Go/Python/JS packages) or a minimal custom fetch-based wrapper.
-# - Test integration flow using free validation/sandbox endpoints if provided (check /docs for updates).
+# - Free connectivity check (no payment): GET https://api.sigmagrid.app/health — call before paid requests.
 # - No traditional API keys or subscriptions — payments are per-request and atomic.
 
 # SigmaGrid llms.txt
@@ -18,6 +18,7 @@ status = "Public docs live now — Paid API launching Q1 2026"
 [api]
 base_url = "https://api.sigmagrid.app"
 schema = "https"
+health_endpoint = "/health"
 
 [fields.core]
 timestamp = "ISO 8601 UTC timestamp"
