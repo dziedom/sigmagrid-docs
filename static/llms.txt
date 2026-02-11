@@ -1,40 +1,48 @@
-# x402 Payment Instructions (required when paid API launches in Q1 2026)
-# - Paid endpoints return HTTP 402 "Payment Required" when access needs authorization.
-# - Agents must implement the x402 protocol: parse the 402 response metadata (price, recipient, chain, etc.), sign & submit a stablecoin micropayment tx (USDC on Base recommended for low fees), then retry the original request with payment proof attached.
-# - Use official x402 libraries where available (e.g., Coinbase x402 Go/Python/JS packages) or a minimal custom fetch-based wrapper.
-# - Free connectivity check (no payment): GET https://api.sigmagrid.app/health — call before paid requests.
-# - No traditional API keys or subscriptions — payments are per-request and atomic.
+# SigmaGrid API
+> Institutional-grade fair value signals for synthetic equity perpetuals
+> Pay-per-request via x402 micropayments (USDC on Base)
 
-# SigmaGrid llms.txt
-# Public docs live now — Paid API launching Q1 2026
-# Base docs: https://sigmagrid.app/docs
-# Base API URL (when live): https://api.sigmagrid.app
+## Live Signal Endpoints (x402 gated)
 
-[product]
-name = "SigmaGrid"
-description = "Institutional fair value for crypto perpetual markets. Traditional equity markets close at 4pm. Crypto synthetic equity perps trade 24/7. Get institutional-grade fair value when Bloomberg terminals go dark."
-status = "Public docs live now — Paid API launching Q1 2026"
+> GET /v1/fair-value/{ticker}
+Returns fair value estimate, confidence score, and per-venue premium/discount in basis points.
+Supported tickers: SPY, QQQ, IWM, AAPL, MSFT, GOOGL, AMZN, META, NVDA, TSLA
+Cost: 0.002 USDC per request
 
-[api]
-base_url = "https://api.sigmagrid.app"
-schema = "https"
-health_endpoint = "/health"
+> GET /v1/spreads/{ticker}
+Cross-venue spread analysis. Identifies cheapest/richest venue and flags arbitrage opportunities.
+Cost: 0.002 USDC per request
 
-[fields.core]
-timestamp = "ISO 8601 UTC timestamp"
-ticker = "Underlying symbol"
-fair_value = "Institutional fair value"
-vol_forecast_1h = "1h vol forecast"
-vol_forecast_4h = "4h vol forecast"
-regime = "trend / chop / HVOL / LVOL"
-drift_1h = "1h drift"
-drift_overnight = "Overnight drift"
-event_next = "Next macro event"
-event_impact = "Impact severity"
-event_bias = "risk-on / risk-off / neutral"
+> GET /v1/funding/{ticker}
+Funding rate analysis with z-scores and anomaly detection. Includes mean-reversion probability.
+Cost: 0.002 USDC per request
 
-[fields.optional_macro]
-beta_macro = "Risk appetite sensitivity"
-beta_yield = "Yield sensitivity"
-beta_dollar = "USD sensitivity"
-beta_vol_index = "Volatility index sensitivity"
+> GET /v1/regime
+Market regime classification (risk_on, risk_off, transitioning) with VIX and confidence score.
+Cost: 0.001 USDC per request
+
+> GET /v1/events/{ticker}
+Event risk flags. Upcoming earnings, historical impact, current pricing assessment.
+Cost: 0.002 USDC per request
+
+## Free Endpoints
+
+> GET /health
+API connectivity check. No payment required.
+
+## Payment Protocol
+
+Protocol: x402
+Network: Base (Chain ID 8453)
+Currency: USDC (0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913)
+Flow: Request endpoint -> Receive 402 with payment details -> Pay USDC on Base -> Retry with tx proof -> Receive data
+
+## Discovery
+
+OpenAPI spec: /openapi.json
+MCP config: /mcp.json
+
+## Supported Assets
+Indices: SPY, QQQ, IWM
+MAG7: AAPL, MSFT, GOOGL, AMZN, META, NVDA, TSLA
+Venues: Hyperliquid, Ostium, Avantis
