@@ -13,222 +13,92 @@
   },
   "tools": [
     {
-      "name": "validate",
-      "description": "Check if SigmaGrid API is reachable. Free endpoint, no payment required. Always call this first before making paid requests to confirm connectivity.",
+      "name": "sigmagrid_fair_value",
+      "description": "Get institutional-grade fair value estimate for a synthetic equity perpetual. Returns fair value, confidence score, and per-venue premium/discount in basis points. Use when an agent needs to know if a perp is trading rich or cheap vs fundamentals.",
+      "endpoint": "/v1/fair-value/{ticker}",
       "method": "GET",
-      "endpoint": "/health",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "required": true,
+          "description": "Ticker symbol (SPY, QQQ, IWM, AAPL, MSFT, GOOGL, AMZN, META, NVDA, TSLA)"
+        }
+      ],
+      "requires_payment": true,
+      "payment_protocol": "x402",
+      "network": "base",
+      "chain_id": 8453,
+      "cost_usdc": "0.002"
+    },
+    {
+      "name": "sigmagrid_spreads",
+      "description": "Cross-venue spread analysis for a synthetic equity perpetual. Identifies cheapest and richest venue, calculates spread in basis points, and flags arbitrage opportunities. Use for cross-venue trading decisions.",
+      "endpoint": "/v1/spreads/{ticker}",
+      "method": "GET",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "required": true,
+          "description": "Ticker symbol"
+        }
+      ],
+      "requires_payment": true,
+      "payment_protocol": "x402",
+      "network": "base",
+      "chain_id": 8453,
+      "cost_usdc": "0.05"
+    },
+    {
+      "name": "sigmagrid_funding",
+      "description": "Funding rate analysis with anomaly detection. Returns per-venue funding rates, z-scores vs rolling history, and mean reversion probability. Use for carry trade and mean-reversion strategies.",
+      "endpoint": "/v1/funding/{ticker}",
+      "method": "GET",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "required": true,
+          "description": "Ticker symbol"
+        }
+      ],
+      "requires_payment": true,
+      "payment_protocol": "x402",
+      "network": "base",
+      "chain_id": 8453,
+      "cost_usdc": "0.05"
+    },
+    {
+      "name": "sigmagrid_regime",
+      "description": "Market regime classification. Returns current regime (risk_on, risk_off, transitioning) with confidence score, VIX level, and funding direction. Use for position sizing and risk management.",
+      "endpoint": "/v1/regime",
+      "method": "GET",
       "parameters": [],
-      "requires_payment": false,
-      "response": {
-        "type": "object",
-        "description": "API status confirmation"
-      },
-      "example_usage": "Check if SigmaGrid API is online before making paid requests"
-    },
-    {
-      "name": "signals",
-      "description": "Master consolidated view for a ticker including fair_value, regime, drift_1h, drift_overnight, vol_forecast, event_impact, z_score, and optional macro betas. Returns all core mandatory fields plus extended metrics.",
-      "method": "GET",
-      "endpoint": "/v1/signals/{ticker}",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "string",
-          "required": true,
-          "description": "Underlying symbol (e.g., SPY, QQQ, TSLA, AAPL, NVDA, IWM, DIA)",
-          "example": "SPY"
-        }
-      ],
       "requires_payment": true,
       "payment_protocol": "x402",
       "network": "base",
       "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request",
-      "response": {
-        "type": "object",
-        "fields": [
-          "timestamp",
-          "ticker",
-          "fair_value",
-          "vol_forecast_1h",
-          "vol_forecast_4h",
-          "regime",
-          "drift_1h",
-          "drift_overnight",
-          "event_next",
-          "event_impact",
-          "event_bias",
-          "fv_upper",
-          "fv_lower",
-          "premiums",
-          "z_score",
-          "reversion_prob",
-          "shock_index",
-          "beta_macro",
-          "beta_yield",
-          "beta_dollar",
-          "beta_vol_index"
-        ]
-      },
-      "example_usage": "Get comprehensive fair value analysis for SPY including regime, drift, and event impact"
+      "cost_usdc": "0.05"
     },
     {
-      "name": "premium",
-      "description": "Cross-venue arbitrage metrics showing basis vs fair_value. Use to identify price discrepancies between perpetual and spot markets.",
-      "method": "GET",
-      "endpoint": "/v1/premium/{ticker}",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "string",
-          "required": true,
-          "description": "Underlying symbol",
-          "example": "SPY"
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request",
-      "example_usage": "Check if SPY perpetual is trading at premium/discount to fair value"
-    },
-    {
-      "name": "drift",
-      "description": "Directional bias surface showing momentum and drift across timeframes (1h, overnight). Use to assess short-term directional edge.",
-      "method": "GET",
-      "endpoint": "/v1/drift/{ticker}",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "string",
-          "required": true,
-          "description": "Underlying symbol",
-          "example": "QQQ"
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request",
-      "example_usage": "Assess 1-hour and overnight directional bias for QQQ"
-    },
-    {
-      "name": "regime",
-      "description": "Regime and risk sizing information. Returns current volatility regime (LVOL/HVOL/TRANSITION) and position sizing recommendations.",
-      "method": "GET",
-      "endpoint": "/v1/regime/{ticker}",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "string",
-          "required": true,
-          "description": "Underlying symbol",
-          "example": "TSLA"
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request",
-      "example_usage": "Get volatility regime for TSLA to adjust position sizing"
-    },
-    {
-      "name": "events",
-      "description": "Macro event surface showing upcoming events, impact scores, and directional bias. Use to assess event risk before major announcements.",
-      "method": "GET",
+      "name": "sigmagrid_events",
+      "description": "Event risk analysis for a ticker. Flags upcoming catalysts (earnings, macro events), shows historical average moves, and assesses whether current perp pricing reflects the risk. Use before holding positions through events.",
       "endpoint": "/v1/events/{ticker}",
+      "method": "GET",
       "parameters": [
         {
           "name": "ticker",
           "type": "string",
           "required": true,
-          "description": "Underlying symbol",
-          "example": "SPY"
+          "description": "Ticker symbol"
         }
       ],
       "requires_payment": true,
       "payment_protocol": "x402",
       "network": "base",
       "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request",
-      "example_usage": "Check upcoming FOMC impact on SPY"
-    },
-    {
-      "name": "arbitrage",
-      "description": "Carry and mean-reversion focused view. Identifies opportunities where perpetual price deviates from fair value with reversion probability.",
-      "method": "GET",
-      "endpoint": "/v1/arbitrage/{ticker}",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "string",
-          "required": true,
-          "description": "Underlying symbol",
-          "example": "NVDA"
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request",
-      "example_usage": "Find mean-reversion opportunities for NVDA perpetual"
-    },
-    {
-      "name": "historical",
-      "description": "Historical time-series data for a ticker. Query past fair values, regimes, and metrics. Useful for backtesting and analysis.",
-      "method": "GET",
-      "endpoint": "/v1/historical/{ticker}",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "string",
-          "required": true,
-          "description": "Underlying symbol",
-          "example": "SPY"
-        },
-        {
-          "name": "hours",
-          "type": "integer",
-          "required": false,
-          "description": "Number of hours of history to retrieve (default: 24, max: 168)",
-          "example": 24
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001-0.005 USDC depending on range",
-      "example_usage": "Get last 24 hours of SPY fair value history"
-    },
-    {
-      "name": "snapshot",
-      "description": "Multi-ticker snapshot for batch queries. Get fair value, regime, and core metrics for multiple tickers in one request. Cost-efficient for monitoring multiple assets (one payment for up to 10 tickers).",
-      "method": "GET",
-      "endpoint": "/v1/snapshot",
-      "parameters": [
-        {
-          "name": "tickers",
-          "type": "string",
-          "required": true,
-          "description": "Comma-separated list of tickers (up to 10)",
-          "example": "SPY,QQQ,TSLA,AAPL,NVDA"
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request (regardless of ticker count, up to 10)",
-      "response": {
-        "type": "array",
-        "description": "Array of ticker objects, each containing core fields"
-      },
-      "example_usage": "Get fair values for SPY, QQQ, and TSLA in one efficient call"
+      "cost_usdc": "0.05"
     }
   ],
   "field_reference": {

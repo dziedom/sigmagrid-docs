@@ -44,6 +44,7 @@ Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (
 - [ ] Create git commit: "Fix ERC-8004 registration schema"
 
 - [x] Add x402 payment notes section to `llms.txt`
+- [x] Update MCP tool definitions to SigmaGrid `sigmagrid_*` endpoints and pricing fields
 
 ### Agent Discoverability Enhancements (Dec 16, 2025)
 - [x] Phase 1: Enhance `docs/agents.md` with validation checks, discovery links, response behaviors
@@ -72,6 +73,18 @@ Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (
 - Fixed `agent.json` to include `image` field and top-level `endpoints` array for 8004scan.io frontend compatibility (prevents TypeErrors when frontend tries to render missing fields).
 
 - Added x402 payment notes section to the top of `static/llms.txt`.
+- Updated MCP manifests in source and well-known locations:
+  - `static/mcp.json`
+  - `static/.well-known/mcp.json`
+- Replaced legacy MCP tools (`signals`, `premium`, `drift`, `regime`, `events`, `arbitrage`, `historical`, `snapshot`) with:
+  - `sigmagrid_fair_value`
+  - `sigmagrid_spreads`
+  - `sigmagrid_funding`
+  - `sigmagrid_regime`
+  - `sigmagrid_events`
+- Validation results:
+  - JSON parse succeeded for both MCP files.
+  - `npm run check:bot` passed (byte-for-byte match).
 
 ### Agent Discoverability Enhancements (Dec 16, 2025)
 - **Phase 1 Complete**: Enhanced `docs/agents.md` with:
@@ -98,6 +111,7 @@ Dec 14, 2025: 8004scan now expects the ERC-8004 `registration-v1` schema shape (
 
 - Added x402 payment notes to `static/llms.txt`. Proceeding to commit and push per user request.
 - Committed and pushed: "Add x402 payment notes to llms.txt".
+- MCP update completed and validated locally; ready for deploy verification.
 
 ## Lessons
 - Docusaurus serves files in `static/` at the site root; prefer editing `static/*` and avoid committing `build/*` artifacts.
