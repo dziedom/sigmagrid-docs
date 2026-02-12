@@ -31,7 +31,7 @@
       "id": "openapi",
       "name": "OpenAPI Specification",
       "type": "openapi",
-      "url": "https://sigmagrid.app/openapi.json"
+      "url": "https://api.sigmagrid.app/openapi.yaml"
     },
     {
       "id": "llms",

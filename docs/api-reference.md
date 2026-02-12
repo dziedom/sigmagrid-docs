@@ -7,8 +7,8 @@ sidebar_label: API Reference
 # API Reference
 
 > **Status**  
-> **Public docs live now — Paid API launching Q1 2026**  
-> Base URL (when live): `https://api.sigmagrid.app`
+> **API live**  
+> Base URL: `https://api.sigmagrid.app`
 
 SigmaGrid exposes a small, opinionated set of endpoints designed for synthetic-equity perpetuals. The number of endpoints will **increase over time**, but the core contract is stable.
 
@@ -24,22 +24,34 @@ All endpoints below are relative to this base URL.
 
 SigmaGrid exposes a stable `/v1` API contract. The interface and response schemas are stable, allowing agents and systems to integrate with confidence.
 
-**Current status**: Responses currently use test/placeholder data. The API contract, endpoint structure, and field schemas are stable and will remain consistent when the API goes live.
+**Current status**: The API is live. The contract, endpoint structure, and field schemas are stable.
 
 **Payment model**: Endpoints may return HTTP 402 (Payment Required) when payment is required. The x402 protocol handles per-request payment authorization. Agents should be prepared to handle HTTP 402 responses and complete the payment flow before retrying requests.
 
-## Authentication & Payments (planned)
+**x402 registry**: For a machine-readable list of service IDs and paths, see [https://api.sigmagrid.app/api/registry-services.json](https://api.sigmagrid.app/api/registry-services.json).
 
-When the API goes live in Q1 2026:
+## Authentication & Payments
 
-- Access will be pay-per-request, denominated in stablecoins.
-- Payments will flow via x402.
+- Access is pay-per-request, denominated in stablecoins.
+- Payments flow via x402.
 - No traditional API keys, subscriptions, or minimums are required.
 - Each successful request is authorised and paid atomically at the protocol level.
 
-Implementation details will be published before launch, but you can already design agents around a stateless, per-request billing model.
+## Endpoints
 
-## Endpoints (coming Q1 2026)
+### GET /v1/validate — Service validation and discovery
+
+Free endpoint (no payment). Use to confirm the API is reachable before making paid requests.
+
+**Example**
+
+```
+GET /v1/validate HTTP/1.1
+Host: api.sigmagrid.app
+Accept: application/json
+```
+
+---
 
 ### GET /v1/signals/\{ticker\} — Master consolidated view
 
@@ -116,19 +128,9 @@ Use this endpoint when you only care about cross-venue opportunities and do not 
 
 ---
 
-### GET /v1/drift/\{ticker\} — Directional bias
+### GET /v1/drift/\{ticker\} — Directional bias (deprecated)
 
-Streams the directional component of the signal surface.
-
-Returns:
-
-- timestamp
-- ticker
-- drift_1h
-- drift_overnight
-- regime
-
-Ideal for agents that are already running their own volatility or event models but want a clean, external drift surface.
+**Deprecated.** This endpoint returns **410 Gone**. Use **GET /v1/signals/\{ticker\}** for drift (drift_1h, drift_overnight) and all other signals.
 
 ---
 
@@ -180,15 +182,21 @@ Returns:
 
 ### GET /v1/historical/\{ticker\} — Historical data
 
-Returns historical data for a given ticker.
+Returns historical time-series data for a given ticker.
 
 **Path params**
 
 - `ticker` — e.g. SPY, QQQ, TSLA.
 
+**Query params**
+
+- `start` — Start time (ISO 8601 or Unix).
+- `end` — End time (ISO 8601 or Unix).
+- `limit` — Maximum number of points to return.
+
 **Description**
 
-Provides historical signal data for backtesting, calibration, and analysis. Returns time-series data for the specified ticker.
+Provides historical signal data for backtesting, calibration, and analysis.
 
 ---
 

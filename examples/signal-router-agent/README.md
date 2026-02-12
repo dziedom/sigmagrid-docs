@@ -143,7 +143,7 @@ Then serve the `.well-known/` directory at your domain root so bots can discover
 
 ## Integration with SigmaGrid
 
-This agent consumes SigmaGrid API. When SigmaGrid launches (Q1 2026), you'll need to:
+This agent consumes SigmaGrid API. To use the live API you'll need to:
 
 1. Implement x402 payment flow for authenticated requests
 2. Handle payment-required responses (HTTP 402)

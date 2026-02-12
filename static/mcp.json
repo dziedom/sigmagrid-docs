@@ -1,22 +1,21 @@
 {
   "name": "SigmaGrid Fair Value Signals",
   "version": "1.0.0",
-  "description": "Institutional fundamentals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.). Returns fair value, regime, drift, events, and arbitrage signals. Public docs live now — Paid API launching Q1 2026.",
+  "description": "Institutional fair value and alpha signals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.). Returns fair value, regime, drift, events, and arbitrage signals. API live.",
   "author": "SigmaGrid",
   "homepage": "https://sigmagrid.app",
   "base_url": "https://api.sigmagrid.app",
-  "openapi_spec": "https://sigmagrid.app/openapi.json",
+  "openapi_spec": "https://api.sigmagrid.app/openapi.yaml",
   "status": {
-    "current": "test_data",
-    "note": "Responses currently use placeholder data for integration testing. Real institutional signals launch Q1 2026.",
-    "launch_window": "Q1 2026"
+    "current": "live",
+    "note": "API is live with real institutional signals."
   },
   "tools": [
     {
       "name": "validate",
       "description": "Check if SigmaGrid API is reachable. Free endpoint, no payment required. Always call this first before making paid requests to confirm connectivity.",
       "method": "GET",
-      "endpoint": "/health",
+      "endpoint": "/v1/validate",
       "parameters": [],
       "requires_payment": false,
       "response": {
@@ -95,9 +94,10 @@
     },
     {
       "name": "drift",
-      "description": "Directional bias surface showing momentum and drift across timeframes (1h, overnight). Use to assess short-term directional edge.",
+      "description": "Deprecated (410 Gone). Use /v1/signals/{ticker} for drift and other signals. Directional bias (1h, overnight) was formerly here.",
       "method": "GET",
       "endpoint": "/v1/drift/{ticker}",
+      "deprecated": true,
       "parameters": [
         {
           "name": "ticker",
@@ -179,7 +179,7 @@
     },
     {
       "name": "historical",
-      "description": "Historical time-series data for a ticker. Query past fair values, regimes, and metrics. Useful for backtesting and analysis.",
+      "description": "Historical time-series data for a ticker. Query params: start, end, limit. Useful for backtesting and analysis.",
       "method": "GET",
       "endpoint": "/v1/historical/{ticker}",
       "parameters": [
@@ -191,11 +191,23 @@
           "example": "SPY"
         },
         {
-          "name": "hours",
+          "name": "start",
+          "type": "string",
+          "required": false,
+          "description": "Start time (ISO 8601 or Unix)"
+        },
+        {
+          "name": "end",
+          "type": "string",
+          "required": false,
+          "description": "End time (ISO 8601 or Unix)"
+        },
+        {
+          "name": "limit",
           "type": "integer",
           "required": false,
-          "description": "Number of hours of history to retrieve (default: 24, max: 168)",
-          "example": 24
+          "description": "Max number of points to return",
+          "example": 100
         }
       ],
       "requires_payment": true,
@@ -278,8 +290,8 @@
     "payment_flow": "HTTP 402 → Agent pays on Base → Retry with tx_hash → Get data"
   },
   "testing": {
-    "mode": "placeholder_data",
-    "free_endpoint": "/health",
-    "description": "All endpoints currently return test/placeholder data with production-ready schema. Free validation endpoint available for connectivity checks. Real institutional signals launch Q1 2026."
+    "mode": "live",
+    "free_endpoint": "/v1/validate",
+    "description": "API is live. Free validation endpoint GET /v1/validate for connectivity checks. Paid endpoints require x402."
   }
 }

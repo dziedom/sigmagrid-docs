@@ -6,7 +6,7 @@ sidebar_label: Overview
 
 # SigmaGrid — Institutional Fair Value for Crypto Perpetual Markets
 
-**Public docs live now — Paid API launching Q1 2026**
+**API live**
 
 Traditional equity markets close at 4pm. Crypto synthetic equity perps trade 24/7.
 
@@ -46,11 +46,11 @@ We deliver them as clean, high-signal JSON API feeds designed from day one for A
 - Optional macro betas are available as a separate, higher-value layer.  
 - Pricing is stablecoin denominated **per request** via **x402** (no keys, no subscriptions).
 
-Base API URL (when live):
+Base API URL:
 
 ```txt
 https://api.sigmagrid.app
 ```
 
-API endpoints are scheduled to go live in Q1 2026. Until then, these docs define the schema, fields, and integration patterns so you can design agents and systems around SigmaGrid in advance.
+The API is live. These docs define the schema, fields, and integration patterns for agents and systems.
 

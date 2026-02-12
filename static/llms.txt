@@ -1,24 +1,44 @@
-# x402 Payment Instructions (required when paid API launches in Q1 2026)
-# - Paid endpoints return HTTP 402 "Payment Required" when access needs authorization.
-# - Agents must implement the x402 protocol: parse the 402 response metadata (price, recipient, chain, etc.), sign & submit a stablecoin micropayment tx (USDC on Base recommended for low fees), then retry the original request with payment proof attached.
-# - Use official x402 libraries where available (e.g., Coinbase x402 Go/Python/JS packages) or a minimal custom fetch-based wrapper.
-# - Free connectivity check (no payment): GET https://api.sigmagrid.app/health — call before paid requests.
-# - No traditional API keys or subscriptions — payments are per-request and atomic.
+# SigmaGrid llms.txt — API live
 
-# SigmaGrid llms.txt
-# Public docs live now — Paid API launching Q1 2026
+# Product
+# SigmaGrid provides institutional fair value and alpha signals for crypto synthetic equity perps (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.).
+
+# Base
 # Base docs: https://sigmagrid.app/docs
-# Base API URL (when live): https://api.sigmagrid.app
+# Base API URL: https://api.sigmagrid.app
+# OpenAPI spec: https://api.sigmagrid.app/openapi.yaml
+
+# Authentication
+# x402 micropayments (pay-per-request); no subscription. Paid endpoints return HTTP 402 "Payment Required". Agents must implement the x402 protocol: parse 402 response metadata (price, recipient, chain, etc.), sign and submit a stablecoin micropayment (USDC on Base recommended), then retry the request with payment proof. Use official x402 libraries where available. No traditional API keys or subscriptions — payments are per-request and atomic.
+
+# Validation (free, no payment)
+# GET https://api.sigmagrid.app/v1/validate — service validation and discovery. Call before paid requests.
+
+# Live endpoints
+# GET /v1/validate — service validation and discovery
+# GET /v1/signals/{ticker} — full consolidated signal (fair value, regime, vol, premiums, event risk)
+# GET /v1/snapshot?tickers=SPY,QQQ,TSLA — multi-ticker snapshot
+# GET /v1/premium/{ticker} — cross-venue mispricing
+# GET /v1/regime/{ticker} — regime / behavioral state
+# GET /v1/events/{ticker} — event risk windows
+# GET /v1/arbitrage/{ticker} — funding-adjusted mispricing
+# GET /v1/historical/{ticker} — historical time-series (query: start, end, limit)
+
+# Deprecated
+# GET /v1/drift/{ticker} is deprecated (returns 410 Gone). Use GET /v1/signals/{ticker} for drift and other signals.
+
+# Supported tickers
+# SPY, QQQ, IWM, AAPL, MSFT, GOOGL, AMZN, META, NVDA, TSLA
 
 [product]
 name = "SigmaGrid"
-description = "Institutional fair value for crypto perpetual markets. Traditional equity markets close at 4pm. Crypto synthetic equity perps trade 24/7. Get institutional-grade fair value when Bloomberg terminals go dark."
-status = "Public docs live now — Paid API launching Q1 2026"
+description = "Institutional fair value and alpha signals for crypto synthetic equity perps (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.)."
+status = "API live"
 
 [api]
 base_url = "https://api.sigmagrid.app"
-schema = "https"
-health_endpoint = "/health"
+schema = "https://api.sigmagrid.app/openapi.yaml"
+validate_endpoint = "/v1/validate"
 
 [fields.core]
 timestamp = "ISO 8601 UTC timestamp"

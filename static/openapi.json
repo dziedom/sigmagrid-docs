@@ -3,15 +3,36 @@
   "info": {
     "title": "SigmaGrid Fundamentals API",
     "version": "0.1.0",
-    "description": "SigmaGrid — Institutional fundamentals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.). Public docs live now — Paid API launching Q1 2026."
+    "description": "SigmaGrid — Institutional fundamentals and alpha signals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.). API live."
   },
   "servers": [
     {
       "url": "https://api.sigmagrid.app",
-      "description": "Production (planned, Q1 2026)"
+      "description": "Production (live)"
     }
   ],
   "paths": {
+    "/v1/validate": {
+      "get": {
+        "summary": "Service validation and discovery",
+        "description": "Free endpoint (no payment). Returns service availability and discovery info. Call before making paid requests.",
+        "responses": {
+          "200": {
+            "description": "Service is reachable",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HealthResponse" },
+                "example": {
+                  "status": "ok",
+                  "service": "sigmagrid-api",
+                  "time": "2026-01-15T18:00:00.123456Z"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "summary": "Health check endpoint",
@@ -110,8 +131,9 @@
     },
     "/v1/drift/{ticker}": {
       "get": {
-        "summary": "Get directional drift surface for a ticker",
-        "description": "Returns short-horizon directional drift fields for the given ticker.",
+        "deprecated": true,
+        "summary": "Get directional drift surface (deprecated)",
+        "description": "Deprecated. Returns 410 Gone. Use GET /v1/signals/{ticker} for drift (drift_1h, drift_overnight) and other signals.",
         "parameters": [
           {
             "name": "ticker",
@@ -121,13 +143,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Drift metrics",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/DriftResponse" }
-              }
-            }
+          "410": {
+            "description": "Gone. Use /v1/signals/{ticker} for drift and other signals."
           }
         }
       }
@@ -207,7 +224,7 @@
     "/v1/historical/{ticker}": {
       "get": {
         "summary": "Get historical data for a ticker",
-        "description": "Returns historical signal data for the specified ticker for backtesting, calibration, and analysis.",
+        "description": "Returns historical signal data for the specified ticker for backtesting, calibration, and analysis. Query params: start, end, limit.",
         "parameters": [
           {
             "name": "ticker",
@@ -215,6 +232,27 @@
             "required": true,
             "description": "Underlying symbol, e.g. SPY, QQQ, TSLA.",
             "schema": { "type": "string" }
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "required": false,
+            "description": "Start time (ISO 8601 or Unix).",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "end",
+            "in": "query",
+            "required": false,
+            "description": "End time (ISO 8601 or Unix).",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of points to return.",
+            "schema": { "type": "integer" }
           }
         ],
         "responses": {

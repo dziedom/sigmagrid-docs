@@ -8,8 +8,8 @@ sidebar_label: For Agents
 
 SigmaGrid is designed to be consumed by **agents, bots, and automated execution systems**, not just humans.
 
-**Public docs live now — Paid API launching Q1 2026**  
-Base API URL (when live): `https://api.sigmagrid.app`
+**API live**  
+Base API URL: `https://api.sigmagrid.app`
 
 ## Quick validation checks (2 minutes)
 
@@ -18,12 +18,12 @@ Test that all discovery endpoints are accessible:
 ```bash
 # Check discovery endpoints (should all return 200)
 curl -I https://sigmagrid.app/.well-known/agent.json
-curl -I https://sigmagrid.app/openapi.json
+curl -I https://api.sigmagrid.app/openapi.yaml
 curl -I https://sigmagrid.app/llms.txt
 curl -I https://sigmagrid.app/mcp.json
 
-# Check API health (public endpoint, free, no payment required)
-curl https://api.sigmagrid.app/health
+# Service validation (public endpoint, free, no payment required)
+curl https://api.sigmagrid.app/v1/validate
 
 # Test API endpoint (may return 402 or 200 with no_data)
 curl https://api.sigmagrid.app/v1/signals/SPY
@@ -39,11 +39,11 @@ The ERC-8004 on-chain identity for SigmaGrid should point to that URL.
 All discovery files are served at the site root:
 
 - **ERC-8004 descriptor**: [/.well-known/agent.json](/.well-known/agent.json) — Canonical agent registration
-- **OpenAPI spec**: [/openapi.json](/openapi.json) — Full API schema with request/response models
+- **OpenAPI spec**: [https://api.sigmagrid.app/openapi.yaml](https://api.sigmagrid.app/openapi.yaml) — Full API schema with request/response models
 - **LLMs.txt**: [/llms.txt](/llms.txt) — LLM-friendly API description
 - **MCP manifest**: [/mcp.json](/mcp.json) — Model Context Protocol tools definition
 
-These files provide a stable contract for integration. The OpenAPI spec documents all 8 endpoints under `https://api.sigmagrid.app`.
+These files provide a stable contract for integration. The canonical OpenAPI spec is at `https://api.sigmagrid.app/openapi.yaml` and documents all endpoints under `https://api.sigmagrid.app`.
 
 ---
 
@@ -137,36 +137,38 @@ SigmaGrid endpoints return consistent response codes and payloads:
 
 **HTTP 404** — Endpoint not found. Check that you're using the correct path (e.g., `/v1/signals/{ticker}`, not `/signals/{ticker}`).
 
-**HTTP 402 Payment Required** — x402 payment flow required. When the API launches (Q1 2026), agents must complete the x402 payment flow before accessing data. The response will include payment details.
+**HTTP 402 Payment Required** — x402 payment flow required. Agents must complete the x402 payment flow before accessing paid data. The response will include payment details.
 
 **HTTP 5xx** — Server error. Retry with exponential backoff.
 
 ---
 
-### 5. Consumption model (Q1 2026 and beyond)
+### 5. Consumption model
 
-When live, each request to `https://api.sigmagrid.app` will be:
+Each request to `https://api.sigmagrid.app` is:
 
 * paid **per request** in stablecoins via **x402 payment protocol**, and
 * authorised at the protocol level (no long-lived API keys).
 
-Agents should be prepared to:
+Agents should:
 
 1. Construct the HTTP call to the relevant endpoint (e.g. `/v1/signals/SPY`), and
-2. Wrap it in the required x402 payment flow once published.
+2. Complete the x402 payment flow when the endpoint returns 402.
 
-Until launch, the docs, OpenAPI spec, `llms.txt`, and `mcp.json` provide a **stable contract** for integration.
+The docs, OpenAPI spec, `llms.txt`, and `mcp.json` provide a **stable contract** for integration.
 
 ---
 
-## Health / validation endpoint
+## Validation endpoint
 
-SigmaGrid provides a free health endpoint for agents, validators, and monitoring systems.
+SigmaGrid provides a free validation endpoint for agents, validators, and monitoring systems.
 
-**GET** `https://api.sigmagrid.app/health`
+**GET** `https://api.sigmagrid.app/v1/validate`
 
 This endpoint:
-- Always returns HTTP 200
+
+- Returns HTTP 200 when the service is reachable
 - Requires no payment
-- Can be safely called before making x402-gated requests
-- Confirms service availability
+- Use before making x402-gated requests to confirm connectivity and discovery
+
+**x402 registry**: For a machine-readable list of service IDs and paths (e.g. for gateways), see [https://api.sigmagrid.app/api/registry-services.json](https://api.sigmagrid.app/api/registry-services.json).

@@ -7,7 +7,7 @@ sidebar_label: Pricing
 # Pricing
 
 > **Status**  
-> **Public docs live now — Paid API launching Q1 2026**
+> **Paid API live**
 
 SigmaGrid is designed for an **agent-native, per-request** consumption model rather than traditional subscriptions.
 
