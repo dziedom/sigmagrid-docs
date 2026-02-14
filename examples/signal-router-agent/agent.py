@@ -47,97 +47,101 @@ class RoutingDecision(BaseModel):
 async def fetch_sigmagrid_endpoint(endpoint: str, ticker: str) -> Optional[dict]:
     """
     Fetch data from a SigmaGrid endpoint.
-    
+
     Returns:
         dict if successful, None if 402 (payment required) or 200 with {status:"no_data"}
-    
+
     All data endpoints return HTTP 200 with {status:"no_data"} when no data is available.
     """
     url = f"{SIGMAGRID_API_BASE}{endpoint.format(ticker=ticker)}"
-    
+
     try:
         async with httpx.AsyncClient(timeout=10.0) as client:
             response = await client.get(url)
-            
+
             if response.status_code == 402:
                 # Payment required - x402 flow needed
                 return None
-            
+
+            if response.status_code == 410:
+                # Deprecated endpoint (e.g. /v1/drift)
+                return None
+
             if response.status_code == 200:
                 data = response.json()
                 # All endpoints return {status:"no_data"} with HTTP 200 when no data
                 if isinstance(data, dict) and data.get("status") == "no_data":
                     return None
                 return data
-            
+
             # Other status codes (404, 5xx, etc.) - return None
             return None
-            
+
     except Exception as e:
         # Network errors, timeouts, etc.
         return None
 
 
-def make_routing_decision(signals: Optional[dict], drift: Optional[dict], regime: Optional[dict]) -> dict:
+def make_routing_decision(teaser: Optional[dict], fair_value: Optional[dict], spread: Optional[dict]) -> dict:
     """
     Simple decision rule based on SigmaGrid signals.
-    
+
     This is a minimal example - real agents would have more sophisticated logic.
+
+    Uses the free teaser for regime/event-risk, and paid endpoints for numeric data.
     """
-    # If we don't have signals, can't make a decision
-    if not signals:
+    # If we don't have the free teaser, can't make a decision
+    if not teaser:
         return {
             "action": "error",
             "confidence": 0.0,
             "reasoning": "No signal data available (may require x402 payment or ticker not supported)"
         }
-    
-    # Extract key fields
-    drift_1h = signals.get("drift_1h", 0.0)
-    z_score = signals.get("z_score", 0.0)
-    reversion_prob = signals.get("reversion_prob", 0.0)
-    regime_val = signals.get("regime", "unknown")
-    event_impact = signals.get("event_impact", "low")
-    
-    # Safety check: high volatility or extreme events -> neutral
-    if regime_val == "HVOL" or event_impact in ["high", "extreme"]:
+
+    regime = teaser.get("regime", "unknown")
+    event_risk = teaser.get("event_risk", "unknown")
+
+    # Safety check: high event risk or risk_off regime -> neutral
+    if event_risk in ["elevated", "high"] or regime == "risk_off":
         return {
             "action": "neutral",
             "confidence": 0.5,
-            "reasoning": f"High risk environment (regime: {regime_val}, event_impact: {event_impact})"
+            "reasoning": f"High risk environment (regime: {regime}, event_risk: {event_risk})"
         }
-    
-    # Directional bias: positive drift + low z-score -> long
-    if drift_1h > 0.1 and z_score < 1.0:
-        confidence = min(0.7 + abs(drift_1h) * 0.3, 0.95)
+
+    # If we have spread data, check for arbitrage opportunities
+    if spread and spread.get("arbitrage_flag"):
+        cheapest = spread.get("cheapest_venue", "unknown")
+        richest = spread.get("richest_venue", "unknown")
+        max_spread = spread.get("max_spread_bps", 0)
         return {
             "action": "long",
-            "confidence": confidence,
-            "reasoning": f"Positive drift ({drift_1h:.3f}) with low z-score ({z_score:.2f})"
+            "confidence": 0.7,
+            "reasoning": f"Arbitrage opportunity: {cheapest} -> {richest}, spread {max_spread}bps"
         }
-    
-    # Mean reversion: high z-score + high reversion prob -> short
-    if z_score > 1.5 and reversion_prob > 0.7:
-        confidence = min(0.6 + reversion_prob * 0.3, 0.9)
+
+    # If we have fair value data, compare to current pricing
+    if fair_value and fair_value.get("fair_value"):
+        confidence_score = fair_value.get("confidence", 0.5)
+        source = fair_value.get("source", "unknown")
         return {
-            "action": "short",
-            "confidence": confidence,
-            "reasoning": f"Mean reversion setup (z-score: {z_score:.2f}, reversion_prob: {reversion_prob:.2f})"
+            "action": "neutral" if confidence_score < 0.5 else "long",
+            "confidence": confidence_score,
+            "reasoning": f"Fair value anchored (source: {source}, confidence: {confidence_score:.2f})"
         }
-    
-    # Negative drift -> short
-    if drift_1h < -0.1:
-        confidence = min(0.6 + abs(drift_1h) * 0.3, 0.9)
+
+    # Default: risk_on regime -> mild long bias
+    if regime == "risk_on":
         return {
-            "action": "short",
-            "confidence": confidence,
-            "reasoning": f"Negative drift ({drift_1h:.3f})"
+            "action": "long",
+            "confidence": 0.4,
+            "reasoning": f"Risk-on regime with no specific signal"
         }
-    
+
     # Default: neutral
     return {
         "action": "neutral",
-        "confidence": 0.4,
+        "confidence": 0.3,
         "reasoning": "No clear signal - market in equilibrium"
     }
 
@@ -173,40 +177,37 @@ async def route(
 ):
     """
     Get routing decision for a ticker based on SigmaGrid signals.
-    
+
     This endpoint:
-    1. Fetches signals, drift, and regime from SigmaGrid
-    2. Handles 402 (payment required) and no_data responses gracefully
+    1. Fetches free teaser (regime + event-risk labels)
+    2. Fetches paid fair-value and spread data (requires x402)
     3. Returns a routing decision with confidence and reasoning
     """
     # Fetch from SigmaGrid (in parallel)
-    signals, drift, regime = await asyncio.gather(
+    # /v1/signals is free; /v1/fair-value and /v1/spread are 0.02 USDC each
+    teaser, fair_value, spread = await asyncio.gather(
         fetch_sigmagrid_endpoint("/v1/signals/{ticker}", ticker),
-        fetch_sigmagrid_endpoint("/v1/drift/{ticker}", ticker),
-        fetch_sigmagrid_endpoint("/v1/regime/{ticker}", ticker)
+        fetch_sigmagrid_endpoint("/v1/fair-value/{ticker}", ticker),
+        fetch_sigmagrid_endpoint("/v1/spread/{ticker}", ticker)
     )
-    
+
     # Make routing decision
-    decision = make_routing_decision(signals, drift, regime)
-    
+    decision = make_routing_decision(teaser, fair_value, spread)
+
     # Build response
     response = RoutingDecision(
         ticker=ticker.upper(),
         action=decision["action"],
         confidence=decision["confidence"],
         reasoning=decision["reasoning"],
-        signals=signals if signals else None,
-        error=None if signals else "No data available (may require x402 payment or ticker not supported)",
+        signals=teaser if teaser else None,
+        error=None if teaser else "No data available (may require x402 payment or ticker not supported)",
         timestamp=datetime.utcnow().isoformat() + "Z"
     )
-    
+
     return response
 
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-
-
-

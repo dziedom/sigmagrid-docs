@@ -47,7 +47,7 @@ export default function ProblemSection() {
           <div className={styles.sectionKicker}>The Problem</div>
           <h2 className={styles.sectionTitle}>The 24/7 Fair Value Problem</h2>
           <p className={styles.sectionDescription}>
-            Crypto synthetic equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP) trade around the clock across Hyperliquid, Avantis, Aevo, Drift, and Vertex.
+            Crypto synthetic equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP) trade around the clock across Hyperliquid, Avantis, and Ostium.
           </p>
           <p className={styles.sectionDescription}>
             But institutional fundamentals only exist during market hours (9:30am-4pm ET, Mon-Fri).

@@ -11,7 +11,7 @@ export default function SolutionSection() {
         'Based on equity market fundamentals',
         'Volatility surface modeling',
         'Macro sensitivity coefficients',
-        'Drift and regime analysis',
+        'Regime and alpha analysis',
       ],
       note: 'Updated every second, even when traditional markets are closed.',
       color: '#3b82f6',
@@ -19,11 +19,11 @@ export default function SolutionSection() {
     {
       icon: '🔍',
       title: 'Cross-Venue Intelligence',
-      description: 'Track pricing across all major venues: Hyperliquid, Avantis, Aevo, Drift, Vertex.',
+      description: 'Track pricing across live venues: Hyperliquid (L1), Avantis (Base via Pyth), and Ostium (mainnet, read-only).',
       details: [
         'Which venue is mispricing vs fair value',
         'Premium compression opportunities',
-        'Funding-adjusted arbitrage',
+        'Arbitrage detection (spread + flag)',
         'Divergence z-scores (cross-venue spread)',
       ],
       note: 'Spot inefficiencies before the market corrects.',
@@ -32,7 +32,7 @@ export default function SolutionSection() {
     {
       icon: '⚠️',
       title: 'Event Risk Protection',
-      description: 'Automated suppression triggers for high-impact events: FOMC rate decisions, CPI/inflation releases, quarterly earnings, geopolitical shocks.',
+      description: 'Event-risk detection for high-impact events: FOMC rate decisions, CPI/inflation releases, quarterly earnings, geopolitical shocks.',
       details: [
         'Event countdown timers',
         'Expected impact classification',

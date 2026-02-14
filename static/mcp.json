@@ -1,275 +1,50 @@
 {
   "name": "SigmaGrid Fair Value Signals",
   "version": "1.0.0",
-  "description": "Institutional fair value and alpha signals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.). Returns fair value, regime, drift, events, and arbitrage signals. API live.",
+  "description": "Institutional fair value and alpha signals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.). 19 endpoints across 5 pricing tiers. API live.",
   "author": "SigmaGrid",
   "homepage": "https://sigmagrid.app",
   "base_url": "https://api.sigmagrid.app",
   "openapi_spec": "https://api.sigmagrid.app/openapi.yaml",
   "status": {
     "current": "live",
-    "note": "API is live with real institutional signals."
+    "note": "API is live. MCP tool support coming soon — skeleton exists (src/mcp/server.py) but list_tools() returns [] and no tools are functional yet."
   },
-  "tools": [
-    {
-      "name": "validate",
-      "description": "Check if SigmaGrid API is reachable. Free endpoint, no payment required. Always call this first before making paid requests to confirm connectivity.",
-      "method": "GET",
-      "endpoint": "/v1/validate",
-      "parameters": [],
-      "requires_payment": false,
-      "response": {
-        "type": "object",
-        "description": "API status confirmation"
-      },
-      "example_usage": "Check if SigmaGrid API is online before making paid requests"
-    },
-    {
-      "name": "signals",
-      "description": "Master consolidated view for a ticker including fair_value, regime, drift_1h, drift_overnight, vol_forecast, event_impact, z_score, and optional macro betas. Returns all core mandatory fields plus extended metrics.",
-      "method": "GET",
-      "endpoint": "/v1/signals/{ticker}",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "string",
-          "required": true,
-          "description": "Underlying symbol (e.g., SPY, QQQ, TSLA, AAPL, NVDA, IWM, DIA)",
-          "example": "SPY"
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request",
-      "response": {
-        "type": "object",
-        "fields": [
-          "timestamp",
-          "ticker",
-          "fair_value",
-          "vol_forecast_1h",
-          "vol_forecast_4h",
-          "regime",
-          "drift_1h",
-          "drift_overnight",
-          "event_next",
-          "event_impact",
-          "event_bias",
-          "fv_upper",
-          "fv_lower",
-          "premiums",
-          "z_score",
-          "reversion_prob",
-          "shock_index",
-          "beta_macro",
-          "beta_yield",
-          "beta_dollar",
-          "beta_vol_index"
-        ]
-      },
-      "example_usage": "Get comprehensive fair value analysis for SPY including regime, drift, and event impact"
-    },
-    {
-      "name": "premium",
-      "description": "Cross-venue arbitrage metrics showing basis vs fair_value. Use to identify price discrepancies between perpetual and spot markets.",
-      "method": "GET",
-      "endpoint": "/v1/premium/{ticker}",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "string",
-          "required": true,
-          "description": "Underlying symbol",
-          "example": "SPY"
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request",
-      "example_usage": "Check if SPY perpetual is trading at premium/discount to fair value"
-    },
-    {
-      "name": "drift",
-      "description": "Deprecated (410 Gone). Use /v1/signals/{ticker} for drift and other signals. Directional bias (1h, overnight) was formerly here.",
-      "method": "GET",
-      "endpoint": "/v1/drift/{ticker}",
-      "deprecated": true,
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "string",
-          "required": true,
-          "description": "Underlying symbol",
-          "example": "QQQ"
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request",
-      "example_usage": "Assess 1-hour and overnight directional bias for QQQ"
-    },
-    {
-      "name": "regime",
-      "description": "Regime and risk sizing information. Returns current volatility regime (LVOL/HVOL/TRANSITION) and position sizing recommendations.",
-      "method": "GET",
-      "endpoint": "/v1/regime/{ticker}",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "string",
-          "required": true,
-          "description": "Underlying symbol",
-          "example": "TSLA"
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request",
-      "example_usage": "Get volatility regime for TSLA to adjust position sizing"
-    },
-    {
-      "name": "events",
-      "description": "Macro event surface showing upcoming events, impact scores, and directional bias. Use to assess event risk before major announcements.",
-      "method": "GET",
-      "endpoint": "/v1/events/{ticker}",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "string",
-          "required": true,
-          "description": "Underlying symbol",
-          "example": "SPY"
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request",
-      "example_usage": "Check upcoming FOMC impact on SPY"
-    },
-    {
-      "name": "arbitrage",
-      "description": "Carry and mean-reversion focused view. Identifies opportunities where perpetual price deviates from fair value with reversion probability.",
-      "method": "GET",
-      "endpoint": "/v1/arbitrage/{ticker}",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "string",
-          "required": true,
-          "description": "Underlying symbol",
-          "example": "NVDA"
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request",
-      "example_usage": "Find mean-reversion opportunities for NVDA perpetual"
-    },
-    {
-      "name": "historical",
-      "description": "Historical time-series data for a ticker. Query params: start, end, limit. Useful for backtesting and analysis.",
-      "method": "GET",
-      "endpoint": "/v1/historical/{ticker}",
-      "parameters": [
-        {
-          "name": "ticker",
-          "type": "string",
-          "required": true,
-          "description": "Underlying symbol",
-          "example": "SPY"
-        },
-        {
-          "name": "start",
-          "type": "string",
-          "required": false,
-          "description": "Start time (ISO 8601 or Unix)"
-        },
-        {
-          "name": "end",
-          "type": "string",
-          "required": false,
-          "description": "End time (ISO 8601 or Unix)"
-        },
-        {
-          "name": "limit",
-          "type": "integer",
-          "required": false,
-          "description": "Max number of points to return",
-          "example": 100
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001-0.005 USDC depending on range",
-      "example_usage": "Get last 24 hours of SPY fair value history"
-    },
-    {
-      "name": "snapshot",
-      "description": "Multi-ticker snapshot for batch queries. Get fair value, regime, and core metrics for multiple tickers in one request. Cost-efficient for monitoring multiple assets (one payment for up to 10 tickers).",
-      "method": "GET",
-      "endpoint": "/v1/snapshot",
-      "parameters": [
-        {
-          "name": "tickers",
-          "type": "string",
-          "required": true,
-          "description": "Comma-separated list of tickers (up to 10)",
-          "example": "SPY,QQQ,TSLA,AAPL,NVDA"
-        }
-      ],
-      "requires_payment": true,
-      "payment_protocol": "x402",
-      "network": "base",
-      "chain_id": 8453,
-      "cost_estimate": "~0.001 USDC per request (regardless of ticker count, up to 10)",
-      "response": {
-        "type": "array",
-        "description": "Array of ticker objects, each containing core fields"
-      },
-      "example_usage": "Get fair values for SPY, QQQ, and TSLA in one efficient call"
-    }
-  ],
-  "field_reference": {
-    "core": [
-      "timestamp",
-      "ticker",
-      "fair_value",
-      "vol_forecast_1h",
-      "vol_forecast_4h",
-      "regime",
-      "drift_1h",
-      "drift_overnight",
-      "event_next",
-      "event_impact",
-      "event_bias"
+  "mcp_status": "coming_soon",
+  "tools": [],
+  "tools_note": "MCP tools are not yet functional. The MCP server exists as a skeleton but list_tools() returns an empty list. Use the OpenAPI spec or direct HTTP calls instead.",
+  "endpoints": {
+    "free": [
+      { "path": "/healthz", "method": "GET", "description": "Health check" },
+      { "path": "/v1/validate", "method": "GET", "description": "Service validation + supported assets" },
+      { "path": "/api/discovery", "method": "GET", "description": "Bot-discoverable API info" },
+      { "path": "/openapi.yaml", "method": "GET", "description": "OpenAPI 3.0 spec" },
+      { "path": "/api/registry-services.json", "method": "GET", "description": "Service manifest" }
     ],
-    "extended": [
-      "fv_upper",
-      "fv_lower",
-      "premiums",
-      "z_score",
-      "reversion_prob",
-      "shock_index"
+    "free_teaser": [
+      { "path": "/v1/signals/{ticker}", "method": "GET", "description": "Regime + event-risk labels (no numeric data). Includes gated_endpoints map." }
     ],
-    "optional_macro": [
-      "beta_macro",
-      "beta_yield",
-      "beta_dollar",
-      "beta_vol_index"
+    "single_signal_0_02_usdc": [
+      { "path": "/v1/fair-value/{ticker}", "method": "GET", "description": "Fair value, confidence, per-venue premium bps" },
+      { "path": "/v1/premium/{ticker}", "method": "GET", "description": "Cross-venue mispricing" },
+      { "path": "/v1/spread/{ticker}", "method": "GET", "description": "Cross-venue spread + arbitrage flag" },
+      { "path": "/v1/funding/{ticker}", "method": "GET", "description": "Funding rates, z-scores (Hyperliquid only)" },
+      { "path": "/v1/regime-basic/{ticker}", "method": "GET", "description": "Risk regime + VIX context" },
+      { "path": "/v1/regime/{ticker}", "method": "GET", "description": "Regime classification with confidence" },
+      { "path": "/v1/event-risk/{ticker}", "method": "GET", "description": "Earnings event-risk" },
+      { "path": "/v1/events/{ticker}", "method": "GET", "description": "Event sensitivity" },
+      { "path": "/v1/arbitrage/{ticker}", "method": "GET", "description": "Arbitrage detection" }
+    ],
+    "rich_data_0_03_usdc": [
+      { "path": "/v1/historical/{ticker}", "method": "GET", "description": "Historical time-series" },
+      { "path": "/v1/alpha-snapshot/{ticker}", "method": "GET", "description": "Full AlphaSnapshot" }
+    ],
+    "bulk_batch_0_05_usdc": [
+      { "path": "/v1/snapshot", "method": "GET", "description": "Multi-ticker snapshot" },
+      { "path": "/v1/alpha-snapshot/batch", "method": "GET", "description": "Batch AlphaSnapshot" }
+    ],
+    "deprecated": [
+      { "path": "/v1/drift/{ticker}", "method": "GET", "status": "410 Gone", "description": "Use /v1/alpha-snapshot/{ticker}" }
     ]
   },
   "pricing": {
@@ -277,9 +52,12 @@
     "mechanism": "x402 micropayments on Base L2",
     "network": "Base (Chain ID: 8453)",
     "currency": "USDC",
-    "typical_cost": "~0.001 USDC per request (~$0.0011 including gas)",
-    "gas_cost": "~0.0001 USDC on Base",
-    "note": "Pricing varies based on endpoint complexity. Snapshot endpoint offers batch discount."
+    "tiers": {
+      "free": "0 USDC",
+      "single_signal": "0.02 USDC",
+      "rich_data": "0.03 USDC",
+      "bulk_batch": "0.05 USDC"
+    }
   },
   "payment_info": {
     "protocol": "x402",
@@ -291,7 +69,7 @@
   },
   "testing": {
     "mode": "live",
-    "free_endpoint": "/v1/validate",
-    "description": "API is live. Free validation endpoint GET /v1/validate for connectivity checks. Paid endpoints require x402."
+    "free_endpoints": ["/healthz", "/v1/validate", "/v1/signals/{ticker}"],
+    "description": "API is live. Free teaser at /v1/signals/{ticker}. Paid endpoints require x402."
   }
 }

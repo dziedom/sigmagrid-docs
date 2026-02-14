@@ -9,23 +9,43 @@
 # OpenAPI spec: https://api.sigmagrid.app/openapi.yaml
 
 # Authentication
-# x402 micropayments (pay-per-request); no subscription. Paid endpoints return HTTP 402 "Payment Required". Agents must implement the x402 protocol: parse 402 response metadata (price, recipient, chain, etc.), sign and submit a stablecoin micropayment (USDC on Base recommended), then retry the request with payment proof. Use official x402 libraries where available. No traditional API keys or subscriptions — payments are per-request and atomic.
+# x402 micropayments (pay-per-request); no subscription. Paid endpoints return HTTP 402 "Payment Required". Agents must implement the x402 protocol: parse 402 response metadata (price, recipient, chain, etc.), sign and submit a stablecoin micropayment (USDC on Base L2), then retry the request with payment proof. No traditional API keys or subscriptions — payments are per-request and atomic.
 
-# Validation (free, no payment)
-# GET https://api.sigmagrid.app/v1/validate — service validation and discovery. Call before paid requests.
+# Venues
+# Three live venues: Hyperliquid (L1), Avantis (Base via Pyth), Ostium (mainnet, read-only).
+# Funding data is Hyperliquid-only (Avantis/Ostium don't support funding).
 
-# Live endpoints
-# GET /v1/validate — service validation and discovery
-# GET /v1/signals/{ticker} — full consolidated signal (fair value, regime, vol, premiums, event risk)
-# GET /v1/snapshot?tickers=SPY,QQQ,TSLA — multi-ticker snapshot
-# GET /v1/premium/{ticker} — cross-venue mispricing
-# GET /v1/regime/{ticker} — regime / behavioral state
-# GET /v1/events/{ticker} — event risk windows
-# GET /v1/arbitrage/{ticker} — funding-adjusted mispricing
-# GET /v1/historical/{ticker} — historical time-series (query: start, end, limit)
+# Free endpoints (no payment)
+# GET /healthz — health check
+# GET /v1/validate — service validation + supported assets list
+# GET /api/discovery — bot-discoverable API info (JSON)
+# GET /openapi.yaml — OpenAPI 3.0 specification
+# GET /api/registry-services.json — machine-readable service manifest
+
+# Free teaser (no payment, labels only)
+# GET /v1/signals/{ticker} — regime state + event-risk level as labels. No numeric data. Includes gated_endpoints map to paid routes.
+
+# Single signal — 0.02 USDC per request
+# GET /v1/fair-value/{ticker} — fair value estimate, source, confidence, per-venue premium-to-close bps
+# GET /v1/premium/{ticker} — cross-venue mispricing: per-venue premiums + spread summary
+# GET /v1/spread/{ticker} — cross-venue spread: cheapest/richest venue, max spread bps, arbitrage flag
+# GET /v1/funding/{ticker} — funding rates, z-scores, anomaly flags, mean-reversion probability (Hyperliquid only)
+# GET /v1/regime-basic/{ticker} — risk regime with VIX level, VIX 24h change, funding direction
+# GET /v1/regime/{ticker} — regime classification (risk_on/risk_off/transitioning) with confidence
+# GET /v1/event-risk/{ticker} — earnings event-risk: level, hours to event, historical avg move %
+# GET /v1/events/{ticker} — event sensitivity: next event, impact, bias, risk level
+# GET /v1/arbitrage/{ticker} — per-venue premiums and funding rates for arbitrage detection
+
+# Rich data — 0.03 USDC per request
+# GET /v1/historical/{ticker} — time-series: fair value, regime, drift, premiums (query: start, end, limit)
+# GET /v1/alpha-snapshot/{ticker} — full AlphaSnapshot: all signal columns for one ticker
+
+# Bulk/batch — 0.05 USDC per request
+# GET /v1/snapshot — multi-ticker dashboard snapshot (?tickers=SPY,QQQ,TSLA)
+# GET /v1/alpha-snapshot/batch — full AlphaSnapshot for multiple tickers (?tickers=TSLA,AAPL)
 
 # Deprecated
-# GET /v1/drift/{ticker} is deprecated (returns 410 Gone). Use GET /v1/signals/{ticker} for drift and other signals.
+# GET /v1/drift/{ticker} is deprecated (returns 410 Gone). Use /v1/alpha-snapshot/{ticker} or /v1/snapshot instead.
 
 # Supported tickers
 # SPY, QQQ, IWM, AAPL, MSFT, GOOGL, AMZN, META, NVDA, TSLA
@@ -39,22 +59,12 @@ status = "API live"
 base_url = "https://api.sigmagrid.app"
 schema = "https://api.sigmagrid.app/openapi.yaml"
 validate_endpoint = "/v1/validate"
+total_endpoints = 19
 
-[fields.core]
-timestamp = "ISO 8601 UTC timestamp"
-ticker = "Underlying symbol"
-fair_value = "Institutional fair value"
-vol_forecast_1h = "1h vol forecast"
-vol_forecast_4h = "4h vol forecast"
-regime = "trend / chop / HVOL / LVOL"
-drift_1h = "1h drift"
-drift_overnight = "Overnight drift"
-event_next = "Next macro event"
-event_impact = "Impact severity"
-event_bias = "risk-on / risk-off / neutral"
-
-[fields.optional_macro]
-beta_macro = "Risk appetite sensitivity"
-beta_yield = "Yield sensitivity"
-beta_dollar = "USD sensitivity"
-beta_vol_index = "Volatility index sensitivity"
+[pricing]
+free = "/healthz, /v1/validate, /api/discovery, /openapi.yaml, /api/registry-services.json, /v1/signals/{ticker}"
+single_signal = "0.02 USDC"
+rich_data = "0.03 USDC"
+bulk_batch = "0.05 USDC"
+currency = "USDC on Base L2 (Chain ID 8453)"
+protocol = "x402"

@@ -161,26 +161,21 @@ Request a ticker via Discord or support email.`,
     },
     {
       q: 'What venues do you track?',
-      a: `We monitor all major crypto perp venues:
+      a: `We monitor three live venues:
 
-→ Hyperliquid (primary)
-→ Avantis
-→ Aevo
-→ Drift
-→ Vertex
-
-Plus: Any additional venues upon request (Enterprise tier).
+→ Hyperliquid (L1) — full adapter: pricing, funding, spreads
+→ Avantis (Base via Pyth) — pricing and premiums
+→ Ostium (mainnet, read-only) — pricing only
 
 We track:
 → Mid prices (bid/ask midpoint)
-→ Funding rates
-→ Open interest
-→ Orderbook depth
+→ Funding rates (Hyperliquid only — Avantis/Ostium don't support funding)
+→ Per-venue premium-to-close in bps
 
 And calculate:
 → Premium/discount vs our fair value
-→ Cross-venue divergence
-→ Funding-adjusted basis`,
+→ Cross-venue spread (cheapest/richest venue, max spread bps, arbitrage flag)
+→ Funding z-scores and anomaly flags (Hyperliquid)`,
     },
     {
       q: 'How fast are the signals?',

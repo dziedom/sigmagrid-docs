@@ -16,7 +16,7 @@ export default function HowItWorksSection() {
         whatYouGet: [
           'Fair value estimate (not just mid-price)',
           'Volatility forecasts (1h, 4h, overnight windows)',
-          'Drift estimates (directional bias)',
+          'Alpha signals (directional bias via alpha-snapshot)',
           'Regime classification (trend, chop, high-vol, low-vol)',
           'Macro sensitivity (beta to rates, dollar, vol index)',
         ],
@@ -36,6 +36,7 @@ export default function HowItWorksSection() {
           venues: [
             { name: 'Hyperliquid SPY-PERP', price: '$585.10', status: 'cheap', diff: '15bp' },
             { name: 'Avantis SPY-PERP', price: '$585.60', status: 'rich', diff: '35bp' },
+            { name: 'Ostium SPY-PERP', price: '$585.30', status: 'cheap', diff: '5bp' },
             { name: 'Our fair value', price: '$585.25', status: 'anchor', diff: null },
           ],
           conclusion: 'Mean-reversion opportunity: 50bp spread',
@@ -44,7 +45,7 @@ export default function HowItWorksSection() {
           'Premium/discount per venue (vs fair value)',
           'Divergence z-score (historical context)',
           'Mean-reversion probability',
-          'Funding-adjusted expected returns',
+          'Arbitrage flag (exploitable spread detection)',
         ],
         tagline: 'Trade the inefficiency, not the noise.',
       },
@@ -63,12 +64,12 @@ export default function HowItWorksSection() {
           { type: 'High-volatility', desc: 'Elevated risk, widen stops' },
           { type: 'Low-volatility', desc: 'Tight ranges, reduce size' },
         ],
-        structuralStress: [
-          'Microstructure breakdown (orderbook degradation)',
-          'Transition probability (regime about to shift?)',
-          'Shock index (elevated tail risk)',
+        riskIndicators: [
+          'VIX context (level and 24h change)',
+          'Event-risk assessment (earnings proximity, avg move %)',
+          'Cross-venue spread anomalies',
         ],
-        suppression: "Suppression triggers auto-flag: 'Market conditions unsuitable for systematic strategies. Recommended action: reduce exposure.'",
+        suppression: "Event-risk flags suggest: 'Elevated event risk — consider reducing exposure before announcement.'",
         tagline: 'Protecting capital is alpha.',
       },
     },
@@ -81,12 +82,12 @@ export default function HowItWorksSection() {
         title: 'Simple Integration, Pay-Per-Use',
         intro: 'No subscriptions. No minimums. No lock-in.',
         endpoints: [
-          { method: 'GET', path: '/signals/{ticker}', desc: 'Returns: fair_value, vol_forecast, drift, regime, premiums, divergence' },
-          { method: 'GET', path: '/premium/{ticker}', desc: 'Returns: per-venue premium, z-score, mean-reversion probability' },
-          { method: 'GET', path: '/arbitrage/{ticker}', desc: 'Returns: funding-adjusted basis, expected carry, macro-adjusted premium' },
+          { method: 'GET', path: '/signals/{ticker}', desc: 'Free teaser: regime state + event-risk labels (numeric data gated)' },
+          { method: 'GET', path: '/fair-value/{ticker}', desc: 'Fair value, confidence, per-venue premium-to-close bps (0.02 USDC)' },
+          { method: 'GET', path: '/alpha-snapshot/{ticker}', desc: 'Full alpha snapshot: all signal columns for one ticker (0.03 USDC)' },
         ],
         auth: 'Authentication: x402 micropayments',
-        cost: 'Cost: $0.0001 - $0.01 per query (depending on endpoint)',
+        cost: 'Cost: 0.02 - 0.05 USDC per query (depending on endpoint)',
         integration: 'Integration time: <5 minutes',
         language: 'Language support: Any HTTP client (Python, Node, Rust, etc.)',
         docsLink: 'View Full API Docs →',
@@ -208,9 +209,9 @@ export default function HowItWorksSection() {
                       </div>
                     </div>
                     <div className={styles.structuralStress}>
-                      <h4>Plus structural stress indicators:</h4>
+                      <h4>Plus risk indicators:</h4>
                       <ul>
-                        {tab.content.structuralStress.map((item, itemIdx) => (
+                        {tab.content.riskIndicators.map((item, itemIdx) => (
                           <li key={itemIdx}>
                             <span className={styles.arrow}>→</span>
                             {item}
