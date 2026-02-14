@@ -1,8 +1,249 @@
 {
-  "name": "SigmaGrid MCP",
-  "status": "coming_soon",
-  "note": "MCP server exists as a skeleton (src/mcp/server.py) but list_tools() returns [] and no tools are functional yet. Use the OpenAPI spec or direct HTTP calls instead.",
-  "openapi_spec": "https://api.sigmagrid.app/openapi.yaml",
+  "name": "SigmaGrid",
+  "description": "Institutional fair value and alpha signals for crypto synthetic equity perpetuals. Provides 24/7 fair value when traditional markets are closed.",
+  "version": "1.0.0",
+  "status": "live",
   "homepage": "https://sigmagrid.app",
-  "tools": []
+  "openapi_spec": "https://api.sigmagrid.app/openapi.yaml",
+  "server": {
+    "type": "http",
+    "url": "https://api.sigmagrid.app"
+  },
+  "authentication": {
+    "type": "x402",
+    "description": "Pay-per-request via x402 protocol. Free endpoints require no payment. Paid endpoints return HTTP 402 with payment instructions. Pay with USDC on Base L2.",
+    "network": "Base L2 (Chain ID 8453)",
+    "currency": "USDC"
+  },
+  "tools": [
+    {
+      "name": "healthz",
+      "description": "Check if the SigmaGrid API is online and healthy. Returns status, service name, and uptime.",
+      "method": "GET",
+      "path": "/healthz",
+      "cost": "free",
+      "parameters": []
+    },
+    {
+      "name": "validate",
+      "description": "Get list of supported assets, venues, and service status. Use this first to discover available tickers.",
+      "method": "GET",
+      "path": "/v1/validate",
+      "cost": "free",
+      "parameters": []
+    },
+    {
+      "name": "signals_teaser",
+      "description": "Get free regime state and event-risk labels for a ticker. Returns risk_on/risk_off/transitioning regime and low/medium/high event risk. No numeric data. Use this to decide whether to query paid endpoints.",
+      "method": "GET",
+      "path": "/v1/signals/{ticker}",
+      "cost": "free",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "description": "Asset ticker symbol (e.g., SPY, QQQ, TSLA, NVDA, AAPL)",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "fair_value",
+      "description": "Get institutional fair value estimate for a ticker. Returns fair value price, source methodology, confidence score, and per-venue premium-to-close in basis points.",
+      "method": "GET",
+      "path": "/v1/fair-value/{ticker}",
+      "cost": "0.02 USDC",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "description": "Asset ticker symbol",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "premium",
+      "description": "Get cross-venue mispricing data. Returns per-venue premiums/discounts vs fair value and spread summary. Use to identify which venue has the best price.",
+      "method": "GET",
+      "path": "/v1/premium/{ticker}",
+      "cost": "0.02 USDC",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "description": "Asset ticker symbol",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "spread",
+      "description": "Get cross-venue spread analysis. Returns cheapest/richest venue, max spread in basis points, and arbitrage flag. Use for cross-venue arbitrage detection.",
+      "method": "GET",
+      "path": "/v1/spread/{ticker}",
+      "cost": "0.02 USDC",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "description": "Asset ticker symbol",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "funding",
+      "description": "Get funding rate data (Hyperliquid only). Returns current funding rate, z-score, anomaly flags, and mean-reversion probability.",
+      "method": "GET",
+      "path": "/v1/funding/{ticker}",
+      "cost": "0.02 USDC",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "description": "Asset ticker symbol",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "regime",
+      "description": "Get market regime classification. Returns risk_on/risk_off/transitioning with VIX context, confidence, and vol forecast.",
+      "method": "GET",
+      "path": "/v1/regime/{ticker}",
+      "cost": "0.02 USDC",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "description": "Asset ticker symbol",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "event_risk",
+      "description": "Get earnings event-risk assessment. Returns risk level, hours until next event, and historical average move percentage.",
+      "method": "GET",
+      "path": "/v1/event-risk/{ticker}",
+      "cost": "0.02 USDC",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "description": "Asset ticker symbol",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "events",
+      "description": "Get event sensitivity data. Returns next scheduled event, expected impact, directional bias, and risk level.",
+      "method": "GET",
+      "path": "/v1/events/{ticker}",
+      "cost": "0.02 USDC",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "description": "Asset ticker symbol",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "arbitrage",
+      "description": "Get per-venue premiums and funding rates for arbitrage detection. Identifies cross-venue price discrepancies.",
+      "method": "GET",
+      "path": "/v1/arbitrage/{ticker}",
+      "cost": "0.02 USDC",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "description": "Asset ticker symbol",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "alpha_snapshot",
+      "description": "Get the full AlphaSnapshot — every signal column for one ticker in a single response. This is the richest endpoint: fair value, premiums, regime, funding, events, drift, vol forecast, all in one call.",
+      "method": "GET",
+      "path": "/v1/alpha-snapshot/{ticker}",
+      "cost": "0.03 USDC",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "description": "Asset ticker symbol",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "historical",
+      "description": "Get historical time-series data. Returns fair value, regime, drift, and premiums over time.",
+      "method": "GET",
+      "path": "/v1/historical/{ticker}",
+      "cost": "0.03 USDC",
+      "parameters": [
+        {
+          "name": "ticker",
+          "type": "string",
+          "description": "Asset ticker symbol",
+          "required": true
+        },
+        {
+          "name": "start",
+          "type": "string",
+          "description": "Start datetime (ISO 8601)",
+          "required": false
+        },
+        {
+          "name": "end",
+          "type": "string",
+          "description": "End datetime (ISO 8601)",
+          "required": false
+        },
+        {
+          "name": "limit",
+          "type": "integer",
+          "description": "Maximum number of data points to return",
+          "required": false
+        }
+      ]
+    },
+    {
+      "name": "snapshot",
+      "description": "Get a multi-ticker dashboard snapshot in a single request. Returns key metrics for all specified tickers.",
+      "method": "GET",
+      "path": "/v1/snapshot",
+      "cost": "0.05 USDC",
+      "parameters": [
+        {
+          "name": "tickers",
+          "type": "string",
+          "description": "Comma-separated ticker symbols (e.g., SPY,QQQ,TSLA)",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "alpha_snapshot_batch",
+      "description": "Get full AlphaSnapshot for multiple tickers in one request. Returns every signal column for each ticker.",
+      "method": "GET",
+      "path": "/v1/alpha-snapshot/batch",
+      "cost": "0.05 USDC",
+      "parameters": [
+        {
+          "name": "tickers",
+          "type": "string",
+          "description": "Comma-separated ticker symbols (e.g., TSLA,AAPL,NVDA)",
+          "required": true
+        }
+      ]
+    }
+  ]
 }

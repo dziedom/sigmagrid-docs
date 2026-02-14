@@ -68,6 +68,7 @@ const config = {
         },
         items: [
           { to: '/docs/intro', label: 'Docs', position: 'left' },
+          { to: '/docs/quickstart', label: 'Quickstart', position: 'left' },
           { to: '/docs/api-reference', label: 'API Reference', position: 'left' },
           { to: '/docs/pricing', label: 'Pricing', position: 'left' },
           {
@@ -90,7 +91,7 @@ const config = {
           {
             title: 'Developers',
             items: [
-              { label: 'Quickstart', to: '/docs/intro' },
+              { label: 'Quickstart', to: '/docs/quickstart' },
               { label: 'Fields', to: '/docs/fields' },
               { label: 'For Agents', to: '/docs/agents' }
             ],

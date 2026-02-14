@@ -4,6 +4,7 @@
 const sidebars = {
   docs: [
     'intro',
+    'quickstart',
     'purpose',
     'fields',
     'api-reference',
