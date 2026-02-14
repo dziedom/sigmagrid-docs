@@ -1,246 +1,115 @@
-.solutionSection {
-  padding: 6rem 1.5rem;
-  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-  position: relative;
-  overflow: hidden;
-  min-height: 500px;
+.section {
+  padding: 8rem 1.5rem;
+  background: #050505;
+  border-top: 1px solid #1a1a1a;
 }
 
-.sectionHeader {
+.header {
   text-align: center;
   margin-bottom: 4rem;
-  max-width: 900px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.sectionKicker {
+.kicker {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 0.78rem;
-  color: #94a3b8;
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.25em;
+  color: #555;
+  margin-bottom: 1rem;
 }
 
-.sectionTitle {
-  font-size: 2.5rem;
+.title {
+  font-size: 2.75rem;
   font-weight: 800;
-  color: #e2e8f0;
-  margin-bottom: 1.5rem;
-  line-height: 1.2;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
 }
 
-.sectionDescription {
-  font-size: 1.1rem;
-  color: #94a3b8;
+.lead {
+  font-size: 1.05rem;
+  color: #888;
   line-height: 1.7;
-  margin-bottom: 1.5rem;
 }
 
-.sectionTagline {
-  font-size: 1.3rem;
-  color: #e2e8f0;
-  line-height: 1.8;
-  margin-top: 1.5rem;
+.lead strong {
+  color: #fff;
 }
 
-.sectionTagline strong {
-  color: #3b82f6;
-}
-
-.featureGrid {
+.grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  max-width: 1200px;
+  gap: 1px;
+  max-width: 1100px;
   margin: 0 auto;
-}
-
-.featureCard {
-  background: linear-gradient(135deg, #1a1f2e 0%, #0f1420 100%);
-  border-radius: 1rem;
-  padding: 2.5rem;
-  border: 1px solid #2d3748;
-  position: relative;
+  background: #1a1a1a;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.featureCard::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--card-color), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
+.card {
+  background: #0a0a0a;
+  padding: 2.5rem;
+  transition: background 0.3s;
 }
 
-.featureCard:hover::before {
-  opacity: 1;
+.card:hover {
+  background: #111;
 }
 
-.featureCard:hover {
-  transform: translateY(-8px);
-  border-color: var(--card-color);
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.3),
-    0 0 40px color-mix(in srgb, var(--card-color) 15%, transparent);
-}
-
-.cardHeader {
-  margin-bottom: 1.5rem;
-}
-
-.iconWrapper {
-  position: relative;
-  display: inline-block;
+.cardLabel {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #555;
   margin-bottom: 1rem;
 }
 
-.iconGlow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  filter: blur(20px);
-  animation: glowPulse 3s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-  0%, 100% {
-    opacity: 0.5;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.2);
-  }
-}
-
-.icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-  box-shadow: 0 8px 20px color-mix(in srgb, var(--card-color) 30%, transparent);
-  font-size: 2rem;
-  animation: iconFloat 3s ease-in-out infinite;
-}
-
-@keyframes iconFloat {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-.featureTitle {
-  font-size: 1.5rem;
+.cardTitle {
+  font-size: 1.35rem;
   font-weight: 700;
-  color: #e2e8f0;
+  color: #fff;
   margin-bottom: 1rem;
+  letter-spacing: -0.02em;
 }
 
-.featureDescription {
-  font-size: 1rem;
-  color: #94a3b8;
+.cardDesc {
+  font-size: 0.9rem;
+  color: #888;
   line-height: 1.7;
   margin-bottom: 1.5rem;
 }
 
-.featureDetails {
-  margin-bottom: 1.5rem;
-}
-
-.detailsLabel {
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+.cardNote {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
   font-size: 0.75rem;
-  color: var(--card-color);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.75rem;
+  color: #555;
+  padding-top: 1rem;
+  border-top: 1px solid #1a1a1a;
 }
 
-.detailsList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.detailsList li {
-  color: #cbd5e1;
-  font-size: 0.9rem;
-  padding: 0.5rem 0;
-  line-height: 1.6;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-}
-
-.arrow {
-  color: var(--card-color);
-  margin-right: 0.5rem;
-  font-weight: bold;
-}
-
-.featureNote {
-  padding: 1rem;
-  background: rgba(15, 23, 42, 0.5);
-  border-radius: 0.5rem;
-  border: 1px solid rgba(45, 55, 72, 0.5);
-  font-size: 0.9rem;
-  color: #94a3b8;
-  font-style: italic;
-  margin-top: auto;
-}
-
-.cardGlow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.featureCard:hover .cardGlow {
-  opacity: 1;
-}
-
-/* Mobile optimizations */
 @media (max-width: 968px) {
-  .featureGrid {
+  .grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
   }
 
-  .sectionTitle {
+  .title {
     font-size: 2rem;
   }
 }
 
 @media (max-width: 640px) {
-  .solutionSection {
-    padding: 4rem 1rem;
+  .section {
+    padding: 5rem 1rem;
   }
 
-  .sectionTitle {
-    font-size: 1.75rem;
-  }
-
-  .featureCard {
+  .card {
     padding: 2rem;
   }
 }

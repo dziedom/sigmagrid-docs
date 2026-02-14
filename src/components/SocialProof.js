@@ -78,84 +78,58 @@ function LiveQueryFeed() {
 
 export default function SocialProof() {
   return (
-    <section className={styles.socialSection}>
+    <section className={styles.section}>
       <div className="container">
-        <div className={styles.sectionHeader}>
-          <div className={styles.sectionKicker}>Traction</div>
-          <h2 className={styles.sectionTitle}>Agents Are Already Consuming</h2>
-          <p className={styles.sectionLead}>
-            Autonomous bots and market makers are querying SigmaGrid signals around the clock.
+        <div className={styles.header}>
+          <div className={styles.kicker}>[ TRACTION ]</div>
+          <h2 className={styles.title}>Agents Are Already Consuming</h2>
+          <p className={styles.lead}>
+            Autonomous bots and market makers query SigmaGrid signals around the clock.
           </p>
         </div>
 
-        <div className={styles.content}>
-          <div className={styles.statsGrid}>
-            <div className={styles.statCard}>
-              <div className={styles.statValue}>
-                <AnimatedCounter target={247831} />
-              </div>
+        <div className={styles.dashboard}>
+          <div className={styles.statsRow}>
+            <div className={styles.stat}>
+              <div className={styles.statValue}><AnimatedCounter target={247831} /></div>
               <div className={styles.statLabel}>API Calls Served</div>
-              <div className={styles.statSubtext}>All time</div>
             </div>
-            <div className={styles.statCard}>
-              <div className={styles.statValue}>
-                <AnimatedCounter target={42} />
-              </div>
-              <div className={styles.statLabel}>Active Agents</div>
-              <div className={styles.statSubtext}>Last 24h</div>
+            <div className={styles.stat}>
+              <div className={styles.statValue}><AnimatedCounter target={42} /></div>
+              <div className={styles.statLabel}>Active Agents (24h)</div>
             </div>
-            <div className={styles.statCard}>
-              <div className={styles.statValue}>
-                <AnimatedCounter target={99} suffix="%" />
-              </div>
-              <div className={styles.statLabel}>Uptime</div>
-              <div className={styles.statSubtext}>30-day rolling</div>
+            <div className={styles.stat}>
+              <div className={styles.statValue}><AnimatedCounter target={99} suffix="%" /></div>
+              <div className={styles.statLabel}>Uptime (30d)</div>
             </div>
-            <div className={styles.statCard}>
-              <div className={styles.statValue}>
-                <AnimatedCounter target={38} suffix="ms" />
-              </div>
+            <div className={styles.stat}>
+              <div className={styles.statValue}><AnimatedCounter target={38} suffix="ms" /></div>
               <div className={styles.statLabel}>p50 Latency</div>
-              <div className={styles.statSubtext}>Global average</div>
             </div>
           </div>
 
           <LiveQueryFeed />
         </div>
 
-        <div className={styles.integrations}>
-          <div className={styles.integrationsTitle}>Discovery Protocols Supported</div>
+        <div className={styles.protocols}>
+          <div className={styles.protocolsLabel}>Discovery Protocols</div>
           <div className={styles.protocolGrid}>
-            <div className={styles.protocol}>
-              <span className={styles.protocolIcon}>&#123;&#125;</span>
-              <span className={styles.protocolName}>OpenAPI 3.1</span>
-              <span className={styles.protocolStatus}>Live</span>
-            </div>
-            <div className={styles.protocol}>
-              <span className={styles.protocolIcon}>MCP</span>
-              <span className={styles.protocolName}>Model Context Protocol</span>
-              <span className={styles.protocolStatus}>Live</span>
-            </div>
-            <div className={styles.protocol}>
-              <span className={styles.protocolIcon}>A2A</span>
-              <span className={styles.protocolName}>Agent-to-Agent</span>
-              <span className={styles.protocolStatus}>Live</span>
-            </div>
-            <div className={styles.protocol}>
-              <span className={styles.protocolIcon}>TXT</span>
-              <span className={styles.protocolName}>llms.txt</span>
-              <span className={styles.protocolStatus}>Live</span>
-            </div>
-            <div className={styles.protocol}>
-              <span className={styles.protocolIcon}>402</span>
-              <span className={styles.protocolName}>x402 Payments</span>
-              <span className={styles.protocolStatus}>Live</span>
-            </div>
-            <div className={styles.protocol}>
-              <span className={styles.protocolIcon}>8004</span>
-              <span className={styles.protocolName}>ERC-8004 Identity</span>
-              <span className={styles.protocolStatus}>Planned</span>
-            </div>
+            {[
+              { code: '{}', name: 'OpenAPI 3.1', status: 'Live' },
+              { code: 'MCP', name: 'Model Context Protocol', status: 'Live' },
+              { code: 'A2A', name: 'Agent-to-Agent', status: 'Live' },
+              { code: 'TXT', name: 'llms.txt', status: 'Live' },
+              { code: '402', name: 'x402 Payments', status: 'Live' },
+              { code: '8004', name: 'ERC-8004 Identity', status: 'Planned' },
+            ].map((p, idx) => (
+              <div key={idx} className={styles.protocol}>
+                <span className={styles.protocolCode}>{p.code}</span>
+                <span className={styles.protocolName}>{p.name}</span>
+                <span className={`${styles.protocolStatus} ${p.status === 'Planned' ? styles.planned : ''}`}>
+                  {p.status}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

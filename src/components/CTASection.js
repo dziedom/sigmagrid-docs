@@ -3,65 +3,43 @@ import Link from '@docusaurus/Link';
 import styles from './CTASection.module.css';
 
 export default function CTASection() {
-  const ctas = [
-    {
-      icon: '&#9889;',
-      title: 'Quickstart',
-      description: 'From zero to signals in 60 seconds: → Free curl one-liner → Decision loop examples → Python & Node.js snippets → x402 payment walkthrough',
-      note: 'No signup. No SDK. Just curl.',
-      link: '/docs/quickstart',
-      linkText: 'Start in 60 Seconds',
-      color: '#22c55e',
-    },
-    {
-      icon: '&#128218;',
-      title: 'Full API Docs',
-      description: 'Complete API documentation: → 19 endpoints across 5 tiers → Code examples (Python, Node, Rust) → Field reference → Agent integration guides',
-      note: '5-minute integration.',
-      link: '/docs/api-reference',
-      linkText: 'API Documentation',
-      color: '#8b5cf6',
-    },
-  ];
-
   return (
-    <section className={styles.ctaSection}>
+    <section className={styles.section}>
       <div className="container">
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>Start Trading with Institutional Signals</h2>
-        </div>
+        <div className={styles.content}>
+          <div className={styles.kicker}>[ GET STARTED ]</div>
+          <h2 className={styles.title}>Start Trading with Institutional Signals</h2>
 
-        <div className={styles.ctaGrid}>
-          {ctas.map((cta, idx) => (
-            <div
-              key={idx}
-              className={styles.ctaCard}
-              style={{ '--card-color': cta.color }}
-            >
-              <div className={styles.cardIcon} style={{ background: `linear-gradient(135deg, ${cta.color}, ${cta.color}cc)` }}>
-                <span dangerouslySetInnerHTML={{ __html: cta.icon }} />
-              </div>
-              <h3 className={styles.cardTitle}>{cta.title}</h3>
-              <div className={styles.cardDescription}>
-                {cta.description.split('\u2192').map((line, lineIdx) => {
-                  if (lineIdx === 0) {
-                    return <p key={lineIdx}>{line.trim()}</p>;
-                  }
-                  return (
-                    <div key={lineIdx} className={styles.bulletPoint}>
-                      &rarr; {line.trim()}
-                    </div>
-                  );
-                })}
-              </div>
-              <div className={styles.cardNote}>{cta.note}</div>
-              <Link className={styles.ctaButton} to={cta.link} style={{ '--button-color': cta.color }}>
-                {cta.linkText}
+          <div className={styles.grid}>
+            <div className={styles.card}>
+              <div className={styles.cardLabel}>QUICKSTART</div>
+              <h3 className={styles.cardTitle}>From zero to signals in 60 seconds</h3>
+              <p className={styles.cardDesc}>
+                Free curl one-liner. Decision loop examples. Python & Node snippets. x402 payment walkthrough. No signup required.
+              </p>
+              <Link className={styles.btn} to="/docs/quickstart">
+                Start in 60 Seconds
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </Link>
             </div>
-          ))}
-        </div>
 
+            <div className={styles.card}>
+              <div className={styles.cardLabel}>DOCUMENTATION</div>
+              <h3 className={styles.cardTitle}>Complete API reference</h3>
+              <p className={styles.cardDesc}>
+                19 endpoints across 5 tiers. Code examples in Python, Node, and Rust. Field reference. Agent integration guides.
+              </p>
+              <Link className={styles.btnOutline} to="/docs/api-reference">
+                API Documentation
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
