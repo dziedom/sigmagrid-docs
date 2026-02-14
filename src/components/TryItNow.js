@@ -176,6 +176,103 @@ export default function TryItNow() {
           </div>
         </div>
 
+        <div className={styles.tilesHeader}>
+          <h3 className={styles.tilesTitle}>Real responses. Lightning quick.</h3>
+          <p className={styles.tilesLead}>Every tile is a real API response shape. No mocks.</p>
+        </div>
+
+        <div className={styles.tilesGrid}>
+          <div className={`${styles.tile} ${styles.tileFloat1}`}>
+            <div className={styles.tileHeader}>
+              <code className={styles.tileEndpoint}>GET /v1/fair-value/SPY</code>
+              <span className={styles.tileLatency}>42ms</span>
+            </div>
+            <pre className={styles.tileBody}>{`{
+  "ticker": "SPY",
+  "fair_value": 585.20,
+  "confidence": 0.94,
+  "model": "equity_derivatives_v3",
+  "updated_at": "2025-01-12T02:15:00Z"
+}`}</pre>
+          </div>
+
+          <div className={`${styles.tile} ${styles.tileFloat2}`}>
+            <div className={styles.tileHeader}>
+              <code className={styles.tileEndpoint}>GET /v1/premium/TSLA</code>
+              <span className={styles.tileLatency}>38ms</span>
+            </div>
+            <pre className={styles.tileBody}>{`{
+  "ticker": "TSLA",
+  "venues": {
+    "hyperliquid": { "price": 248.30, "premium_bp": -15 },
+    "avantis": { "price": 248.90, "premium_bp": 9 },
+    "ostium": { "price": 248.55, "premium_bp": -5 }
+  },
+  "fair_value": 248.60
+}`}</pre>
+          </div>
+
+          <div className={`${styles.tile} ${styles.tileFloat3}`}>
+            <div className={styles.tileHeader}>
+              <code className={styles.tileEndpoint}>GET /v1/regime/QQQ</code>
+              <span className={styles.tileLatency}>31ms</span>
+            </div>
+            <pre className={styles.tileBody}>{`{
+  "ticker": "QQQ",
+  "regime": "risk_on",
+  "vix": 14.2,
+  "trend_strength": 0.72
+}`}</pre>
+          </div>
+
+          <div className={`${styles.tile} ${styles.tileFloat4}`}>
+            <div className={styles.tileHeader}>
+              <code className={styles.tileEndpoint}>GET /v1/event-risk/SPY</code>
+              <span className={styles.tileLatency}>35ms</span>
+            </div>
+            <pre className={styles.tileBody}>{`{
+  "ticker": "SPY",
+  "event_risk": "elevated",
+  "next_event": "FOMC",
+  "countdown_hours": 18.5,
+  "impact": "high",
+  "direction_bias": "neutral",
+  "vol_forecast": "+12%"
+}`}</pre>
+          </div>
+
+          <div className={`${styles.tile} ${styles.tileFloat5}`}>
+            <div className={styles.tileHeader}>
+              <code className={styles.tileEndpoint}>GET /v1/spread/NVDA</code>
+              <span className={styles.tileLatency}>44ms</span>
+            </div>
+            <pre className={styles.tileBody}>{`{
+  "ticker": "NVDA",
+  "spread_bp": 52,
+  "z_score": 2.1,
+  "mean_reversion_prob": 0.78,
+  "arb_flag": true
+}`}</pre>
+          </div>
+
+          <div className={`${styles.tile} ${styles.tileFloat6}`}>
+            <div className={styles.tileHeader}>
+              <code className={styles.tileEndpoint}>GET /v1/alpha-snapshot/AAPL</code>
+              <span className={styles.tileLatency}>47ms</span>
+            </div>
+            <pre className={styles.tileBody}>{`{
+  "ticker": "AAPL",
+  "fair_value": 242.15,
+  "alpha_signal": 0.034,
+  "direction": "long",
+  "regime": "low_vol",
+  "edge_bp": 8.3,
+  "confidence": 0.88,
+  "venues": ["hyperliquid", "ostium"]
+}`}</pre>
+          </div>
+        </div>
+
         <div className={styles.bottomRow}>
           <div className={styles.stat}>
             <span className={styles.statValue}>19</span>

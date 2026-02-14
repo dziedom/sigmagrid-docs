@@ -267,6 +267,98 @@
   color: #fff;
 }
 
+/* Floating JSON Tiles */
+.tilesHeader {
+  text-align: center;
+  margin: 5rem auto 2.5rem;
+  max-width: 600px;
+}
+
+.tilesTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.tilesLead {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.tilesGrid {
+  columns: 3;
+  column-gap: 12px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.tile {
+  break-inside: avoid;
+  margin-bottom: 12px;
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.tile:hover {
+  border-color: #2a2a2a;
+  transform: translateY(-2px);
+  animation-play-state: paused;
+}
+
+.tileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #141414;
+  background: #080808;
+}
+
+.tileEndpoint {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.65rem;
+  color: #888;
+  background: none;
+}
+
+.tileLatency {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.6rem;
+  color: #00d47b;
+  background: rgba(0, 212, 123, 0.08);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 212, 123, 0.12);
+}
+
+.tileBody {
+  padding: 0.85rem 1rem;
+  margin: 0;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.68rem;
+  line-height: 1.55;
+  color: #a78bfa;
+  overflow: hidden;
+}
+
+/* Staggered float animations */
+.tileFloat1 { animation: tileFloat 6s ease-in-out infinite; }
+.tileFloat2 { animation: tileFloat 7s ease-in-out 0.5s infinite; }
+.tileFloat3 { animation: tileFloat 5.5s ease-in-out 1s infinite; }
+.tileFloat4 { animation: tileFloat 6.5s ease-in-out 1.5s infinite; }
+.tileFloat5 { animation: tileFloat 7.5s ease-in-out 0.8s infinite; }
+.tileFloat6 { animation: tileFloat 6s ease-in-out 2s infinite; }
+
+@keyframes tileFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
 .bottomRow {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -332,7 +424,17 @@
     justify-content: flex-end;
   }
 
+  .tilesGrid {
+    columns: 1;
+  }
+
   .bottomRow {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tilesGrid {
+    columns: 2;
   }
 }
