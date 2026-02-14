@@ -5,21 +5,21 @@ import styles from './CTASection.module.css';
 export default function CTASection() {
   const ctas = [
     {
-      icon: '📊',
-      title: 'See It Live',
-      description: 'View our public monitoring dashboard: → Real-time accuracy metrics → Fair value predictions vs outcomes → Cross-venue divergence heatmap',
-      note: 'Sample data • No signup required.',
-      link: '/dashboard',
-      linkText: 'View Dashboard →',
-      color: '#3b82f6',
+      icon: '&#9889;',
+      title: 'Quickstart',
+      description: 'From zero to signals in 60 seconds: → Free curl one-liner → Decision loop examples → Python & Node.js snippets → x402 payment walkthrough',
+      note: 'No signup. No SDK. Just curl.',
+      link: '/docs/quickstart',
+      linkText: 'Start in 60 Seconds',
+      color: '#22c55e',
     },
     {
-      icon: '📖',
-      title: 'Read the Docs',
-      description: 'Complete API documentation: → Endpoint reference → Code examples (Python, Node, Rust) → Integration guides → Best practices',
+      icon: '&#128218;',
+      title: 'Full API Docs',
+      description: 'Complete API documentation: → 19 endpoints across 5 tiers → Code examples (Python, Node, Rust) → Field reference → Agent integration guides',
       note: '5-minute integration.',
       link: '/docs/api-reference',
-      linkText: 'API Documentation →',
+      linkText: 'API Documentation',
       color: '#8b5cf6',
     },
   ];
@@ -39,17 +39,17 @@ export default function CTASection() {
               style={{ '--card-color': cta.color }}
             >
               <div className={styles.cardIcon} style={{ background: `linear-gradient(135deg, ${cta.color}, ${cta.color}cc)` }}>
-                {cta.icon}
+                <span dangerouslySetInnerHTML={{ __html: cta.icon }} />
               </div>
               <h3 className={styles.cardTitle}>{cta.title}</h3>
               <div className={styles.cardDescription}>
-                {cta.description.split('→').map((line, lineIdx) => {
+                {cta.description.split('\u2192').map((line, lineIdx) => {
                   if (lineIdx === 0) {
                     return <p key={lineIdx}>{line.trim()}</p>;
                   }
                   return (
                     <div key={lineIdx} className={styles.bulletPoint}>
-                      → {line.trim()}
+                      &rarr; {line.trim()}
                     </div>
                   );
                 })}

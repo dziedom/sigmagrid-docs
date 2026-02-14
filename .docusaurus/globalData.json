@@ -43,6 +43,11 @@
               "id": "purpose",
               "path": "/docs/purpose",
               "sidebar": "docs"
+            },
+            {
+              "id": "quickstart",
+              "path": "/docs/quickstart",
+              "sidebar": "docs"
             }
           ],
           "draftIds": [],

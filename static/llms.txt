@@ -1,54 +1,251 @@
 # SigmaGrid llms.txt — API live
+# Last updated: 2025-06
 
-# Product
-# SigmaGrid provides institutional fair value and alpha signals for crypto synthetic equity perps (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.).
+# ─── WHAT IS SIGMAGRID? ───────────────────────────────────────────────
+# SigmaGrid provides institutional fair value and alpha signals for
+# crypto synthetic equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.).
+#
+# CORE PROBLEM: Traditional equity markets close at 4pm ET. Crypto synthetic
+# equity perps (on Hyperliquid, Avantis, Ostium) trade 24/7. During off-hours,
+# there is no Bloomberg terminal, no institutional pricing, no fundamental
+# anchor. Bots trade blind. SigmaGrid fills that gap.
 
-# Base
-# Base docs: https://sigmagrid.app/docs
-# Base API URL: https://api.sigmagrid.app
+# ─── BASE URLS ────────────────────────────────────────────────────────
+# Docs: https://sigmagrid.app/docs
+# API Base: https://api.sigmagrid.app
 # OpenAPI spec: https://api.sigmagrid.app/openapi.yaml
+# MCP descriptor: https://sigmagrid.app/.well-known/mcp.json
+# Agent descriptor: https://sigmagrid.app/.well-known/agent.json
 
-# Authentication
-# x402 micropayments (pay-per-request); no subscription. Paid endpoints return HTTP 402 "Payment Required". Agents must implement the x402 protocol: parse 402 response metadata (price, recipient, chain, etc.), sign and submit a stablecoin micropayment (USDC on Base L2), then retry the request with payment proof. No traditional API keys or subscriptions — payments are per-request and atomic.
+# ─── AUTHENTICATION ──────────────────────────────────────────────────
+# x402 micropayments (pay-per-request); no API keys, no subscription.
+# Paid endpoints return HTTP 402 "Payment Required" with metadata.
+# Flow: (1) call endpoint, (2) receive 402 with price/recipient/chain,
+# (3) sign USDC payment on Base L2, (4) retry with payment proof header.
+# Free endpoints require nothing — just call them.
 
-# Venues
-# Three live venues: Hyperliquid (L1), Avantis (Base via Pyth), Ostium (mainnet, read-only).
-# Funding data is Hyperliquid-only (Avantis/Ostium don't support funding).
+# ─── VENUES ──────────────────────────────────────────────────────────
+# Hyperliquid (L1) — full support including funding rates
+# Avantis (Base via Pyth) — no funding rates
+# Ostium (mainnet, read-only) — no funding rates
 
-# Free endpoints (no payment)
-# GET /healthz — health check
-# GET /v1/validate — service validation + supported assets list
-# GET /api/discovery — bot-discoverable API info (JSON)
-# GET /openapi.yaml — OpenAPI 3.0 specification
-# GET /api/registry-services.json — machine-readable service manifest
-
-# Free teaser (no payment, labels only)
-# GET /v1/signals/{ticker} — regime state + event-risk level as labels. No numeric data. Includes gated_endpoints map to paid routes.
-
-# Single signal — 0.02 USDC per request
-# GET /v1/fair-value/{ticker} — fair value estimate, source, confidence, per-venue premium-to-close bps
-# GET /v1/premium/{ticker} — cross-venue mispricing: per-venue premiums + spread summary
-# GET /v1/spread/{ticker} — cross-venue spread: cheapest/richest venue, max spread bps, arbitrage flag
-# GET /v1/funding/{ticker} — funding rates, z-scores, anomaly flags, mean-reversion probability (Hyperliquid only)
-# GET /v1/regime-basic/{ticker} — risk regime with VIX level, VIX 24h change, funding direction
-# GET /v1/regime/{ticker} — regime classification (risk_on/risk_off/transitioning) with confidence
-# GET /v1/event-risk/{ticker} — earnings event-risk: level, hours to event, historical avg move %
-# GET /v1/events/{ticker} — event sensitivity: next event, impact, bias, risk level
-# GET /v1/arbitrage/{ticker} — per-venue premiums and funding rates for arbitrage detection
-
-# Rich data — 0.03 USDC per request
-# GET /v1/historical/{ticker} — time-series: fair value, regime, drift, premiums (query: start, end, limit)
-# GET /v1/alpha-snapshot/{ticker} — full AlphaSnapshot: all signal columns for one ticker
-
-# Bulk/batch — 0.05 USDC per request
-# GET /v1/snapshot — multi-ticker dashboard snapshot (?tickers=SPY,QQQ,TSLA)
-# GET /v1/alpha-snapshot/batch — full AlphaSnapshot for multiple tickers (?tickers=TSLA,AAPL)
-
-# Deprecated
-# GET /v1/drift/{ticker} is deprecated (returns 410 Gone). Use /v1/alpha-snapshot/{ticker} or /v1/snapshot instead.
-
-# Supported tickers
+# ─── SUPPORTED TICKERS ──────────────────────────────────────────────
 # SPY, QQQ, IWM, AAPL, MSFT, GOOGL, AMZN, META, NVDA, TSLA
+
+# ═══════════════════════════════════════════════════════════════════════
+# ENDPOINT REFERENCE
+# ═══════════════════════════════════════════════════════════════════════
+
+# ─── FREE ENDPOINTS (no payment required) ────────────────────────────
+
+# GET /healthz
+# Health check. Returns { status, service, version, uptime_hours }.
+
+# GET /v1/validate
+# Service validation. Returns { status, supported_assets[], venues[], pricing }.
+# → USE THIS FIRST to discover available tickers and confirm API is up.
+
+# GET /api/discovery
+# Bot-discoverable API info (JSON).
+
+# GET /openapi.yaml
+# Machine-readable OpenAPI 3.0 specification.
+
+# GET /api/registry-services.json
+# Machine-readable service manifest for x402 gateways.
+
+# ─── FREE TEASER (no payment, labels only) ───────────────────────────
+
+# GET /v1/signals/{ticker}
+# Returns regime state (risk_on/risk_off/transitioning) and event-risk level
+# (low/medium/high) as text labels. NO numeric data.
+# Also returns gated_endpoints map pointing to paid routes.
+# → USE THIS to decide if you should spend USDC on deeper signals.
+
+# ─── SINGLE SIGNAL — 0.02 USDC per request ──────────────────────────
+
+# GET /v1/fair-value/{ticker}
+# Fair value estimate, source methodology, confidence %, per-venue premium bps.
+# → WHEN TO USE: You need the "true price" to compare against market price.
+
+# GET /v1/premium/{ticker}
+# Cross-venue premiums + spread summary.
+# → WHEN TO USE: You want to know which venue is cheapest/richest.
+
+# GET /v1/spread/{ticker}
+# Cheapest/richest venue, max spread bps, arbitrage flag.
+# → WHEN TO USE: Looking for cross-venue arbitrage opportunities.
+
+# GET /v1/funding/{ticker}
+# Funding rates, z-scores, anomaly flags, mean-reversion probability.
+# Hyperliquid only (Avantis/Ostium don't support funding).
+# → WHEN TO USE: Evaluating carry trades or funding rate anomalies.
+
+# GET /v1/regime-basic/{ticker}
+# Risk regime with VIX level, VIX 24h change, funding direction.
+# → WHEN TO USE: Quick macro context check.
+
+# GET /v1/regime/{ticker}
+# Full regime classification (risk_on/risk_off/transitioning) with confidence.
+# → WHEN TO USE: Adjusting position sizing or risk limits based on regime.
+
+# GET /v1/event-risk/{ticker}
+# Event-risk level, hours to event, historical avg move %.
+# → WHEN TO USE: Deciding whether to reduce exposure before earnings/FOMC.
+
+# GET /v1/events/{ticker}
+# Next event, impact, bias, risk level.
+# → WHEN TO USE: Need event details for pre-event positioning.
+
+# GET /v1/arbitrage/{ticker}
+# Per-venue premiums + funding for arbitrage detection.
+# → WHEN TO USE: Running cross-venue arb strategies.
+
+# ─── RICH DATA — 0.03 USDC per request ──────────────────────────────
+
+# GET /v1/historical/{ticker}?start=&end=&limit=
+# Time-series: fair value, regime, drift, premiums over time.
+# → WHEN TO USE: Backtesting, trend analysis, or building charts.
+
+# GET /v1/alpha-snapshot/{ticker}
+# THE RICHEST ENDPOINT. Every signal column in one response:
+# fair value, premiums, regime, funding, events, drift, vol forecast.
+# → WHEN TO USE: You want everything at once. Best value for comprehensive decisions.
+
+# ─── BULK/BATCH — 0.05 USDC per request ─────────────────────────────
+
+# GET /v1/snapshot?tickers=SPY,QQQ,TSLA
+# Multi-ticker dashboard snapshot.
+# → WHEN TO USE: Monitoring portfolio of tickers.
+
+# GET /v1/alpha-snapshot/batch?tickers=TSLA,AAPL
+# Full AlphaSnapshot for multiple tickers.
+# → WHEN TO USE: Deep analysis across multiple assets simultaneously.
+
+# ─── DEPRECATED ──────────────────────────────────────────────────────
+
+# GET /v1/drift/{ticker} → 410 Gone. Use /v1/alpha-snapshot/{ticker}.
+
+# ═══════════════════════════════════════════════════════════════════════
+# DECISION TREE FOR AGENTS
+# ═══════════════════════════════════════════════════════════════════════
+
+# STEP 1: Is the API up?
+#   → GET /v1/validate
+#   → If status != "ok", stop.
+
+# STEP 2: Get free teaser for your ticker
+#   → GET /v1/signals/{ticker}
+#   → Check regime: risk_on / risk_off / transitioning
+#   → Check event_risk: low / medium / high
+
+# STEP 3: Decide what to query (based on your strategy)
+#
+#   IF you are a market maker:
+#     → GET /v1/fair-value/{ticker}   (anchor your quotes)
+#     → GET /v1/spread/{ticker}       (venue selection)
+#     → GET /v1/funding/{ticker}      (carry component)
+#
+#   IF you are running directional alpha:
+#     → GET /v1/alpha-snapshot/{ticker}  (best value — everything in one call)
+#
+#   IF you are running cross-venue arbitrage:
+#     → GET /v1/arbitrage/{ticker}    (venue premiums + funding)
+#     → GET /v1/spread/{ticker}       (arb flag + spread size)
+#
+#   IF you are a risk manager:
+#     → GET /v1/regime/{ticker}       (risk-on/off + confidence)
+#     → GET /v1/event-risk/{ticker}   (upcoming catalysts)
+#
+#   IF you need everything:
+#     → GET /v1/alpha-snapshot/{ticker}  (0.03 USDC, all signals)
+#     OR for multiple tickers:
+#     → GET /v1/alpha-snapshot/batch?tickers=SPY,QQQ,TSLA  (0.05 USDC)
+
+# STEP 4: Interpret the response
+#   → fair_value > current_price → asset is CHEAP (potential long)
+#   → fair_value < current_price → asset is RICH (potential short)
+#   → regime = risk_off + event_risk = high → REDUCE EXPOSURE
+#   → spread > 15 bps + arb_flag = true → CROSS-VENUE ARBITRAGE OPPORTUNITY
+#   → funding_zscore > 2.0 + mean_reversion_prob > 0.7 → FUNDING RATE REVERSION LIKELY
+
+# STEP 5: Re-query
+#   → Refresh signals every 1-5 minutes (market-making) or 15-60 minutes (swing)
+#   → Always re-check regime and event-risk before large orders
+
+# ═══════════════════════════════════════════════════════════════════════
+# EXAMPLE RESPONSES
+# ═══════════════════════════════════════════════════════════════════════
+
+# GET /v1/signals/SPY (FREE)
+# {
+#   "ticker": "SPY",
+#   "regime": "risk_on",
+#   "event_risk": "low",
+#   "gated_endpoints": {
+#     "fair_value": "/v1/fair-value/SPY",
+#     "premium": "/v1/premium/SPY",
+#     "spread": "/v1/spread/SPY",
+#     "alpha_snapshot": "/v1/alpha-snapshot/SPY"
+#   }
+# }
+
+# GET /v1/fair-value/SPY (0.02 USDC)
+# {
+#   "ticker": "SPY",
+#   "fair_value": 585.20,
+#   "source": "composite_model",
+#   "confidence": 0.87,
+#   "venue_premiums_bps": {
+#     "hyperliquid": 3.2,
+#     "avantis": -1.8,
+#     "ostium": 5.1
+#   },
+#   "timestamp": "2025-06-01T03:15:00Z"
+# }
+
+# GET /v1/alpha-snapshot/SPY (0.03 USDC)
+# {
+#   "ticker": "SPY",
+#   "fair_value": 585.20,
+#   "confidence": 0.87,
+#   "regime": "risk_on",
+#   "regime_confidence": 0.82,
+#   "vix_level": 14.2,
+#   "event_risk": "low",
+#   "next_event": "FOMC",
+#   "hours_to_event": 62,
+#   "drift_1h": 0.12,
+#   "drift_4h": 0.08,
+#   "vol_forecast_1h": 0.008,
+#   "funding_rate": 0.0003,
+#   "funding_zscore": 0.8,
+#   "venue_premiums_bps": { "hyperliquid": 3.2, "avantis": -1.8, "ostium": 5.1 },
+#   "spread_bps": 6.9,
+#   "arb_flag": false,
+#   "timestamp": "2025-06-01T03:15:00Z"
+# }
+
+# ═══════════════════════════════════════════════════════════════════════
+# HTTP STATUS CODES
+# ═══════════════════════════════════════════════════════════════════════
+
+# 200 — Success. Response body contains requested data.
+# 402 — Payment Required. Parse the response for x402 payment instructions.
+# 404 — Ticker not found or endpoint doesn't exist.
+# 410 — Gone. Endpoint deprecated. Check response for replacement.
+# 429 — Rate limited. Back off and retry.
+# 500 — Server error. Retry with exponential backoff.
+
+# ═══════════════════════════════════════════════════════════════════════
+# QUICK START FOR AGENTS
+# ═══════════════════════════════════════════════════════════════════════
+
+# 1. curl https://api.sigmagrid.app/v1/validate
+# 2. curl https://api.sigmagrid.app/v1/signals/SPY
+# 3. Read the gated_endpoints map in the response
+# 4. Call paid endpoints with x402 payment flow
+# 5. Build your trading logic around the signals
 
 [product]
 name = "SigmaGrid"
@@ -58,6 +255,8 @@ status = "API live"
 [api]
 base_url = "https://api.sigmagrid.app"
 schema = "https://api.sigmagrid.app/openapi.yaml"
+mcp = "https://sigmagrid.app/.well-known/mcp.json"
+agent_descriptor = "https://sigmagrid.app/.well-known/agent.json"
 validate_endpoint = "/v1/validate"
 total_endpoints = 19
 
@@ -68,3 +267,10 @@ rich_data = "0.03 USDC"
 bulk_batch = "0.05 USDC"
 currency = "USDC on Base L2 (Chain ID 8453)"
 protocol = "x402"
+
+[discovery]
+openapi = "https://api.sigmagrid.app/openapi.yaml"
+mcp = "https://sigmagrid.app/.well-known/mcp.json"
+agent_json = "https://sigmagrid.app/.well-known/agent.json"
+erc8004 = "https://sigmagrid.app/.well-known/erc8004.json"
+llms_txt = "https://sigmagrid.app/llms.txt"

@@ -5,6 +5,8 @@ import ParticleBackground from '../components/ParticleBackground';
 import ProblemSection from '../components/ProblemSection';
 import SolutionSection from '../components/SolutionSection';
 import HowItWorksSection from '../components/HowItWorksSection';
+import TryItNow from '../components/TryItNow';
+import SocialProof from '../components/SocialProof';
 import UseCasesSection from '../components/UseCasesSection';
 import CredibilitySection from '../components/CredibilitySection';
 import PricingSection from '../components/PricingSection';
@@ -25,8 +27,8 @@ export default function Home() {
           <div className="container">
             <div className={styles.heroBanner}>
               <span>API live</span>
-              <span>•</span>
-              <span>19 endpoints • x402 micropayments • Hyperliquid, Avantis, Ostium</span>
+              <span>&bull;</span>
+              <span>19 endpoints &bull; x402 micropayments &bull; Hyperliquid, Avantis, Ostium</span>
             </div>
             <h1 className={styles.heroTitle}>
               Institutional Fair Value for<br />Crypto Perpetual Markets
@@ -64,11 +66,17 @@ export default function Home() {
         {/* Problem Section */}
         <ProblemSection />
 
+        {/* Try It Now — live endpoint demo */}
+        <TryItNow />
+
         {/* Solution Section */}
         <SolutionSection />
 
         {/* How It Works Section */}
         <HowItWorksSection />
+
+        {/* Social Proof — live stats + query feed */}
+        <SocialProof />
 
         {/* Use Cases Section */}
         <UseCasesSection />

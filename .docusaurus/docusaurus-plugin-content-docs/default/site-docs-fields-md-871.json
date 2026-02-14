@@ -1,7 +1,7 @@
 {
   "id": "fields",
   "title": "Fields",
-  "description": "SigmaGrid defines a compact, explicit schema designed for agents. There are two layers:",
+  "description": "SigmaGrid defines a compact, explicit schema designed for agents. Data is organized across endpoint tiers — the free teaser provides labels only, while paid endpoints return numeric data.",
   "source": "@site/docs/fields.md",
   "sourceDirName": ".",
   "slug": "/fields",
