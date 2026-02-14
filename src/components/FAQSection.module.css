@@ -1,11 +1,11 @@
 .section {
   padding: 8rem 1.5rem;
-  background: #050505;
+  background: #080808;
   border-top: 1px solid #1a1a1a;
 }
 
 .header {
-  text-align: center;
+  text-align: left;
   margin-bottom: 4rem;
 }
 
@@ -19,6 +19,7 @@
 }
 
 .title {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 2.75rem;
   font-weight: 800;
   color: #ffffff;
@@ -57,7 +58,7 @@
 }
 
 .question:hover {
-  color: #fff;
+  color: #00d47b;
 }
 
 .chevron {
@@ -66,6 +67,11 @@
   flex-shrink: 0;
   width: 24px;
   text-align: center;
+  transition: color 0.2s;
+}
+
+.open .chevron {
+  color: #00d47b;
 }
 
 .answer {

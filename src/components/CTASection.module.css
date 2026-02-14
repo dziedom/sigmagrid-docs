@@ -2,12 +2,26 @@
   padding: 8rem 1.5rem;
   background: #050505;
   border-top: 1px solid #1a1a1a;
+  position: relative;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 212, 123, 0.04) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .content {
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
+  position: relative;
 }
 
 .kicker {
@@ -15,11 +29,12 @@
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.25em;
-  color: #555;
+  color: #00d47b;
   margin-bottom: 1rem;
 }
 
 .title {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 2.75rem;
   font-weight: 800;
   color: #ffffff;
@@ -61,6 +76,7 @@
 }
 
 .cardTitle {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
   color: #fff;
@@ -81,7 +97,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.875rem 2rem;
-  background: #ffffff;
+  background: #00d47b;
   color: #000000;
   border-radius: 999px;
   font-weight: 600;
@@ -92,10 +108,11 @@
 }
 
 .btn:hover {
-  background: #e5e5e5;
+  background: #00e88a;
   color: #000000;
   text-decoration: none;
   transform: translateY(-1px);
+  box-shadow: 0 0 15px rgba(0, 212, 123, 0.2);
 }
 
 .btnOutline {
@@ -115,8 +132,8 @@
 }
 
 .btnOutline:hover {
-  border-color: #fff;
-  color: #fff;
+  border-color: #00d47b;
+  color: #00d47b;
   text-decoration: none;
 }
 
