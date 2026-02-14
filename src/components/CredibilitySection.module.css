@@ -1,359 +1,205 @@
-.credibilitySection {
-  padding: 6rem 1.5rem;
-  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-  position: relative;
-  overflow: hidden;
-  min-height: 600px;
+.section {
+  padding: 8rem 1.5rem;
+  background: #050505;
+  border-top: 1px solid #1a1a1a;
 }
 
-.sectionHeader {
+.header {
   text-align: center;
   margin-bottom: 4rem;
-  max-width: 900px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.sectionKicker {
+.kicker {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 0.78rem;
-  color: #94a3b8;
-  margin-bottom: 0.5rem;
-}
-
-.sectionTitle {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: #e2e8f0;
-  margin-bottom: 2rem;
-  line-height: 1.2;
-}
-
-.teamCallout {
-  padding: 2rem;
-  background: rgba(15, 23, 42, 0.5);
-  border-radius: 0.5rem;
-  border: 1px solid rgba(45, 55, 72, 0.5);
-  border-left: 3px solid #3b82f6;
-  margin-bottom: 2rem;
-}
-
-.teamCallout p {
-  font-size: 1.2rem;
-  color: #e2e8f0;
-  line-height: 1.7;
-  font-style: italic;
-  margin: 0;
-}
-
-.background {
-  text-align: left;
-  padding: 2rem;
-  background: rgba(15, 23, 42, 0.3);
-  border-radius: 0.5rem;
-  border: 1px solid rgba(45, 55, 72, 0.5);
-}
-
-.background p {
-  color: #cbd5e1;
-  font-size: 1rem;
-  line-height: 1.7;
+  letter-spacing: 0.25em;
+  color: #555;
   margin-bottom: 1rem;
 }
 
-.background strong {
-  color: #3b82f6;
+.title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
 }
 
-.background ul {
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0;
+.lead {
+  font-size: 1.05rem;
+  color: #888;
+  line-height: 1.7;
 }
 
-.background li {
-  color: #cbd5e1;
-  font-size: 0.95rem;
-  padding: 0.5rem 0;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-}
-
-.whyWeBuilt {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(45, 55, 72, 0.5);
-}
-
-.trackRecord {
-  max-width: 1000px;
+.metricsCard {
+  max-width: 800px;
   margin: 0 auto;
-  padding: 2.5rem;
-  background: linear-gradient(135deg, #1a1f2e 0%, #0f1420 100%);
-  border-radius: 1rem;
-  border: 1px solid #2d3748;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0a0a0a;
 }
 
-.trackRecordHeader {
+.metricsHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #2d3748;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #1a1a1a;
 }
 
-.trackRecordHeader h3 {
-  font-size: 1.5rem;
-  color: #e2e8f0;
+.metricsHeader h3 {
+  font-size: 1.1rem;
+  color: #fff;
   margin: 0;
+  font-weight: 700;
 }
 
-.updatedBadge {
+.badge {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0.8rem;
-  background: rgba(34, 197, 94, 0.1);
-  border-radius: 0.5rem;
-  border: 1px solid rgba(34, 197, 94, 0.3);
-  font-size: 0.85rem;
-  color: #4ade80;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  gap: 0.4rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.65rem;
+  color: #00d47b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .liveDot {
-  width: 8px;
-  height: 8px;
-  background: #22c55e;
+  width: 6px;
+  height: 6px;
+  background: #00d47b;
   border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.5;
-    transform: scale(1.2);
-  }
-}
-
-.chartContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.chartTitle {
-  font-size: 1.25rem;
-  color: #e2e8f0;
-  margin-bottom: 1rem;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.85rem;
+  animation: pulse-dot 2s ease-in-out infinite;
 }
 
 .barChart {
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .barRow {
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 120px 1fr;
   gap: 1rem;
   align-items: center;
 }
 
 .barLabel {
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-  font-size: 0.9rem;
-  color: #94a3b8;
-  font-weight: 500;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.75rem;
+  color: #888;
 }
 
-.barWrapper {
-  position: relative;
-  height: 40px;
-  background: rgba(15, 23, 42, 0.5);
-  border-radius: 0.5rem;
+.barTrack {
+  height: 32px;
+  background: #111;
+  border-radius: 6px;
   overflow: hidden;
-  border: 1px solid rgba(45, 55, 72, 0.5);
-}
-
-.bar {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 1rem;
-  transition: width 0.1s ease-out;
-  border-radius: 0.5rem;
 }
 
 .barNaive {
-  background: linear-gradient(90deg, #64748b, #475569);
+  height: 100%;
+  background: #333;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 0.75rem;
+  transition: width 0.1s ease-out;
+  border-radius: 6px;
 }
 
-.barSigmagrid {
-  background: linear-gradient(90deg, #22c55e, #16a34a);
+.barSg {
+  height: 100%;
+  background: linear-gradient(90deg, #00d47b, #00b368);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 0.75rem;
+  transition: width 0.1s ease-out;
+  border-radius: 6px;
 }
 
 .barValue {
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-  font-size: 0.9rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: white;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  color: #fff;
 }
 
-.metrics {
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #1a1a1a;
+  border-top: 1px solid #1a1a1a;
+}
+
+.stat {
+  padding: 1.25rem;
+  background: #0a0a0a;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1.5rem;
-  background: rgba(15, 23, 42, 0.3);
-  border-radius: 0.5rem;
-  border: 1px solid rgba(45, 55, 72, 0.5);
-}
-
-.metric {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 0.25rem;
 }
 
-.metricLabel {
-  font-size: 0.95rem;
-  color: #cbd5e1;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-}
-
-.metricValue {
-  font-size: 0.95rem;
-  color: #22c55e;
-  font-weight: 600;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-}
-
-.edgeBreakdown {
-  padding: 1.5rem;
-  background: rgba(15, 23, 42, 0.3);
-  border-radius: 0.5rem;
-  border: 1px solid rgba(45, 55, 72, 0.5);
-}
-
-.edgeBreakdown h4 {
-  font-size: 1rem;
-  color: #e2e8f0;
-  margin-bottom: 1rem;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+.statLabel {
+  font-size: 0.65rem;
+  color: #555;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.85rem;
+  letter-spacing: 0.1em;
 }
 
-.edgeTable {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+.statValue {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
 .edgeRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem;
-  background: rgba(15, 23, 42, 0.5);
-  border-radius: 0.5rem;
-}
-
-.edgeWindow {
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-  font-size: 0.9rem;
-  color: #cbd5e1;
-}
-
-.edgeValue {
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
-  font-size: 0.9rem;
-  color: #f59e0b;
-  font-weight: 600;
-}
-
-.methodology {
-  padding: 1.5rem;
-  background: rgba(15, 23, 42, 0.3);
-  border-radius: 0.5rem;
-  border: 1px solid rgba(45, 55, 72, 0.5);
-}
-
-.methodology p {
-  color: #cbd5e1;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  margin: 0 0 1rem 0;
-}
-
-.methodology strong {
-  color: #3b82f6;
-}
-
-.auditable {
-  color: #22c55e !important;
-  font-weight: 600;
-  font-style: italic;
-}
-
-.dashboardLink {
+  padding: 1rem 2rem;
+  border-top: 1px solid #1a1a1a;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.75rem;
+  color: #888;
   text-align: center;
-  margin-top: 1.5rem;
 }
 
-.dashboardLink a {
-  color: #3b82f6;
-  font-weight: 600;
+.footer {
+  padding: 1.25rem 2rem;
+  border-top: 1px solid #1a1a1a;
+  text-align: center;
+}
+
+.footer a {
+  color: #fff;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
   transition: opacity 0.2s;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 }
 
-.dashboardLink a:hover {
-  opacity: 0.8;
+.footer a:hover {
+  opacity: 0.7;
+  text-decoration: none;
+  color: #fff;
 }
 
-/* Mobile optimizations */
 @media (max-width: 768px) {
-  .credibilitySection {
-    padding: 4rem 1rem;
-  }
-
-  .sectionTitle {
-    font-size: 2rem;
-  }
-
-  .trackRecord {
-    padding: 1.5rem;
-  }
-
-  .trackRecordHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .barRow {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-
-  .barLabel {
-    font-size: 0.8rem;
-  }
+  .section { padding: 5rem 1rem; }
+  .title { font-size: 2rem; }
+  .barRow { grid-template-columns: 1fr; gap: 0.5rem; }
+  .statsGrid { grid-template-columns: 1fr; }
+  .metricsHeader { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
 }

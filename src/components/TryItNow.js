@@ -4,7 +4,6 @@ import styles from './TryItNow.module.css';
 const ENDPOINTS = [
   {
     label: 'Free Teaser',
-    ticker: 'SPY',
     cmd: 'curl -s https://api.sigmagrid.app/v1/signals/SPY',
     cost: 'FREE',
     response: {
@@ -20,8 +19,7 @@ const ENDPOINTS = [
     },
   },
   {
-    label: 'Health Check',
-    ticker: null,
+    label: 'Health',
     cmd: 'curl -s https://api.sigmagrid.app/healthz',
     cost: 'FREE',
     response: {
@@ -33,7 +31,6 @@ const ENDPOINTS = [
   },
   {
     label: 'Validate',
-    ticker: null,
     cmd: 'curl -s https://api.sigmagrid.app/v1/validate',
     cost: 'FREE',
     response: {
@@ -82,7 +79,6 @@ export default function TryItNow() {
     setIsRunning(true);
     setShowResponse(false);
     setLatency(null);
-    const start = Date.now();
     setTimeout(() => {
       setLatency(Math.floor(38 + Math.random() * 25));
       setShowResponse(true);
@@ -104,13 +100,13 @@ export default function TryItNow() {
   }
 
   return (
-    <section className={styles.trySection}>
+    <section className={styles.section}>
       <div className="container">
-        <div className={styles.sectionHeader}>
-          <div className={styles.sectionKicker}>Try it now</div>
-          <h2 className={styles.sectionTitle}>See Real Data in One Command</h2>
-          <p className={styles.sectionLead}>
-            No signup. No API keys. Hit a free endpoint right now and see what your bot gets.
+        <div className={styles.header}>
+          <div className={styles.kicker}>[ LIVE API ]</div>
+          <h2 className={styles.title}>See Real Data in One Command</h2>
+          <p className={styles.lead}>
+            No signup. No API keys. Hit a free endpoint and see what your bot gets.
           </p>
         </div>
 
@@ -147,7 +143,7 @@ export default function TryItNow() {
               <span className={styles.prompt}>$</span>
               <code className={styles.command}>{endpoint.cmd}</code>
               <div className={styles.commandActions}>
-                <button className={styles.copyBtn} onClick={handleCopy} title="Copy command">
+                <button className={styles.copyBtn} onClick={handleCopy}>
                   {copied ? 'Copied' : 'Copy'}
                 </button>
                 <button

@@ -2,139 +2,91 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from './ProblemSection.module.css';
 
 export default function ProblemSection() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
       { threshold: 0.1 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => { if (sectionRef.current) observer.unobserve(sectionRef.current); };
   }, []);
 
-  const markets = [
-    { name: 'NYSE', status: 'CLOSED', delay: 0 },
-    { name: 'NASDAQ', status: 'CLOSED', delay: 0.3 },
-    { name: 'Bloomberg Terminal', status: 'OFFLINE', delay: 0.6 },
-    { name: 'Institutional Desks', status: 'CLOSED', delay: 0.9 },
-    { name: 'Analyst Coverage', status: 'DARK', delay: 1.2 },
+  const tradfiSources = [
+    { name: 'NYSE', status: 'CLOSED' },
+    { name: 'NASDAQ', status: 'CLOSED' },
+    { name: 'Bloomberg', status: 'OFFLINE' },
+    { name: 'Analyst Desks', status: 'DARK' },
   ];
 
-  const cryptoPerps = [
-    { name: 'SPY-PERP', price: '585.80', status: 'LIVE', delay: 0 },
-    { name: 'QQQ-PERP', price: '432.15', status: 'LIVE', delay: 0.2 },
-    { name: 'TSLA-PERP', price: '248.30', status: 'LIVE', delay: 0.4 },
+  const perps = [
+    { name: 'SPY-PERP', price: '$585.80' },
+    { name: 'QQQ-PERP', price: '$432.15' },
+    { name: 'TSLA-PERP', price: '$248.30' },
   ];
 
   return (
-    <section ref={sectionRef} className={styles.problemSection}>
+    <section ref={sectionRef} className={styles.section}>
       <div className="container">
-        <div className={styles.sectionHeader}>
-          <div className={styles.sectionKicker}>The Problem</div>
-          <h2 className={styles.sectionTitle}>The 24/7 Fair Value Problem</h2>
-          <p className={styles.sectionDescription}>
-            Crypto synthetic equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP) trade around the clock across Hyperliquid, Avantis, and Ostium.
-          </p>
-          <p className={styles.sectionDescription}>
-            But institutional fundamentals only exist during market hours (9:30am-4pm ET, Mon-Fri).
+        <div className={styles.header}>
+          <div className={styles.kicker}>[ THE PROBLEM ]</div>
+          <h2 className={styles.title}>The 24/7 Fair Value Gap</h2>
+          <p className={styles.lead}>
+            Crypto synthetic equity perpetuals trade around the clock across Hyperliquid, Avantis, and Ostium.
+            But institutional fundamentals only exist during market hours.
           </p>
         </div>
 
-        <div className={styles.splitScreen}>
-          {/* Left Side - Traditional Markets */}
-          <div className={`${styles.marketColumn} ${styles.traditionalMarkets} ${isVisible ? styles.visible : ''}`}>
-            <div className={styles.columnHeader}>
-              <h3>Traditional Markets</h3>
-              <div className={styles.timeDisplay}>2:00 AM Sunday</div>
-            </div>
-            <div className={styles.marketList}>
-              {markets.map((market, idx) => (
-                <div
-                  key={idx}
-                  className={styles.marketItem}
-                  style={{ animationDelay: `${market.delay}s` }}
-                >
-                  <div className={styles.marketName}>{market.name}</div>
-                  <div className={`${styles.statusBadge} ${styles.offline}`}>
-                    {market.status}
+        <div className={`${styles.timeline} ${isVisible ? styles.visible : ''}`}>
+          <div className={styles.timelineMarker}>
+            <span className={styles.timeLabel}>2:00 AM Sunday</span>
+            <span className={styles.timeSub}>Your bot is trading</span>
+          </div>
+
+          <div className={styles.columns}>
+            <div className={styles.column}>
+              <div className={styles.columnLabel}>Traditional Markets</div>
+              <div className={styles.itemList}>
+                {tradfiSources.map((item, idx) => (
+                  <div key={idx} className={styles.item}>
+                    <span className={styles.itemName}>{item.name}</span>
+                    <span className={styles.statusOff}>{item.status}</span>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+              <div className={styles.verdict}>Your trading bot: flying blind</div>
             </div>
-            <div className={styles.botStatus}>
-              <span className={styles.botIcon}>🤖</span>
-              <span className={styles.botText}>Your trading bot: Flying blind</span>
-            </div>
-          </div>
 
-          {/* Center Divider */}
-          <div className={styles.divider}>
-            <div className={styles.dividerLine}></div>
-            <div className={styles.dividerText}>
-              <div className={styles.clockIcon}>🕐</div>
-              <div>2:00 AM Sunday</div>
-              <div className={styles.dividerSubtext}>Your bot is trading</div>
-            </div>
-            <div className={styles.dividerLine}></div>
-          </div>
+            <div className={styles.dividerVert} />
 
-          {/* Right Side - Crypto Perps */}
-          <div className={`${styles.marketColumn} ${styles.cryptoPerps} ${isVisible ? styles.visible : ''}`}>
-            <div className={styles.columnHeader}>
-              <h3>Crypto Perpetuals</h3>
-              <div className={styles.timeDisplay}>24/7 Trading</div>
-            </div>
-            <div className={styles.marketList}>
-              {cryptoPerps.map((perp, idx) => (
-                <div
-                  key={idx}
-                  className={styles.marketItem}
-                  style={{ animationDelay: `${perp.delay}s` }}
-                >
-                  <div className={styles.marketName}>{perp.name}</div>
-                  <div className={styles.priceDisplay}>
-                    <span className={styles.priceValue}>${perp.price}</span>
-                    <span className={`${styles.statusBadge} ${styles.live}`}>
-                      {perp.status}
+            <div className={styles.column}>
+              <div className={styles.columnLabel}>Crypto Perpetuals</div>
+              <div className={styles.itemList}>
+                {perps.map((item, idx) => (
+                  <div key={idx} className={styles.item}>
+                    <span className={styles.itemName}>{item.name}</span>
+                    <span className={styles.priceGroup}>
+                      <span className={styles.price}>{item.price}</span>
+                      <span className={styles.statusOn}>LIVE</span>
                     </span>
                   </div>
-                </div>
-              ))}
-            </div>
-            <div className={styles.problemText}>
-              <p>Without a fundamental anchor, you're trading against orderbook noise:</p>
-              <ul className={styles.problemList}>
-                <li>→ Overpay during thin liquidity</li>
-                <li>→ Miss mean-reversion opportunities</li>
-                <li>→ Get liquidated on event-driven moves</li>
-                <li>→ Can't distinguish rich vs cheap</li>
-              </ul>
+                ))}
+              </div>
+              <div className={styles.consequences}>
+                Without a fundamental anchor, you overpay during thin liquidity,
+                miss mean-reversion, and can't distinguish rich from cheap.
+              </div>
             </div>
           </div>
         </div>
 
-        <div className={styles.closingStatement}>
-          <p className={styles.closingText}>
-            Traditional markets have institutional infrastructure.
-            <br />
-            Crypto perps have been guessing.
-            <br />
-            <strong>Until now.</strong>
-          </p>
+        <div className={styles.closing}>
+          <p>Traditional markets have institutional infrastructure.</p>
+          <p>Crypto perps have been guessing. <strong>Until now.</strong></p>
         </div>
       </div>
     </section>

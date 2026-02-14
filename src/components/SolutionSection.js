@@ -4,98 +4,44 @@ import styles from './SolutionSection.module.css';
 export default function SolutionSection() {
   const features = [
     {
-      icon: '📊',
+      label: 'FAIR VALUE',
       title: 'Fair Value Anchors',
-      description: 'Real-time institutional fair value for SPY, QQQ, IWM (indices) and TSLA, AAPL, NVDA, META, GOOGL, AMZN, MSFT (MAG7).',
-      details: [
-        'Based on equity market fundamentals',
-        'Volatility surface modeling',
-        'Macro sensitivity coefficients',
-        'Regime and alpha analysis',
-      ],
+      description: 'Real-time institutional fair value for SPY, QQQ, IWM and MAG7 stocks. Based on equity fundamentals, volatility surface modeling, and macro sensitivity.',
       note: 'Updated every second, even when traditional markets are closed.',
-      color: '#3b82f6',
     },
     {
-      icon: '🔍',
+      label: 'DIVERGENCE',
       title: 'Cross-Venue Intelligence',
-      description: 'Track pricing across live venues: Hyperliquid (L1), Avantis (Base via Pyth), and Ostium (mainnet, read-only).',
-      details: [
-        'Which venue is mispricing vs fair value',
-        'Premium compression opportunities',
-        'Arbitrage detection (spread + flag)',
-        'Divergence z-scores (cross-venue spread)',
-      ],
+      description: 'Track pricing across Hyperliquid, Avantis, and Ostium. Detect which venue is mispricing, find premium compression opportunities, and spot arbitrage.',
       note: 'Spot inefficiencies before the market corrects.',
-      color: '#8b5cf6',
     },
     {
-      icon: '⚠️',
+      label: 'EVENT RISK',
       title: 'Event Risk Protection',
-      description: 'Event-risk detection for high-impact events: FOMC rate decisions, CPI/inflation releases, quarterly earnings, geopolitical shocks.',
-      details: [
-        'Event countdown timers',
-        'Expected impact classification',
-        'Directional bias (risk-on/risk-off)',
-        'Volatility forecasts (1h, 4h, overnight)',
-      ],
+      description: 'Event-risk detection for FOMC, CPI, earnings, and geopolitical shocks. Countdown timers, impact classification, directional bias, and volatility forecasts.',
       note: 'Trade smarter around macro catalysts.',
-      color: '#f59e0b',
     },
   ];
 
   return (
-    <section className={styles.solutionSection}>
+    <section className={styles.section}>
       <div className="container">
-        <div className={styles.sectionHeader}>
-          <div className={styles.sectionKicker}>The Solution</div>
-          <h2 className={styles.sectionTitle}>Institutional Fundamentals, 24/7</h2>
-          <p className={styles.sectionDescription}>
-            SigmaGrid applies traditional equity derivatives models to crypto perpetual markets, providing the fundamental anchor that's been missing from DeFi.
-          </p>
-          <p className={styles.sectionTagline}>
-            We don't just show you orderbook prices.
-            <br />
-            <strong>We tell you what the price should be.</strong>
+        <div className={styles.header}>
+          <div className={styles.kicker}>[ THE SOLUTION ]</div>
+          <h2 className={styles.title}>Institutional Fundamentals, 24/7</h2>
+          <p className={styles.lead}>
+            We apply traditional equity derivatives models to crypto perpetual markets.
+            We don't show you orderbook prices. <strong>We tell you what the price should be.</strong>
           </p>
         </div>
 
-        <div className={styles.featureGrid}>
+        <div className={styles.grid}>
           {features.map((feature, idx) => (
-            <div
-              key={idx}
-              className={styles.featureCard}
-              style={{ '--card-color': feature.color }}
-            >
-              <div className={styles.cardHeader}>
-                <div className={styles.iconWrapper}>
-                  <div className={styles.iconGlow} style={{ background: `${feature.color}33` }}></div>
-                  <div className={styles.icon} style={{ background: `linear-gradient(135deg, ${feature.color}, ${feature.color}cc)` }}>
-                    {feature.icon}
-                  </div>
-                </div>
-              </div>
-
-              <h3 className={styles.featureTitle}>{feature.title}</h3>
-              <p className={styles.featureDescription}>{feature.description}</p>
-
-              <div className={styles.featureDetails}>
-                <div className={styles.detailsLabel}>Based on:</div>
-                <ul className={styles.detailsList}>
-                  {feature.details.map((detail, detailIdx) => (
-                    <li key={detailIdx}>
-                      <span className={styles.arrow}>→</span>
-                      {detail}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className={styles.featureNote}>
-                {feature.note}
-              </div>
-
-              <div className={styles.cardGlow} style={{ background: `radial-gradient(ellipse at center, ${feature.color}15, transparent 70%)` }}></div>
+            <div key={idx} className={styles.card}>
+              <div className={styles.cardLabel}>{feature.label}</div>
+              <h3 className={styles.cardTitle}>{feature.title}</h3>
+              <p className={styles.cardDesc}>{feature.description}</p>
+              <div className={styles.cardNote}>{feature.note}</div>
             </div>
           ))}
         </div>

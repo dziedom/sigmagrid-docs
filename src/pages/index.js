@@ -24,73 +24,55 @@ export default function Home() {
         {/* Hero Section */}
         <section className={styles.hero}>
           <ParticleBackground />
+          <div className={styles.heroGlow} aria-hidden="true" />
           <div className="container">
-            <div className={styles.heroBanner}>
-              <span>API live</span>
-              <span>&bull;</span>
-              <span>19 endpoints &bull; x402 micropayments &bull; Hyperliquid, Avantis, Ostium</span>
-            </div>
-            <h1 className={styles.heroTitle}>
-              Institutional Fair Value for<br />Crypto Perpetual Markets
-            </h1>
-            <p className={styles.heroSubtitle}>
-              Traditional equity markets close at 4pm.
-              <br />
-              Crypto synthetic equity perps trade 24/7.
-            </p>
-            <p className={styles.heroTagline}>
-              Get institutional-grade fair value when Bloomberg terminals go dark.
-            </p>
-
-            <div className={styles.buttonGroup}>
-              <Link className={`${styles.btn} ${styles.btnPrimary}`} to="/docs/intro">
-                View Live Signals
-              </Link>
-              <Link className={`${styles.btn} ${styles.btnSecondary}`} to="/dashboard">
-                View Dashboard
-              </Link>
-              <Link className={`${styles.btn} ${styles.btnSecondary}`} to="/docs/api-reference">
-                Integration Docs
-              </Link>
-            </div>
-
-            <div className={styles.heroSupporting}>
-              <p>
-                Trusted by AI trading bots, market makers, and crypto hedge funds
-                trading SPY-PERP, QQQ-PERP, TSLA-PERP, and other synthetic equity perpetuals.
+            <div className={styles.heroContent}>
+              <div className={styles.kicker}>[ INTRODUCING ]</div>
+              <h1 className={styles.heroTitle}>
+                Institutional Fair Value<br />for Crypto Perpetual Markets
+              </h1>
+              <p className={styles.heroSubtitle}>
+                Traditional equity markets close at 4pm. Crypto synthetic equity perps trade 24/7.
+                Get institutional-grade fair value when Bloomberg terminals go dark.
               </p>
+
+              <div className={styles.buttonGroup}>
+                <Link className={styles.btnPrimary} to="/docs/intro">
+                  Go to Console
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 3L11 8L6 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </Link>
+                <Link className={styles.btnSecondary} to="/docs/api-reference">
+                  Learn More
+                </Link>
+              </div>
+
+              <div className={styles.heroMeta}>
+                <span className={styles.metaItem}>
+                  <span className={styles.liveDot} />
+                  API Live
+                </span>
+                <span className={styles.metaDivider} />
+                <span className={styles.metaItem}>19 Endpoints</span>
+                <span className={styles.metaDivider} />
+                <span className={styles.metaItem}>x402 Micropayments</span>
+                <span className={styles.metaDivider} />
+                <span className={styles.metaItem}>Hyperliquid, Avantis, Ostium</span>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Problem Section */}
         <ProblemSection />
-
-        {/* Try It Now — live endpoint demo */}
         <TryItNow />
-
-        {/* Solution Section */}
         <SolutionSection />
-
-        {/* How It Works Section */}
         <HowItWorksSection />
-
-        {/* Social Proof — live stats + query feed */}
         <SocialProof />
-
-        {/* Use Cases Section */}
         <UseCasesSection />
-
-        {/* Credibility Section */}
         <CredibilitySection />
-
-        {/* Pricing Section */}
         <PricingSection />
-
-        {/* FAQ Section */}
         <FAQSection />
-
-        {/* CTA Section */}
         <CTASection />
       </main>
     </Layout>
