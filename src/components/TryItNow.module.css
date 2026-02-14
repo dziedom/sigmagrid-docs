@@ -1,7 +1,20 @@
 .section {
   padding: 8rem 1.5rem;
-  background: #050505;
+  background: #080808;
   border-top: 1px solid #1a1a1a;
+  position: relative;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 212, 123, 0.04) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .header {
@@ -10,6 +23,7 @@
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
 }
 
 .kicker {
@@ -22,6 +36,7 @@
 }
 
 .title {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 2.75rem;
   font-weight: 800;
   color: #ffffff;
@@ -41,8 +56,10 @@
   margin: 0 auto;
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid #1a1a1a;
+  border: 1px solid #2a2a2a;
   background: #0a0a0a;
+  box-shadow: 0 0 40px rgba(0, 212, 123, 0.03);
+  position: relative;
 }
 
 .terminalTabs {
@@ -73,8 +90,8 @@
 }
 
 .tabActive {
-  color: #fff;
-  border-bottom-color: #fff;
+  color: #00d47b;
+  border-bottom-color: #00d47b;
 }
 
 .tabCost {
@@ -176,15 +193,15 @@
 }
 
 .copyBtn:hover {
-  border-color: #fff;
-  color: #fff;
+  border-color: #00d47b;
+  color: #00d47b;
 }
 
 .runBtn {
   padding: 0.35rem 1rem;
   border-radius: 6px;
   border: none;
-  background: #ffffff;
+  background: #00d47b;
   color: #000;
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
   font-size: 0.7rem;
@@ -196,8 +213,9 @@
 }
 
 .runBtn:hover {
-  background: #e5e5e5;
+  background: #00e88a;
   transform: translateY(-1px);
+  box-shadow: 0 0 15px rgba(0, 212, 123, 0.2);
 }
 
 .runBtnLoading {
@@ -209,6 +227,7 @@
 .runBtnLoading:hover {
   background: #333;
   transform: none;
+  box-shadow: none;
 }
 
 .response {
@@ -264,10 +283,9 @@
 }
 
 .hint strong {
-  color: #fff;
+  color: #00d47b;
 }
 
-/* Floating JSON Tiles */
 .tilesHeader {
   text-align: center;
   margin: 5rem auto 2.5rem;
@@ -275,6 +293,7 @@
 }
 
 .tilesTitle {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 1.75rem;
   font-weight: 800;
   color: #fff;
@@ -305,7 +324,7 @@
 }
 
 .tile:hover {
-  border-color: #2a2a2a;
+  border-color: rgba(0, 212, 123, 0.3);
   transform: translateY(-2px);
   animation-play-state: paused;
 }
@@ -346,7 +365,6 @@
   overflow: hidden;
 }
 
-/* Staggered float animations */
 .tileFloat1 { animation: tileFloat 6s ease-in-out infinite; }
 .tileFloat2 { animation: tileFloat 7s ease-in-out 0.5s infinite; }
 .tileFloat3 { animation: tileFloat 5.5s ease-in-out 1s infinite; }
@@ -386,7 +404,7 @@
   display: block;
   font-size: 1.5rem;
   font-weight: 800;
-  color: #fff;
+  color: #00d47b;
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
   margin-bottom: 0.25rem;
 }

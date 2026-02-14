@@ -1,6 +1,6 @@
 .section {
   padding: 8rem 1.5rem;
-  background: #050505;
+  background: #080808;
   border-top: 1px solid #1a1a1a;
 }
 
@@ -17,11 +17,12 @@
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.25em;
-  color: #555;
+  color: #00d47b;
   margin-bottom: 1rem;
 }
 
 .title {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 2.75rem;
   font-weight: 800;
   color: #ffffff;
@@ -39,7 +40,7 @@
 .metricsCard {
   max-width: 800px;
   margin: 0 auto;
-  border: 1px solid #1a1a1a;
+  border: 1px solid rgba(0, 212, 123, 0.15);
   border-radius: 12px;
   overflow: hidden;
   background: #0a0a0a;
@@ -54,6 +55,7 @@
 }
 
 .metricsHeader h3 {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 1.1rem;
   color: #fff;
   margin: 0;
@@ -126,6 +128,7 @@
   padding-right: 0.75rem;
   transition: width 0.1s ease-out;
   border-radius: 6px;
+  box-shadow: 0 0 12px rgba(0, 212, 123, 0.15);
 }
 
 .barValue {
@@ -163,7 +166,7 @@
 .statValue {
   font-size: 1.25rem;
   font-weight: 800;
-  color: #fff;
+  color: #00d47b;
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
@@ -183,7 +186,7 @@
 }
 
 .footer a {
-  color: #fff;
+  color: #00d47b;
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
@@ -193,7 +196,7 @@
 .footer a:hover {
   opacity: 0.7;
   text-decoration: none;
-  color: #fff;
+  color: #00d47b;
 }
 
 @media (max-width: 768px) {

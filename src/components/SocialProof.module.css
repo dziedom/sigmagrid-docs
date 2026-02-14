@@ -1,6 +1,6 @@
 .section {
   padding: 8rem 1.5rem;
-  background: #050505;
+  background: #080808;
   border-top: 1px solid #1a1a1a;
 }
 
@@ -22,6 +22,7 @@
 }
 
 .title {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 2.75rem;
   font-weight: 800;
   color: #ffffff;
@@ -101,6 +102,7 @@
   background: #00d47b;
   border-radius: 50%;
   animation: pulse-dot 2s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(0, 212, 123, 0.4);
 }
 
 .feedList {
@@ -119,7 +121,7 @@
 }
 
 .queryRow:hover {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(0, 212, 123, 0.03);
 }
 
 .queryTime { color: #333; }

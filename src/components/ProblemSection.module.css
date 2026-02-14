@@ -1,6 +1,6 @@
 .section {
   padding: 8rem 1.5rem;
-  background: #050505;
+  background: #080808;
   border-top: 1px solid #1a1a1a;
 }
 
@@ -17,11 +17,12 @@
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.25em;
-  color: #555;
+  color: #ff4444;
   margin-bottom: 1rem;
 }
 
 .title {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 2.75rem;
   font-weight: 800;
   color: #ffffff;
@@ -41,7 +42,7 @@
   margin: 0 auto 4rem;
   opacity: 0;
   transform: translateY(20px);
-  transition: all 0.8s ease;
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .timeline.visible {
@@ -188,7 +189,7 @@
 }
 
 .closing strong {
-  color: #ffffff;
+  color: #00d47b;
   font-weight: 700;
 }
 

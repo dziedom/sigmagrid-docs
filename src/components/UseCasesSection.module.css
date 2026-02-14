@@ -5,7 +5,7 @@
 }
 
 .header {
-  text-align: center;
+  text-align: left;
   margin-bottom: 4rem;
 }
 
@@ -19,6 +19,7 @@
 }
 
 .title {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 2.75rem;
   font-weight: 800;
   color: #ffffff;
@@ -50,6 +51,10 @@
   background: #111;
 }
 
+.card:hover .cardLabel {
+  color: #00d47b;
+}
+
 .cardLabel {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
   font-size: 0.6rem;
@@ -57,9 +62,11 @@
   letter-spacing: 0.2em;
   color: #555;
   margin-bottom: 1rem;
+  transition: color 0.3s;
 }
 
 .cardTitle {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 1.2rem;
   font-weight: 700;
   color: #fff;
@@ -87,7 +94,7 @@
 }
 
 .metricArrow {
-  color: #555;
+  color: #00d47b;
 }
 
 @media (max-width: 1200px) {

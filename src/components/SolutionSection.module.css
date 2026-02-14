@@ -17,11 +17,12 @@
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.25em;
-  color: #555;
+  color: #00d47b;
   margin-bottom: 1rem;
 }
 
 .title {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 2.75rem;
   font-weight: 800;
   color: #ffffff;
@@ -37,7 +38,7 @@
 }
 
 .lead strong {
-  color: #fff;
+  color: #00d47b;
 }
 
 .grid {
@@ -62,6 +63,10 @@
   background: #111;
 }
 
+.card:hover .cardLabel {
+  color: #00d47b;
+}
+
 .cardLabel {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
   font-size: 0.65rem;
@@ -69,9 +74,11 @@
   letter-spacing: 0.2em;
   color: #555;
   margin-bottom: 1rem;
+  transition: color 0.3s;
 }
 
 .cardTitle {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
   color: #fff;
@@ -89,9 +96,10 @@
 .cardNote {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
   font-size: 0.75rem;
-  color: #555;
+  color: #00d47b;
   padding-top: 1rem;
   border-top: 1px solid #1a1a1a;
+  opacity: 0.7;
 }
 
 @media (max-width: 968px) {

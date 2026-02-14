@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import ParticleBackground from '../components/ParticleBackground';
@@ -14,7 +14,37 @@ import FAQSection from '../components/FAQSection';
 import CTASection from '../components/CTASection';
 import styles from './index.module.css';
 
+function useScrollReveal() {
+  useEffect(() => {
+    const elements = document.querySelectorAll('.sg-reveal');
+    if (!elements.length) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      elements.forEach(el => el.classList.add('sg-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('sg-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    elements.forEach(el => observer.observe(el));
+    return () => elements.forEach(el => observer.unobserve(el));
+  }, []);
+}
+
 export default function Home() {
+  useScrollReveal();
+
   return (
     <Layout
       title="SigmaGrid — Institutional Fair Value for Crypto Perpetual Markets"
@@ -64,16 +94,36 @@ export default function Home() {
           </div>
         </section>
 
-        <ProblemSection />
-        <TryItNow />
-        <SolutionSection />
-        <HowItWorksSection />
-        <SocialProof />
-        <UseCasesSection />
-        <CredibilitySection />
-        <PricingSection />
-        <FAQSection />
-        <CTASection />
+        <div className="sg-reveal">
+          <ProblemSection />
+        </div>
+        <div className="sg-reveal">
+          <TryItNow />
+        </div>
+        <div className="sg-reveal">
+          <SolutionSection />
+        </div>
+        <div className="sg-reveal">
+          <HowItWorksSection />
+        </div>
+        <div className="sg-reveal">
+          <SocialProof />
+        </div>
+        <div className="sg-reveal">
+          <UseCasesSection />
+        </div>
+        <div className="sg-reveal">
+          <CredibilitySection />
+        </div>
+        <div className="sg-reveal">
+          <PricingSection />
+        </div>
+        <div className="sg-reveal">
+          <FAQSection />
+        </div>
+        <div className="sg-reveal">
+          <CTASection />
+        </div>
       </main>
     </Layout>
   );
