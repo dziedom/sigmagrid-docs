@@ -5,9 +5,8 @@ export default function VenueComparison({ ticker }) {
   // Calculate venue prices from static ticker data
   const venues = [
     { name: 'Hyperliquid', price: ticker.currentPrice * 1.0009, premium: 0.09 },
-    { name: 'Aevo', price: ticker.currentPrice * 0.9993, premium: -0.07 },
-    { name: 'Drift', price: ticker.currentPrice * 1.0012, premium: 0.12 },
-    { name: 'Vertex', price: ticker.currentPrice * 0.9994, premium: -0.06 },
+    { name: 'Avantis', price: ticker.currentPrice * 0.9993, premium: -0.07 },
+    { name: 'Ostium', price: ticker.currentPrice * 1.0004, premium: 0.04 },
   ];
 
   const maxPrice = Math.max(...venues.map((v) => v.price), ticker.fairValue);

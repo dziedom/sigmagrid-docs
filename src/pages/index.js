@@ -24,9 +24,9 @@ export default function Home() {
           <ParticleBackground />
           <div className="container">
             <div className={styles.heroBanner}>
-              <span>API coming Q1 2026</span>
+              <span>API live</span>
               <span>•</span>
-              <span>Public docs live now — Paid API launching Q1 2026</span>
+              <span>19 endpoints • x402 micropayments • Hyperliquid, Avantis, Ostium</span>
             </div>
             <h1 className={styles.heroTitle}>
               Institutional Fair Value for<br />Crypto Perpetual Markets

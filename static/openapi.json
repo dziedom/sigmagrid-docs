@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "SigmaGrid Fundamentals API",
-    "version": "0.1.0",
-    "description": "SigmaGrid — Institutional fundamentals and alpha signals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.). API live."
+    "title": "SigmaGrid API",
+    "version": "1.0.0",
+    "description": "SigmaGrid — Institutional fundamentals and alpha signals API for synthetic-equity perpetuals (SPY-PERP, QQQ-PERP, TSLA-PERP, etc.). 19 endpoints across 5 pricing tiers. API live."
   },
   "servers": [
     {
@@ -12,41 +12,86 @@
     }
   ],
   "paths": {
-    "/v1/validate": {
+    "/healthz": {
       "get": {
-        "summary": "Service validation and discovery",
-        "description": "Free endpoint (no payment). Returns service availability and discovery info. Call before making paid requests.",
-        "responses": {
-          "200": {
-            "description": "Service is reachable",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HealthResponse" },
-                "example": {
-                  "status": "ok",
-                  "service": "sigmagrid-api",
-                  "time": "2026-01-15T18:00:00.123456Z"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/health": {
-      "get": {
-        "summary": "Health check endpoint",
-        "description": "Returns service health status. This endpoint is public (not x402-gated) and can be used for uptime monitoring and validation checks.",
+        "summary": "Health check",
+        "description": "Free health check endpoint for uptime monitoring.",
         "responses": {
           "200": {
             "description": "Service is healthy",
             "content": {
               "application/json": {
-                "schema": { "$ref": "#/components/schemas/HealthResponse" },
+                "schema": { "$ref": "#/components/schemas/HealthResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/validate": {
+      "get": {
+        "summary": "Service validation + supported assets",
+        "description": "Free endpoint (no payment). Returns service availability and supported assets list.",
+        "responses": {
+          "200": {
+            "description": "Service is reachable",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HealthResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/discovery": {
+      "get": {
+        "summary": "Bot-discoverable API info",
+        "description": "Free. Returns JSON with bot-discoverable API information.",
+        "responses": { "200": { "description": "Discovery info" } }
+      }
+    },
+    "/openapi.yaml": {
+      "get": {
+        "summary": "OpenAPI 3.0 specification",
+        "description": "Returns the machine-readable OpenAPI specification.",
+        "responses": { "200": { "description": "OpenAPI spec in YAML" } }
+      }
+    },
+    "/api/registry-services.json": {
+      "get": {
+        "summary": "Machine-readable service manifest",
+        "description": "Returns service IDs and paths for x402 gateways.",
+        "responses": { "200": { "description": "Service manifest" } }
+      }
+    },
+    "/v1/signals/{ticker}": {
+      "get": {
+        "summary": "Free teaser — regime state + event-risk labels",
+        "description": "Free. Returns regime state and event-risk level as text labels. No numeric data. Includes gated_endpoints map.",
+        "parameters": [
+          { "name": "ticker", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Free teaser with regime + event-risk labels",
+            "content": {
+              "application/json": {
                 "example": {
-                  "status": "ok",
-                  "service": "sigmagrid-api",
-                  "time": "2026-01-15T18:00:00.123456Z"
+                  "ticker": "SPY",
+                  "regime": "risk_on",
+                  "event_risk": "low",
+                  "gated_endpoints": {
+                    "premium": "/v1/premium/SPY",
+                    "fair_value": "/v1/fair-value/SPY",
+                    "spread": "/v1/spread/SPY",
+                    "funding": "/v1/funding/SPY",
+                    "regime": "/v1/regime/SPY",
+                    "event_risk": "/v1/event-risk/SPY",
+                    "events": "/v1/events/SPY",
+                    "arbitrage": "/v1/arbitrage/SPY",
+                    "alpha_snapshot": "/v1/alpha-snapshot/SPY"
+                  }
                 }
               }
             }
@@ -54,385 +99,203 @@
         }
       }
     },
-    "/v1/signals/{ticker}": {
+    "/v1/fair-value/{ticker}": {
       "get": {
-        "summary": "Get consolidated signal snapshot for a ticker",
-        "description": "Returns a full signal snapshot for the specified synthetic-equity ticker, including core mandatory fields, extended fields, and optional macro betas.",
+        "summary": "Fair value estimate (0.02 USDC)",
+        "description": "Returns fair value, source, confidence, per-venue premium-to-close bps.",
         "parameters": [
-          {
-            "name": "ticker",
-            "in": "path",
-            "required": true,
-            "description": "Underlying symbol, e.g. SPY, QQQ, TSLA.",
-            "schema": { "type": "string" }
-          }
+          { "name": "ticker", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "200": {
-            "description": "Signal snapshot",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/SignalResponse" },
-                "example": {
-                  "timestamp": "2026-01-15T18:00:00Z",
-                  "ticker": "SPY",
-                  "fair_value": 523.41,
-                  "fv_upper": 525.10,
-                  "fv_lower": 521.80,
-                  "drift_1h": 0.32,
-                  "drift_overnight": 0.18,
-                  "regime": "trend",
-                  "vol_forecast_1h": 0.012,
-                  "vol_forecast_4h": 0.015,
-                  "event_next": "FOMC",
-                  "event_impact": "extreme",
-                  "event_bias": "risk-off",
-                  "premiums": {
-                    "hyperliquid": 0.42,
-                    "aevo": -0.15
-                  },
-                  "z_score": 2.1,
-                  "reversion_prob": 0.78,
-                  "shock_index": 0,
-                  "beta_macro": 1.08,
-                  "beta_yield": -0.42,
-                  "beta_dollar": 0.31,
-                  "beta_vol_index": 0.87
-                }
-              }
-            }
-          }
+          "200": { "description": "Fair value data" },
+          "402": { "description": "Payment required (x402)" }
         }
       }
     },
     "/v1/premium/{ticker}": {
       "get": {
-        "summary": "Get cross-venue basis and mispricing metrics",
-        "description": "Returns basis vs fair value and related arbitrage metrics across supported venues.",
+        "summary": "Cross-venue mispricing (0.02 USDC)",
+        "description": "Per-venue premiums + spread summary.",
         "parameters": [
-          {
-            "name": "ticker",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
+          { "name": "ticker", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "200": {
-            "description": "Premium metrics",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/PremiumResponse" }
-              }
-            }
-          }
+          "200": { "description": "Premium data" },
+          "402": { "description": "Payment required (x402)" }
+        }
+      }
+    },
+    "/v1/spread/{ticker}": {
+      "get": {
+        "summary": "Cross-venue spread (0.02 USDC)",
+        "description": "Cheapest/richest venue, max spread bps, arbitrage flag.",
+        "parameters": [
+          { "name": "ticker", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Spread data" },
+          "402": { "description": "Payment required (x402)" }
+        }
+      }
+    },
+    "/v1/funding/{ticker}": {
+      "get": {
+        "summary": "Funding rates (0.02 USDC)",
+        "description": "Funding rates, z-scores, anomaly flags, mean-reversion probability. Hyperliquid only.",
+        "parameters": [
+          { "name": "ticker", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Funding data" },
+          "402": { "description": "Payment required (x402)" }
+        }
+      }
+    },
+    "/v1/regime-basic/{ticker}": {
+      "get": {
+        "summary": "Risk regime basic (0.02 USDC)",
+        "description": "Risk regime with VIX level, VIX 24h change, funding direction.",
+        "parameters": [
+          { "name": "ticker", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Basic regime data" },
+          "402": { "description": "Payment required (x402)" }
+        }
+      }
+    },
+    "/v1/regime/{ticker}": {
+      "get": {
+        "summary": "Regime classification (0.02 USDC)",
+        "description": "Regime (risk_on/risk_off/transitioning) with VIX context and confidence.",
+        "parameters": [
+          { "name": "ticker", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Regime data" },
+          "402": { "description": "Payment required (x402)" }
+        }
+      }
+    },
+    "/v1/event-risk/{ticker}": {
+      "get": {
+        "summary": "Earnings event-risk (0.02 USDC)",
+        "description": "Event-risk level, hours to event, historical avg move %.",
+        "parameters": [
+          { "name": "ticker", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Event risk data" },
+          "402": { "description": "Payment required (x402)" }
+        }
+      }
+    },
+    "/v1/events/{ticker}": {
+      "get": {
+        "summary": "Event sensitivity (0.02 USDC)",
+        "description": "Next event, impact, bias, risk level.",
+        "parameters": [
+          { "name": "ticker", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Event data" },
+          "402": { "description": "Payment required (x402)" }
+        }
+      }
+    },
+    "/v1/arbitrage/{ticker}": {
+      "get": {
+        "summary": "Arbitrage detection (0.02 USDC)",
+        "description": "Per-venue premiums + funding for arbitrage detection.",
+        "parameters": [
+          { "name": "ticker", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Arbitrage data" },
+          "402": { "description": "Payment required (x402)" }
+        }
+      }
+    },
+    "/v1/historical/{ticker}": {
+      "get": {
+        "summary": "Historical time-series (0.03 USDC)",
+        "description": "Time-series: fair value, regime, drift, premiums.",
+        "parameters": [
+          { "name": "ticker", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "start", "in": "query", "required": false, "schema": { "type": "string" } },
+          { "name": "end", "in": "query", "required": false, "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "required": false, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Historical data" },
+          "402": { "description": "Payment required (x402)" }
+        }
+      }
+    },
+    "/v1/alpha-snapshot/{ticker}": {
+      "get": {
+        "summary": "Full AlphaSnapshot (0.03 USDC)",
+        "description": "All signal columns for one ticker.",
+        "parameters": [
+          { "name": "ticker", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Alpha snapshot data" },
+          "402": { "description": "Payment required (x402)" }
+        }
+      }
+    },
+    "/v1/snapshot": {
+      "get": {
+        "summary": "Multi-ticker snapshot (0.05 USDC)",
+        "description": "Dashboard snapshot for multiple tickers.",
+        "parameters": [
+          { "name": "tickers", "in": "query", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Multi-ticker snapshot" },
+          "402": { "description": "Payment required (x402)" }
+        }
+      }
+    },
+    "/v1/alpha-snapshot/batch": {
+      "get": {
+        "summary": "Batch AlphaSnapshot (0.05 USDC)",
+        "description": "Full AlphaSnapshot for multiple tickers.",
+        "parameters": [
+          { "name": "tickers", "in": "query", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Batch alpha snapshot" },
+          "402": { "description": "Payment required (x402)" }
         }
       }
     },
     "/v1/drift/{ticker}": {
       "get": {
         "deprecated": true,
-        "summary": "Get directional drift surface (deprecated)",
-        "description": "Deprecated. Returns 410 Gone. Use GET /v1/signals/{ticker} for drift (drift_1h, drift_overnight) and other signals.",
+        "summary": "Directional drift (deprecated — 410 Gone)",
+        "description": "Deprecated. Returns 410 Gone. Use /v1/alpha-snapshot/{ticker} instead.",
         "parameters": [
-          {
-            "name": "ticker",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
+          { "name": "ticker", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "410": {
-            "description": "Gone. Use /v1/signals/{ticker} for drift and other signals."
-          }
-        }
-      }
-    },
-    "/v1/regime/{ticker}": {
-      "get": {
-        "summary": "Get regime and risk sizing information",
-        "description": "Returns current regime and shock information for the given ticker, plus optional macro betas.",
-        "parameters": [
-          {
-            "name": "ticker",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Regime metrics",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/RegimeResponse" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/events/{ticker}": {
-      "get": {
-        "summary": "Get macro event surface for a ticker",
-        "description": "Returns the next major macro event, expected impact, and bias for the given ticker.",
-        "parameters": [
-          {
-            "name": "ticker",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Event metrics",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/EventResponse" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/arbitrage/{ticker}": {
-      "get": {
-        "summary": "Get carry and mean reversion view",
-        "description": "Returns fair value, premiums, reversion probability, and stress-aware spreads for the given ticker.",
-        "parameters": [
-          {
-            "name": "ticker",
-            "in": "path",
-            "required": true,
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Arbitrage metrics",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/ArbitrageResponse" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/historical/{ticker}": {
-      "get": {
-        "summary": "Get historical data for a ticker",
-        "description": "Returns historical signal data for the specified ticker for backtesting, calibration, and analysis. Query params: start, end, limit.",
-        "parameters": [
-          {
-            "name": "ticker",
-            "in": "path",
-            "required": true,
-            "description": "Underlying symbol, e.g. SPY, QQQ, TSLA.",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "start",
-            "in": "query",
-            "required": false,
-            "description": "Start time (ISO 8601 or Unix).",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "end",
-            "in": "query",
-            "required": false,
-            "description": "End time (ISO 8601 or Unix).",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "required": false,
-            "description": "Maximum number of points to return.",
-            "schema": { "type": "integer" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Historical data",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/HistoricalResponse" }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/snapshot": {
-      "get": {
-        "summary": "Get multi-ticker snapshot",
-        "description": "Returns signal snapshots for multiple tickers in a single request.",
-        "parameters": [
-          {
-            "name": "tickers",
-            "in": "query",
-            "required": true,
-            "description": "Comma-separated list of tickers (e.g. SPY,QQQ,TSLA).",
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Multi-ticker snapshot",
-            "content": {
-              "application/json": {
-                "schema": { "$ref": "#/components/schemas/SnapshotResponse" }
-              }
-            }
-          }
+          "410": { "description": "Gone. Use /v1/alpha-snapshot/{ticker}." }
         }
       }
     }
   },
   "components": {
     "schemas": {
-      "SignalResponse": {
-        "type": "object",
-        "properties": {
-          "timestamp": { "type": "string", "format": "date-time" },
-          "ticker": { "type": "string" },
-          "fair_value": { "type": "number" },
-          "fv_upper": { "type": "number" },
-          "fv_lower": { "type": "number" },
-          "drift_1h": { "type": "number" },
-          "drift_overnight": { "type": "number" },
-          "regime": {
-            "type": "string",
-            "description": "trend / chop / HVOL / LVOL"
-          },
-          "vol_forecast_1h": { "type": "number" },
-          "vol_forecast_4h": { "type": "number" },
-          "event_next": { "type": "string" },
-          "event_impact": {
-            "type": "string",
-            "description": "Expected impact: low → extreme"
-          },
-          "event_bias": {
-            "type": "string",
-            "description": "risk-on / risk-off / neutral"
-          },
-          "premiums": {
-            "type": "object",
-            "additionalProperties": { "type": "number" },
-            "description": "Map of venue → basis vs fair_value"
-          },
-          "z_score": { "type": "number" },
-          "reversion_prob": { "type": "number" },
-          "shock_index": { "type": "number" },
-          "beta_macro": { "type": "number" },
-          "beta_yield": { "type": "number" },
-          "beta_dollar": { "type": "number" },
-          "beta_vol_index": { "type": "number" }
-        },
-        "required": [
-          "timestamp",
-          "ticker",
-          "fair_value",
-          "vol_forecast_1h",
-          "vol_forecast_4h",
-          "regime",
-          "drift_1h",
-          "drift_overnight",
-          "event_next",
-          "event_impact",
-          "event_bias"
-        ]
-      },
-      "PremiumResponse": {
-        "type": "object",
-        "properties": {
-          "timestamp": { "type": "string", "format": "date-time" },
-          "ticker": { "type": "string" },
-          "premiums": {
-            "type": "object",
-            "additionalProperties": { "type": "number" }
-          },
-          "z_score": { "type": "number" },
-          "reversion_prob": { "type": "number" }
-        },
-        "required": ["timestamp", "ticker", "premiums"]
-      },
-      "DriftResponse": {
-        "type": "object",
-        "properties": {
-          "timestamp": { "type": "string", "format": "date-time" },
-          "ticker": { "type": "string" },
-          "drift_1h": { "type": "number" },
-          "drift_overnight": { "type": "number" },
-          "regime": { "type": "string" }
-        },
-        "required": ["timestamp", "ticker", "drift_1h", "regime"]
-      },
-      "RegimeResponse": {
-        "type": "object",
-        "properties": {
-          "timestamp": { "type": "string", "format": "date-time" },
-          "ticker": { "type": "string" },
-          "regime": { "type": "string" },
-          "shock_index": { "type": "number" },
-          "beta_macro": { "type": "number" },
-          "beta_yield": { "type": "number" },
-          "beta_dollar": { "type": "number" },
-          "beta_vol_index": { "type": "number" }
-        },
-        "required": ["timestamp", "ticker", "regime"]
-      },
-      "EventResponse": {
-        "type": "object",
-        "properties": {
-          "timestamp": { "type": "string", "format": "date-time" },
-          "ticker": { "type": "string" },
-          "event_next": { "type": "string" },
-          "event_impact": { "type": "string" },
-          "event_bias": { "type": "string" }
-        },
-        "required": ["timestamp", "ticker", "event_next"]
-      },
-      "ArbitrageResponse": {
-        "type": "object",
-        "properties": {
-          "timestamp": { "type": "string", "format": "date-time" },
-          "ticker": { "type": "string" },
-          "fair_value": { "type": "number" },
-          "premiums": {
-            "type": "object",
-            "additionalProperties": { "type": "number" }
-          },
-          "z_score": { "type": "number" },
-          "reversion_prob": { "type": "number" },
-          "shock_index": { "type": "number" }
-        },
-        "required": ["timestamp", "ticker", "fair_value", "premiums"]
-      },
       "HealthResponse": {
         "type": "object",
         "properties": {
-          "status": {
-            "type": "string",
-            "description": "Service status, always 'ok' when healthy"
-          },
-          "service": {
-            "type": "string",
-            "description": "Service identifier"
-          },
-          "time": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Current server time in ISO 8601 format"
-          }
+          "status": { "type": "string" },
+          "service": { "type": "string" },
+          "time": { "type": "string", "format": "date-time" }
         },
-        "required": ["status", "service", "time"]
+        "required": ["status"]
       }
     }
   }
 }
-

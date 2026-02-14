@@ -7,19 +7,20 @@ Example consumer agent that demonstrates how to integrate with SigmaGrid API, ha
 This agent provides a `GET /route?ticker=TSLA` endpoint that:
 
 1. Fetches data from SigmaGrid endpoints:
-   - `/v1/signals/{ticker}` - Consolidated signal snapshot
-   - `/v1/drift/{ticker}` - Directional drift surface
-   - `/v1/regime/{ticker}` - Regime and risk sizing
+   - `/v1/signals/{ticker}` - Free teaser (regime + event-risk labels)
+   - `/v1/fair-value/{ticker}` - Fair value estimate (0.02 USDC)
+   - `/v1/spread/{ticker}` - Cross-venue spread + arbitrage flag (0.02 USDC)
 
 2. Handles edge cases gracefully:
    - HTTP 402 (payment required) - Returns neutral decision with error message
    - HTTP 200 with `{status:"no_data"}` - Returns neutral decision when no data available
+   - HTTP 410 (deprecated) - Returns None for deprecated endpoints
    - Network errors - Returns error state
 
 3. Makes routing decisions:
-   - `long` - Positive drift with low z-score
-   - `short` - Negative drift or mean reversion setup
-   - `neutral` - High volatility, extreme events, or no clear signal
+   - `long` - Risk-on regime with arbitrage opportunity or fair value confirmation
+   - `short` - Not used in this simple example (extend for your needs)
+   - `neutral` - High event risk, risk-off regime, or no clear signal
    - `error` - No data available
 
 ## Quick Start
@@ -63,19 +64,19 @@ curl http://localhost:8000/health
 {
   "ticker": "SPY",
   "action": "long",
-  "confidence": 0.85,
-  "reasoning": "Positive drift (0.32) with low z-score (0.8)",
+  "confidence": 0.7,
+  "reasoning": "Arbitrage opportunity: hyperliquid -> avantis, spread 18bps",
   "signals": {
-    "timestamp": "2026-01-15T18:00:00Z",
     "ticker": "SPY",
-    "fair_value": 523.41,
-    "drift_1h": 0.32,
-    "z_score": 0.8,
-    "regime": "trend",
-    ...
+    "regime": "risk_on",
+    "event_risk": "low",
+    "gated_endpoints": {
+      "fair_value": "/v1/fair-value/SPY",
+      "spread": "/v1/spread/SPY"
+    }
   },
   "error": null,
-  "timestamp": "2026-01-15T18:00:05Z"
+  "timestamp": "2026-02-14T18:00:05Z"
 }
 ```
 
@@ -83,69 +84,31 @@ curl http://localhost:8000/health
 
 The agent uses a simple rule-based system:
 
-- **Long**: Positive `drift_1h` (> 0.1) + low `z_score` (< 1.0)
-- **Short**: Negative `drift_1h` (< -0.1) OR high `z_score` (> 1.5) with high `reversion_prob` (> 0.7)
-- **Neutral**: High volatility regime (`HVOL`) OR extreme event impact OR no clear signal
+- **Neutral**: `event_risk` is `elevated`/`high` OR `regime` is `risk_off`
+- **Long (arb)**: `spread.arbitrage_flag` is true - arb opportunity detected
+- **Long (FV)**: Fair value data available with high confidence
+- **Long (regime)**: `risk_on` regime with no specific signal
+- **Neutral**: No clear signal
 - **Error**: No data available (402 payment required or ticker not supported)
 
 **Note**: This is a minimal example. Real agents would implement more sophisticated risk management, position sizing, and signal filtering.
 
-## Deployment
+## SigmaGrid Endpoint Pricing
 
-### Option 1: Fly.io
+| Endpoint | Price |
+|---|---|
+| `/v1/signals/{ticker}` | Free (teaser: labels only) |
+| `/v1/fair-value/{ticker}` | 0.02 USDC |
+| `/v1/spread/{ticker}` | 0.02 USDC |
+| `/v1/alpha-snapshot/{ticker}` | 0.03 USDC (all columns) |
 
-```bash
-# Install flyctl
-# Create fly.toml (see below)
-
-fly launch
-fly deploy
-```
-
-### Option 2: Railway
-
-```bash
-# Connect your repo to Railway
-# Railway will auto-detect the Dockerfile
-```
-
-### Option 3: Render
-
-```bash
-# Connect your repo to Render
-# Use Docker deployment option
-```
-
-### Option 4: Self-hosted
-
-```bash
-# Build and run on your server
-docker build -t signal-router-agent .
-docker run -d -p 8000:8000 --name router signal-router-agent
-```
-
-## ERC-8004 Registration
-
-After deployment, update `.well-known/agent.json` with your actual domain:
-
-```json
-{
-  "endpoints": [
-    {
-      "name": "A2A",
-      "endpoint": "https://your-actual-domain.com/.well-known/agent.json"
-    }
-  ]
-}
-```
-
-Then serve the `.well-known/` directory at your domain root so bots can discover your agent.
+See [SigmaGrid API reference](https://sigmagrid.app/docs/api-reference) for all 19 endpoints.
 
 ## Integration with SigmaGrid
 
 This agent consumes SigmaGrid API. To use the live API you'll need to:
 
-1. Implement x402 payment flow for authenticated requests
+1. Implement x402 payment flow for paid requests (0.02-0.05 USDC)
 2. Handle payment-required responses (HTTP 402)
 3. Cache responses appropriately to minimize API calls
 
@@ -154,7 +117,3 @@ See [SigmaGrid agent documentation](https://sigmagrid.app/docs/agents) for full 
 ## License
 
 This is example code provided for demonstration purposes.
-
-
-
-

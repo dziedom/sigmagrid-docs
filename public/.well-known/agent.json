@@ -1,119 +1,69 @@
 {
   "name": "SigmaGrid",
-  "version": "1.0.0",
-  "updated_at": "2025-12-12",
-  "description": "Institutional fair value for crypto perpetual markets. Provides 24/7 fair value when traditional markets are closed. Trusted by AI trading bots, market makers, and crypto hedge funds.",
-  "role": "data-provider",
-  "network": "Base Sepolia",
-  "website": "https://sigmagrid.app",
+  "description": "Institutional fair value and alpha signals API for synthetic-equity perpetuals. API live.",
   "base_url": "https://api.sigmagrid.app",
-  "image": "https://sigmagrid.app/logo.png",
-  "payments": {
-    "protocol": "x402",
-    "currency": "USDC",
-    "model": "per-request",
-    "notes": "Endpoints may return 402 Payment Required when gated."
+  "openapi_spec": "https://api.sigmagrid.app/openapi.yaml",
+  "registry_services": "https://api.sigmagrid.app/api/registry-services.json",
+  "erc8004": {
+    "status": "planned",
+    "note": "Manifest generation exists but uses a placeholder signing key. No on-chain registration yet.",
+    "descriptor": "https://sigmagrid.app/.well-known/erc8004.json"
   },
-  "agent_service_endpoints": [
-    {
-      "id": "metadata",
-      "name": "Agent Metadata",
-      "type": "metadata",
-      "url": "https://sigmagrid.app/.well-known/agent.json"
-    },
-    {
-      "id": "docs",
-      "name": "Documentation",
-      "type": "docs",
-      "url": "https://sigmagrid.app/"
-    },
-    {
-      "id": "openapi",
-      "name": "OpenAPI Specification",
-      "type": "openapi",
-      "url": "https://api.sigmagrid.app/openapi.yaml"
-    },
-    {
-      "id": "llms",
-      "name": "LLMs.txt",
-      "type": "llms",
-      "url": "https://sigmagrid.app/llms.txt"
-    },
-    {
-      "id": "mcp",
-      "name": "MCP Descriptor",
-      "type": "mcp",
-      "url": "https://sigmagrid.app/mcp.json"
+  "mcp": {
+    "status": "coming_soon",
+    "note": "MCP server exists as skeleton (list_tools() returns []). No functional tools yet.",
+    "descriptor": "https://sigmagrid.app/mcp.json"
+  },
+  "venues": ["Hyperliquid", "Avantis", "Ostium"],
+  "supported_tickers": ["SPY", "QQQ", "IWM", "AAPL", "MSFT", "GOOGL", "AMZN", "META", "NVDA", "TSLA"],
+  "pricing": {
+    "model": "per-request",
+    "protocol": "x402",
+    "network": "Base L2 (Chain ID 8453)",
+    "currency": "USDC",
+    "tiers": {
+      "free": ["GET /healthz", "GET /v1/validate", "GET /api/discovery", "GET /openapi.yaml", "GET /api/registry-services.json"],
+      "free_teaser": ["GET /v1/signals/{ticker}"],
+      "single_signal_0.02": ["GET /v1/fair-value/{ticker}", "GET /v1/premium/{ticker}", "GET /v1/spread/{ticker}", "GET /v1/funding/{ticker}", "GET /v1/regime-basic/{ticker}", "GET /v1/regime/{ticker}", "GET /v1/event-risk/{ticker}", "GET /v1/events/{ticker}", "GET /v1/arbitrage/{ticker}"],
+      "rich_data_0.03": ["GET /v1/historical/{ticker}", "GET /v1/alpha-snapshot/{ticker}"],
+      "bulk_batch_0.05": ["GET /v1/snapshot", "GET /v1/alpha-snapshot/batch"]
     }
-  ],
+  },
   "endpoints": [
-    {
-      "id": "signals.consolidated",
-      "path": "/v1/signals/{ticker}",
-      "method": "GET",
-      "description": "Consolidated signal snapshot for a given ticker.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
-    },
-    {
-      "id": "premium.arbitrage",
-      "path": "/v1/premium/{ticker}",
-      "method": "GET",
-      "description": "Cross-venue premium and basis metrics relative to reference values.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
-    },
-    {
-      "id": "drift.directional",
-      "path": "/v1/drift/{ticker}",
-      "method": "GET",
-      "description": "Directional drift indicators derived from underlying signal dynamics.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
-    },
-    {
-      "id": "regime.risk",
-      "path": "/v1/regime/{ticker}",
-      "method": "GET",
-      "description": "Market regime classification and associated risk context metrics.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
-    },
-    {
-      "id": "events.macro",
-      "path": "/v1/events/{ticker}",
-      "method": "GET",
-      "description": "Scheduled macro and event-driven context associated with a given ticker.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
-    },
-    {
-      "id": "arbitrage.carry",
-      "path": "/v1/arbitrage/{ticker}",
-      "method": "GET",
-      "description": "Funding, carry, and relative pricing context metrics.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
-    },
-    {
-      "id": "historical.data",
-      "path": "/v1/historical/{ticker}",
-      "method": "GET",
-      "description": "Historical time-series data for a given ticker.",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
-    },
-    {
-      "id": "snapshot.multi",
-      "path": "/v1/snapshot",
-      "method": "GET",
-      "description": "Aggregated snapshot across multiple tickers (query param: tickers).",
-      "content_type": "application/json",
-      "pricing": { "protocol": "x402", "model": "per-request" }
-    }
+    { "url": "https://api.sigmagrid.app/healthz", "method": "GET", "description": "Health check", "price": "free" },
+    { "url": "https://api.sigmagrid.app/v1/validate", "method": "GET", "description": "Service validation", "price": "free" },
+    { "url": "https://api.sigmagrid.app/api/discovery", "method": "GET", "description": "Bot-discoverable API info", "price": "free" },
+    { "url": "https://api.sigmagrid.app/openapi.yaml", "method": "GET", "description": "OpenAPI spec", "price": "free" },
+    { "url": "https://api.sigmagrid.app/api/registry-services.json", "method": "GET", "description": "Service manifest", "price": "free" },
+    { "url": "https://api.sigmagrid.app/v1/signals/{ticker}", "method": "GET", "description": "Free teaser: regime + event-risk labels", "price": "free" },
+    { "url": "https://api.sigmagrid.app/v1/fair-value/{ticker}", "method": "GET", "description": "Fair value estimate", "price": "0.02 USDC" },
+    { "url": "https://api.sigmagrid.app/v1/premium/{ticker}", "method": "GET", "description": "Cross-venue mispricing", "price": "0.02 USDC" },
+    { "url": "https://api.sigmagrid.app/v1/spread/{ticker}", "method": "GET", "description": "Cross-venue spread", "price": "0.02 USDC" },
+    { "url": "https://api.sigmagrid.app/v1/funding/{ticker}", "method": "GET", "description": "Funding rates (Hyperliquid only)", "price": "0.02 USDC" },
+    { "url": "https://api.sigmagrid.app/v1/regime-basic/{ticker}", "method": "GET", "description": "Risk regime basic", "price": "0.02 USDC" },
+    { "url": "https://api.sigmagrid.app/v1/regime/{ticker}", "method": "GET", "description": "Regime classification", "price": "0.02 USDC" },
+    { "url": "https://api.sigmagrid.app/v1/event-risk/{ticker}", "method": "GET", "description": "Earnings event-risk", "price": "0.02 USDC" },
+    { "url": "https://api.sigmagrid.app/v1/events/{ticker}", "method": "GET", "description": "Event sensitivity", "price": "0.02 USDC" },
+    { "url": "https://api.sigmagrid.app/v1/arbitrage/{ticker}", "method": "GET", "description": "Arbitrage detection", "price": "0.02 USDC" },
+    { "url": "https://api.sigmagrid.app/v1/historical/{ticker}", "method": "GET", "description": "Historical time-series", "price": "0.03 USDC" },
+    { "url": "https://api.sigmagrid.app/v1/alpha-snapshot/{ticker}", "method": "GET", "description": "Full AlphaSnapshot", "price": "0.03 USDC" },
+    { "url": "https://api.sigmagrid.app/v1/snapshot", "method": "GET", "description": "Multi-ticker snapshot", "price": "0.05 USDC" },
+    { "url": "https://api.sigmagrid.app/v1/alpha-snapshot/batch", "method": "GET", "description": "Batch AlphaSnapshot", "price": "0.05 USDC" }
   ],
-  "contact": {
-    "email": "support@sigmagrid.app",
-    "website": "https://sigmagrid.app"
-  }
+  "capabilities": [
+    { "id": "signals.teaser", "endpoint": "https://api.sigmagrid.app/v1/signals/{ticker}" },
+    { "id": "fairvalue.estimate", "endpoint": "https://api.sigmagrid.app/v1/fair-value/{ticker}" },
+    { "id": "premium.arbitrage", "endpoint": "https://api.sigmagrid.app/v1/premium/{ticker}" },
+    { "id": "spread.crossvenue", "endpoint": "https://api.sigmagrid.app/v1/spread/{ticker}" },
+    { "id": "funding.rates", "endpoint": "https://api.sigmagrid.app/v1/funding/{ticker}" },
+    { "id": "regime.basic", "endpoint": "https://api.sigmagrid.app/v1/regime-basic/{ticker}" },
+    { "id": "regime.risk", "endpoint": "https://api.sigmagrid.app/v1/regime/{ticker}" },
+    { "id": "eventrisk.earnings", "endpoint": "https://api.sigmagrid.app/v1/event-risk/{ticker}" },
+    { "id": "events.macro", "endpoint": "https://api.sigmagrid.app/v1/events/{ticker}" },
+    { "id": "arbitrage.carry", "endpoint": "https://api.sigmagrid.app/v1/arbitrage/{ticker}" },
+    { "id": "historical.data", "endpoint": "https://api.sigmagrid.app/v1/historical/{ticker}" },
+    { "id": "alpha.snapshot", "endpoint": "https://api.sigmagrid.app/v1/alpha-snapshot/{ticker}" },
+    { "id": "snapshot.multi", "endpoint": "https://api.sigmagrid.app/v1/snapshot" },
+    { "id": "alpha.batch", "endpoint": "https://api.sigmagrid.app/v1/alpha-snapshot/batch" }
+  ]
 }

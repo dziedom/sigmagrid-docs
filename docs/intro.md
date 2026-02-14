@@ -16,7 +16,7 @@ SigmaGrid is the institutional fundamentals API for 24/7 synthetic-equity perpet
 
 ## The 24/7 Fair Value Problem
 
-Crypto synthetic equity perpetuals trade around the clock across Hyperliquid, Avantis, Aevo, Drift, and Vertex. But institutional fundamentals only exist during market hours (9:30am-4pm ET, Mon-Fri).
+Crypto synthetic equity perpetuals trade around the clock across Hyperliquid, Avantis, and Ostium. But institutional fundamentals only exist during market hours (9:30am-4pm ET, Mon-Fri).
 
 At 2am on Sunday, what's the fair value of SPY-PERP?
 

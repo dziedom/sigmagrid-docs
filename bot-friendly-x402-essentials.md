@@ -71,7 +71,7 @@ Without bot-friendly documentation, x402 APIs remain inaccessible to the systems
 
 We built SigmaGrid for agent consumption from day one. Our documentation includes:
 
-- Complete OpenAPI 3.1.0 specification
+- Complete OpenAPI 3.1.0 specification (canonical spec at https://api.sigmagrid.app/openapi.yaml)
 - Structured metadata files (llms.txt, mcp.json)
 - Agent-focused integration guide
 - Machine-readable field definitions

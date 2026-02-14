@@ -14,14 +14,20 @@ const CANONICAL_SITE = "https://sigmagrid.app";
 const CANONICAL_API_BASE = "https://api.sigmagrid.app";
 
 const EXPECTED_CAPABILITIES: Array<{ id: string; path: string }> = [
-  { id: "signals.consolidated", path: "/v1/signals/{ticker}" },
+  { id: "signals.teaser", path: "/v1/signals/{ticker}" },
+  { id: "fairvalue.estimate", path: "/v1/fair-value/{ticker}" },
   { id: "premium.arbitrage", path: "/v1/premium/{ticker}" },
-  { id: "drift.directional", path: "/v1/drift/{ticker}" },
+  { id: "spread.crossvenue", path: "/v1/spread/{ticker}" },
+  { id: "funding.rates", path: "/v1/funding/{ticker}" },
+  { id: "regime.basic", path: "/v1/regime-basic/{ticker}" },
   { id: "regime.risk", path: "/v1/regime/{ticker}" },
+  { id: "eventrisk.earnings", path: "/v1/event-risk/{ticker}" },
   { id: "events.macro", path: "/v1/events/{ticker}" },
   { id: "arbitrage.carry", path: "/v1/arbitrage/{ticker}" },
   { id: "historical.data", path: "/v1/historical/{ticker}" },
+  { id: "alpha.snapshot", path: "/v1/alpha-snapshot/{ticker}" },
   { id: "snapshot.multi", path: "/v1/snapshot" },
+  { id: "alpha.batch", path: "/v1/alpha-snapshot/batch" },
 ];
 
 const EXPECTED_PATHS = EXPECTED_CAPABILITIES.map((c) => c.path);
@@ -178,7 +184,7 @@ async function main() {
     }
   }
 
-  console.log("OK: agent.json contract matches expected 8 endpoints.");
+  console.log("OK: agent.json contract matches expected 14 capabilities.");
 
   // --- MCP ---
   reportSection("mcp.json");
@@ -202,7 +208,7 @@ async function main() {
     );
   }
 
-  console.log("OK: mcp.json contract matches expected 8 endpoints.");
+  console.log("OK: mcp.json endpoint count check passed.");
 
   // --- OpenAPI ---
   reportSection("openapi.json");
@@ -222,7 +228,7 @@ async function main() {
     );
   }
 
-  console.log("OK: openapi.json contract matches expected 8 endpoints.");
+  console.log("OK: openapi.json contract matches expected endpoints.");
 
   console.log("\nAll bot discovery descriptors match the same API contract.");
 }

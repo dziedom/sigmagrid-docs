@@ -3,40 +3,40 @@ import styles from './PricingSection.module.css';
 
 const pricingCards = [
   {
-    id: 'signals',
+    id: 'single',
     icon: '📊',
-    tier: 'CORE',
-    title: 'Signals',
-    description: 'Master consolidated view',
-    endpoints: ['/v1/signals/{ticker}'],
-    price: '0.05',
-    priceLabel: '~$',
-    fields: ['fair_value', 'regime', 'drift_1h', 'vol_forecast', 'event_context'],
+    tier: 'SINGLE SIGNAL',
+    title: 'Single Signal',
+    description: '9 focused endpoints',
+    endpoints: ['/v1/fair-value', '/v1/premium', '/v1/spread', '/v1/funding', '/v1/regime', '/v1/event-risk', '/v1/events', '/v1/arbitrage', '/v1/regime-basic'],
+    price: '0.02',
+    priceLabel: '',
+    fields: ['Fair value + confidence', 'Per-venue premiums', 'Spread & arbitrage flags', 'Funding z-scores', 'Regime classification', 'Event risk'],
     color: '#3b82f6',
   },
   {
-    id: 'specialized',
+    id: 'rich',
     icon: '⚡',
-    tier: 'SPECIALIZED',
-    title: 'Specialized Views',
-    description: 'Focused data surfaces',
-    endpoints: ['/v1/drift', '/v1/regime', '/v1/events', '/v1/premium', '/v1/arbitrage'],
-    price: '0.02-0.05',
-    priceLabel: '~$',
-    fields: ['Directional bias', 'Risk sizing', 'Macro events', 'Arbitrage metrics'],
+    tier: 'RICH DATA',
+    title: 'Rich Data',
+    description: 'Full signal snapshots + history',
+    endpoints: ['/v1/alpha-snapshot/{ticker}', '/v1/historical/{ticker}'],
+    price: '0.03',
+    priceLabel: '',
+    fields: ['All signal columns (one ticker)', 'Historical time series', 'Macro betas included'],
     popular: true,
     color: '#8b5cf6',
   },
   {
     id: 'bulk',
     icon: '🚀',
-    tier: 'BULK',
+    tier: 'BULK / BATCH',
     title: 'Bulk Access',
-    description: 'Multi-ticker and historical',
-    endpoints: ['/v1/snapshot', '/v1/historical'],
-    price: 'Varies',
+    description: 'Multi-ticker snapshots',
+    endpoints: ['/v1/snapshot', '/v1/alpha-snapshot/batch'],
+    price: '0.05',
     priceLabel: '',
-    fields: ['Multi-ticker snapshots', 'Historical time series', 'Volume-based pricing'],
+    fields: ['Multi-ticker dashboard snapshot', 'Batch alpha snapshots', 'Portfolio-level analysis'],
     color: '#22c55e',
   },
 ];
@@ -138,7 +138,7 @@ export default function PricingSection() {
 
         <div className={styles.footer}>
           <div className={styles.footerCode}>
-            <span className={styles.codeComment}>// All prices in USDC via x402 protocol</span>
+            <span className={styles.codeComment}>// All prices in USDC via x402 protocol • /v1/signals is free (teaser)</span>
           </div>
         </div>
       </div>
