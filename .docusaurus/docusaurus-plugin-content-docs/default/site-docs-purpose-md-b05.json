@@ -17,8 +17,8 @@
   },
   "sidebar": "docs",
   "previous": {
-    "title": "Overview",
-    "permalink": "/docs/intro"
+    "title": "Quickstart",
+    "permalink": "/docs/quickstart"
   },
   "next": {
     "title": "Fields",

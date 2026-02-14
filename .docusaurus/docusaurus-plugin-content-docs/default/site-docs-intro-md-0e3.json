@@ -1,7 +1,7 @@
 {
   "id": "intro",
   "title": "SigmaGrid Overview",
-  "description": "Public docs live now — Paid API launching Q1 2026",
+  "description": "API live",
   "source": "@site/docs/intro.md",
   "sourceDirName": ".",
   "slug": "/intro",
@@ -17,7 +17,7 @@
   },
   "sidebar": "docs",
   "next": {
-    "title": "Purpose",
-    "permalink": "/docs/purpose"
+    "title": "Quickstart",
+    "permalink": "/docs/quickstart"
   }
 }

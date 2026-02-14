@@ -1,7 +1,7 @@
 {
   "id": "erc8004",
   "title": "ERC-8004 Registration",
-  "description": "This document provides a human-readable representation of SigmaGrid's ERC-8004 registration, mirroring the contents of the canonical machine-readable file located at:",
+  "description": "Status: Planned, not yet live. Manifest generation exists but uses a placeholder signing key. No on-chain registration has been completed yet.",
   "source": "@site/docs/erc8004.md",
   "sourceDirName": ".",
   "slug": "/erc8004",

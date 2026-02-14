@@ -39,7 +39,7 @@ export default {
   },
   "plugins": [
     [
-      "C:\\SigmaGrid\\sigmagrid-docs\\node_modules\\@easyops-cn\\docusaurus-search-local\\dist\\server\\server\\index.js",
+      "/home/user/sigmagrid-docs/node_modules/@easyops-cn/docusaurus-search-local/dist/server/server/index.js",
       {
         "hashed": true,
         "language": [
@@ -56,12 +56,12 @@ export default {
       "classic",
       {
         "docs": {
-          "sidebarPath": "C:\\SigmaGrid\\sigmagrid-docs\\sidebars.js",
+          "sidebarPath": "/home/user/sigmagrid-docs/sidebars.js",
           "routeBasePath": "/docs"
         },
         "blog": false,
         "theme": {
-          "customCss": "C:\\SigmaGrid\\sigmagrid-docs\\src\\css\\custom.css"
+          "customCss": "/home/user/sigmagrid-docs/src/css/custom.css"
         },
         "sitemap": false
       }
@@ -83,6 +83,11 @@ export default {
         {
           "to": "/docs/intro",
           "label": "Docs",
+          "position": "left"
+        },
+        {
+          "to": "/docs/quickstart",
+          "label": "Quickstart",
           "position": "left"
         },
         {
@@ -124,7 +129,7 @@ export default {
           "items": [
             {
               "label": "Quickstart",
-              "to": "/docs/intro"
+              "to": "/docs/quickstart"
             },
             {
               "label": "Fields",

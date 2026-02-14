@@ -14,15 +14,15 @@ export default [
   },
   {
     path: '/docs',
-    component: ComponentCreator('/docs', 'f47'),
+    component: ComponentCreator('/docs', '31a'),
     routes: [
       {
         path: '/docs',
-        component: ComponentCreator('/docs', '0dc'),
+        component: ComponentCreator('/docs', '95e'),
         routes: [
           {
             path: '/docs',
-            component: ComponentCreator('/docs', '028'),
+            component: ComponentCreator('/docs', '260'),
             routes: [
               {
                 path: '/docs/agents',
@@ -62,6 +62,12 @@ export default [
               {
                 path: '/docs/purpose',
                 component: ComponentCreator('/docs/purpose', 'bf5'),
+                exact: true,
+                sidebar: "docs"
+              },
+              {
+                path: '/docs/quickstart',
+                component: ComponentCreator('/docs/quickstart', '5e3'),
                 exact: true,
                 sidebar: "docs"
               }

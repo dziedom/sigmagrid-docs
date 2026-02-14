@@ -1,20 +1,17 @@
 {
   "type": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
   "name": "SigmaGrid",
-  "description": "Institutional fundamentals and directional signal API for synthetic-equity perpetuals. Public docs live now — Paid API launching Q1 2026.",
+  "description": "Institutional fundamentals and alpha signals API for synthetic-equity perpetuals. API live.",
   "image": "https://sigmagrid.app/img/logo-mark.svg",
+  "status": "planned — manifest uses placeholder signing key, no on-chain registration yet",
   "endpoints": [
     { "name": "Agent", "endpoint": "https://sigmagrid.app/.well-known/agent.json", "version": "v1" },
-    { "name": "MCP", "endpoint": "https://sigmagrid.app/mcp.json", "version": "1.0.0" },
-    { "name": "OpenAPI", "endpoint": "https://sigmagrid.app/openapi.json", "version": "v1" },
+    { "name": "MCP", "endpoint": "https://sigmagrid.app/mcp.json", "version": "1.0.0", "note": "coming soon" },
+    { "name": "OpenAPI", "endpoint": "https://api.sigmagrid.app/openapi.yaml", "version": "v1" },
     { "name": "Docs", "endpoint": "https://sigmagrid.app/docs", "version": "v1" },
     { "name": "LLMsTxt", "endpoint": "https://sigmagrid.app/llms.txt", "version": "v1" },
-    { "name": "Website", "endpoint": "https://sigmagrid.app", "version": "v1" }
+    { "name": "Website", "endpoint": "https://sigmagrid.app", "version": "v1" },
+    { "name": "RegistryServices", "endpoint": "https://api.sigmagrid.app/api/registry-services.json", "version": "v1" }
   ],
-  "registrations": [
-    {
-      "agentId": 1611,
-      "agentRegistry": "eip155:84532:0x8004AA63c570c570eBF15376c0dB199918BFe9Fb"
-    }
-  ]
+  "registrations": []
 }

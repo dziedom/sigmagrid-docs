@@ -18,7 +18,7 @@
     },
     {
       "name": "OpenAPI",
-      "endpoint": "https://sigmagrid.app/openapi.json",
+      "endpoint": "https://api.sigmagrid.app/openapi.yaml",
       "version": "1.0.0"
     },
     {
